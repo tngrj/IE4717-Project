@@ -1,0 +1,490 @@
+.hidden {
+    display: none;
+}
+
+/* Transparent Textbox */
+.transparenttextbox {
+    border: none;
+    background: none;
+}
+
+.inherit-transparenttextbox {
+    width: auto;
+    border: none; 
+    background: transparent; 
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+
+/* Coloured Textbox */
+.headertextbox {
+    position: fixed;
+    left: 50%;
+    padding: 10px;
+    width: auto;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 10px;
+    background: #15C193;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.bodytextbox {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #17A7D3;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+
+/* Main Buttons */
+.exitBtn{
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+
+/* Prompt */
+.arrow-up {
+    position: absolute;
+    top: -8px; 
+    left: 10%;
+    transform: translateX(-50%);
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid #15c1c1;
+    border-left: 5px solid transparent;
+}
+
+
+/* Nav Bar*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    padding: 10px 20px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #17A7D3;
+    color: #020202;
+}
+
+.home-link {
+    color: white; 
+    font-weight: bold; 
+    text-decoration: none; 
+}
+
+.nav-links a:link,
+.nav-links a:visited {
+    margin: 0 10px;
+    color: white; 
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #1762d3;
+}
+
+
+/* Footer */
+.content {
+    padding-bottom: 60px;
+    min-height: calc(100vh - 60px); 
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    padding-top: 20px;
+    width: 100%;
+    height: 60px;
+    border-top: 1px solid #ddd;
+}
+
+
+/* Table */
+.apptTable {
+    margin: 0 auto; 
+    width: calc(100% - 160px);
+    border: none;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.apptTable caption {
+    padding: 0 0 10px 0;
+    font-size: 20px; 
+    font-weight: bold;  
+    text-align: left;
+}
+
+th, td, tr{
+    padding: 8px;
+    border: none;
+    text-align:left;
+}
+
+th{
+    border-top: none;
+    border-right: none; 
+    border-bottom: 1px solid rgb(0, 0, 0);
+    border-left: none; 
+    /*text-align:left;*/
+}
+
+.centered-t {
+    text-align:center;
+}
+
+td input[type="text"] {
+    width: 80%;
+    height: 80%;
+}
+
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 78.94, 103.06, 0.75); 
+    z-index: 1000;
+}
+
+/* Div */
+.header-container {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+}
+
+.header-container-left {
+    margin-right: auto;
+}
+
+.header-container-right {
+    margin-left: auto;
+}
+
+.header-container h3 {
+    margin: 50px;
+}
+
+.body-container {
+    display: flex;
+    align-items: center;
+}
+
+.label-container {                      /*fixed } 1) User-Main: new appointment confirmation*/
+    display: flex;
+    margin-right: 20px;
+    padding: 10px;
+    width: 200px;
+    height: 150px;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.label-container-two {                  /*auto } 1) User-Main: new appointment confirmed*/
+    display: flex;
+    padding: 20px;
+    width: auto;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* === BOTH ===================================================================================================================================== */
+/* --- Landing Page ----------------------------------------------------------------------------------------------------------------------------- */
+.landing-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#landingLoginBtn{
+    width: 300px;
+    height: 60px; 
+    border-radius: 38px;
+    background: #15C193; 
+    color: #ffffff;
+    font-size: 20px;
+}
+
+#landingLoginBtn:hover {
+    background-color: #15c1b3;
+}
+
+#landingSignUpBtn {
+    border: none;
+    background: none;
+    color: #1590c1;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+#landingSignUpBtn:hover {
+    color: #0056b3;
+}
+
+#landingLogin, #landingSignUp {
+    position: fixed;
+    padding: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 1000;
+}
+
+#landingLoginForm input[type="text"],
+#landingLoginForm input[type="password"],
+#landingSignUpForm input[type="text"],
+#landingSignUpForm input[type="password"] {
+    margin: 10px 0;
+    padding: 15px;
+    width: 300px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 20px;
+    background-color: #D9D9D9; 
+}
+
+#landingSignUpForm input[type="date"] {
+    margin: 10px 0;
+    padding: 15px;
+    width: 300px;
+    height: 30px;
+    border: 1px solid #999;
+    border-radius: 20px;
+    background-color: #D9D9D9;
+    appearance: none;
+}
+
+#landingSignUpForm input[type="date"]::-webkit-calendar-picker-indicator {
+    background-color: transparent;
+}
+
+#LoginBtn, #SignUpBtn {
+    width: 300px;
+    height: 55px; 
+    border-radius: 20px;
+    background: #15C193; 
+    color: #ffffff;
+    font-size: 20px;
+}
+
+#LoginBtn:hover, #SignUpBtn:hover {
+    background-color: #15c1b3;
+}
+
+/*TBE: Close Button
+#closeBtn {
+    height: 60px;
+    width: 300px; 
+    border-radius: 38px;
+    background: #15C193; 
+    color: #ffffff;
+    font-size: 20px;
+}
+
+#closeBtn:hover {
+    background-color: #15c1b3;
+}
+*/
+/* End: Landing Page ---------------------------------------------------------------------------------------------------------------------------- */
+/* END: BOTH ==================================================================================================================================== */
+
+
+
+
+
+/* === USER ===================================================================================================================================== */
+/* --- User - Main Page ------------------------------------------------------------------------------------------------------------------------- */
+#booknewappointment {
+    float: right; 
+    margin-right: 80px;
+    width: 250px;
+    height: 55px; 
+    border-radius: 30px;
+    background: #15C193; 
+    color: #ffffff;
+    font-size: 18px;
+}
+
+#unewAppointment {
+    position: fixed;
+    padding: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    z-index: 1000;
+}
+
+/*
+.label-container label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+*/
+
+.doctBtn{
+    padding: 40px;
+    width: 120px;
+    height: 120px;
+}
+
+.dayBtn {
+    margin-right: 10px;
+    padding: 10px;
+    width: 60px;
+    height: 80px;
+    border: none;
+    border-radius: 10px;
+    background: #BFEBF8; 
+    color: #000000;
+    font-size: 18px;
+}
+
+.timeBtn {
+    margin-right: 10px;
+    padding: 10px;
+    width: 60px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    background: #BFEBF8; 
+    color: #000000;
+    font-size: 18px;
+}
+
+.dayBtn:hover{
+    background: #17A7D3;
+    color: #ffffff;
+}
+
+.timeBtn:hover{
+    background: #17A7D3;
+    color: #ffffff;
+}
+
+.dayBtn.selected {
+    background: #17A7D3;
+    color: #000000;
+}
+
+.timeBtn.selected {
+    background: #17A7D3;
+    color: #000000;
+}
+
+#appttype {
+    padding: 10px;
+    width: 320px;
+    width: 320px;
+    border: none;
+    border-radius: 10px;
+    background: #17A7D3; 
+    color: #ffffff;
+    font-size: 18px;
+}
+
+#appttype.transparenttextbox {
+    width: auto;
+    align-items: center;
+    border: none;
+    background: none;
+    color: #000000;
+}
+
+.confirmoption {
+    padding: 10px;
+    width: 80px;
+    height: auto;
+    border: none;
+    border-radius: 10px;
+    background: #17A7D3; 
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+}
+
+.commentbox {
+    padding: 10px;
+    width: 320px;
+    height: 200px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+#submituAppt {
+    display: block;
+    margin: auto;
+    margin-right: 20px;
+    padding: 10px;
+    width: 90px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background: #15C193; 
+    color: #ffffff;
+    font-size: 18px;
+}
+
+#submituAppt:hover{
+    background: #15c1c1;
+    color: #ffffff;
+}
+
+
+/* End: User - Main Page ------------------------------------------------------------------------------------------------------------------------ */
+
+/* END: USER ==================================================================================================================================== */
+
+
+
+
+
+/* === ADMIN ==================================================================================================================================== */
+/* --- Admin Main Page -------------------------------------------------------------------------------------------------------------------------- */
+
+/* End: Admin - Main Page ----------------------------------------------------------------------------------------------------------------------- */
+
+/* END: ADMIN =================================================================================================================================== */
+
+  
