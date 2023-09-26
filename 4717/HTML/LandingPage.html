@@ -11,108 +11,115 @@
 -->
 
 <!DOCTYPE html>
-<html lang="en-US">
-  
-<!--------------------------------------------------------------------------------------------------------- HEAD --------------------------------------->
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-param" content="_csrf">
-    <title>Go Doc</title>  
+<html lang="en">
+	<!--------------------------------------------------------------------------------------------------------- HEAD --------------------------------------->
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="csrf-param" content="_csrf" />
+		<title>Go Doc</title>
+		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+		<link rel="stylesheet" href="CSS/style.css" />
+		<link rel="icon" href="CSS/LogoIcon.png" />
+		<style>
+			h1 {
+				font-size: 60px;
+			}
+			h2 {
+				color: #000;
+				font-family: Nunito;
+				font-size: 34px;
+				font-style: normal;
+				font-weight: 700;
+				line-height: normal;
+			}
+		</style>
 
-    <link rel="stylesheet" href="CSS/style.css">
-    <link rel="icon" href="CSS/LogoIcon.png">
-    <style>
-        h1 { font-size: 60px; }
-        h2 {
-             color: #000;
-             font-family: Nunito;
-             font-size: 34px;
-             font-style: normal;
-             font-weight: 700;
-             line-height: normal;
-        }
+		<script src="JS/script.js"></script>
+	</head>
+	<!----------------------------- HEAD ------------------------------------------------------------------------------------------------------------------->
 
-    </style>
+	<!--------------------------------------------------------------------------------------------------------- BODY --------------------------------------->
+	<body>
+		<div class="landing-content">
+			<h1>Go Doc</h1>
+			<br /><br />
+			<lottie-player
+				src="CSS/animation_lmzcv7t2.json"
+				background="transparent"
+				speed="1"
+				style="width: 300px; height: 300px"
+				loop
+				autoplay
+			></lottie-player>
+			<hr />
+			<br />
+			<button type="submit" id="landingLoginBtn" onclick="landingPage(landingLogin);">
+				Login with Email</button
+			><br /><br />
+			<p style="display: inline-block">
+				Don't have an account?
+				<button type="submit" id="landingSignUpBtn" onclick="landingPage(landingSignUp);">
+					Sign Up
+				</button>
+			</p>
+		</div>
 
-    <script src="JS/script.js"></script>
-</head>
-<!----------------------------- HEAD ------------------------------------------------------------------------------------------------------------------->
+		<div class="hidden" id="landingLogin">
+			<h2>Login</h2>
+			<br />
+			<form id="landingLoginForm" action="php/login.php" method="POST">
+				<label for="username">Email</label><br />
+				<input type="email" name="username" /><br /><br />
+				<label for="password">Password</label><br />
+				<input type="password" name="password" /><br /><br /><br />
+				<button type="submit" id="LoginBtn">Login</button>
+			</form>
+			<button id="closeBtn" onclick="closePopup(landingLogin);">Back</button>
+		</div>
 
+		<div class="hidden" id="landingSignUp">
+			<h2>Register</h2>
+			<br />
+			<form id="landingSignUpForm" action="php/createPatient.php" method="POST">
+				<label for="addfirstname">Name</label><br />
+				<input type="text" name="addfirstname" placeholder="First Name" required /><br />
+				<input type="text" name="addlastname" placeholder="Last Name" required /><br /><br />
+				<label for="adddob">Date of Birth</label><br />
+				<input type="date" name="adddob" required /><br /><br />
+				<label for="addemail">Email</label><br />
+				<input type="text" name="addemail" required /><br /><br />
+				<label for="addpassword">Password</label><br />
+				<input type="password" name="addpassword" required /><br /><br /><br />
+				<button type="submit" id="SignUpBtn">Register</button>
+			</form>
+			<button id="closeBtn" onclick="closePopup(landingSignUp);">Back</button>
+		</div>
 
+		<script>
+			const urlParams = new URLSearchParams(window.location.search);
+			const email = urlParams.get('open');
+			if (email) {
+				landingPage(landingLogin);
+				if (email == 'landingLogin') {
+					document.getElementById('username').focus();
+				} else {
+					document.getElementById('username').value = email;
+					document.getElementById('password').focus();
+				}
+			}
 
+			function landingPage(formDiv) {
+				formDiv.style.display = 'block';
+				document.body.classList.add('overlay');
+			}
 
-<!--------------------------------------------------------------------------------------------------------- BODY --------------------------------------->
-<body>
-
-    <div class="landing-content">
-        <h1>Go Doc</h1><br><br>
-<!--IMAGE VERY BLUR--> <img src="CSS/LandingPage1.gif" alt="LandingPage1" width="300px" height="300px">
-        <hr><br>
-        <button type='submit' id='landingLoginBtn' onclick="landingPage(landingLogin);">Login with Email</button><br><br>
-        <p style="display: inline-block;">Don't have an account? <button type='submit' id='landingSignUpBtn' onclick="landingPage(landingSignUp);">Sign Up</button></p>
-    </div>
-
-    <div class="hidden" id="landingLogin">
-        <h2>Login</h2><br>
-        <form id="landingLoginForm" action="/login" method="POST">
-            <label for="username">Email</label><br>
-            <input type="text" id="username"><br><br>
-            <label for="password">Password</label><br>
-            <input type="password" id="password"><br><br><br>
-            <button type="submit" id="LoginBtn" onclick="login();">Login</button>
-        </form>
-        <button id="closeBtn" onclick="closePopup(landingLogin);">Back</button>
-    </div>
-
-    <div class="hidden" id="landingSignUp">
-        <h2>Register</h2><br>
-        <form id="landingSignUpForm" action="/addUser" method="POST">
-            <label for="addfirstname">Name</label><br>
-            <input type="text" id="addfirstname" placeholder="First Name" required><br>
-            <input type="text" id="addlastname" placeholder="Last Name" required><br><br>
-            <label for="adddob">Date of Birth</label><br>
-            <input type="date" id="adddob" required><br><br>
-            <label for="addemail">Email</label><br>
-            <input type="text" id="addemail" required><br><br>
-            <label for="addpassword">Password</label><br>
-            <input type="password" id="addpassword" required><br><br><br>
-            <button type="submit" id="SignUpBtn" onclick="register();">Register</button>
-        </form>
-        <button id="closeBtn" onclick="closePopup(landingSignUp);">Back</button>
-    </div>
-
-    <script>
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const email = urlParams.get('open');
-        if (email) {
-            landingPage(landingLogin);
-            if (email == "landingLogin"){
-                document.getElementById("username").focus();
-            }
-            else {
-                document.getElementById("username").value = email;
-                document.getElementById("password").focus();
-            }
-        }
-
-        function landingPage(formDiv) {
-            formDiv.style.display = 'block';
-            document.body.classList.add('overlay');
-        }
-
-        var message = getParameterByName('message');
-        if (message) {
-            popoutOne();
-        }
-
-
-    </script>
-
-
-</body>
-<!----------------------------- BODY ------------------------------------------------------------------------------------------------------------------->
-
+			var message = getParameterByName('message');
+			if (message) {
+				popoutOne();
+			}
+		</script>
+	</body>
+	<!----------------------------- BODY ------------------------------------------------------------------------------------------------------------------->
 </html>
