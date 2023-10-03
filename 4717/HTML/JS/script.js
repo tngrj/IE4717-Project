@@ -124,13 +124,6 @@ function login() {
 	request.send(JSON.stringify(userinfo));
 }
 
-//LOGOUT
-function logout() {
-	if (confirm('Are you sure you want to log out?')) {
-		window.location.href = 'logout.php';
-	}
-}
-
 //REGISTER
 function register() {
 	var request = new XMLHttpRequest();

@@ -9,7 +9,7 @@ $email = $_POST['addemail'];
 $password = $_POST['addpassword'];
 
 // Insert data into the database
-$sql = "INSERT INTO patients (firstname, lastname, dob, email, password)
+$sql = "INSERT INTO Patient (first_name, last_name, date_of_birth, email, password)
 VALUES ('$firstname', '$lastname', '$dob', '$email', '$password')";
 
 if ($conn->query($sql) === TRUE) {

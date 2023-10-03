@@ -8,17 +8,23 @@ session_start();
 $email = $_POST['username'];
 $password = $_POST['password'];
 
-// Check if the user exists in the patients table
-$sql = "SELECT * FROM patients WHERE email='$email' AND password='$password'";
+// Check if the user exists in the Patient table
+$sql = "SELECT * FROM Patient WHERE email='$email' AND password='$password'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // User is a patient, redirect to the patient main page
-    header("Location: ../uMain.html");
+    // User is a patient, store patient data in session
+    $row = $result->fetch_assoc();
+    $_SESSION['user_type'] = 'patient';
+    $_SESSION['patient_id'] = $row['id']; // Assuming 'id' is the patient's ID in the database
+    $_SESSION['patient_name'] = $row['first_name'] . ' ' . $row['last_name']; // Assuming 'first_name' and 'last_name' are the patient's name fields
+
+    // Redirect to the patient main page
+    header("Location: ../uMain.php?user_type=patient&patient_id=" . $_SESSION['patient_id']);
     exit();
 } else {
-    // User is not a patient, check the doctors table
-    $sql = "SELECT * FROM doctors WHERE email='$email' AND password='$password'";
+    // User is not a patient, check the Doctor table
+    $sql = "SELECT * FROM Doctor WHERE email='$email' AND password='$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -27,8 +33,10 @@ if ($result->num_rows > 0) {
         exit();
     } else {
         // No match found in either table, show error message
-        echo "Invalid email or password";
+        header("Location: ../error.html");
+        exit();
     }
 }
+
 
 $conn->close();
