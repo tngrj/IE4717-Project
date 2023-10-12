@@ -1,67 +1,71 @@
-<!-- TBE
+<!-- 1) Change the Logo 
+     2) Edit Table
+     3) Remove all Bootstrap
 -->
 
 <!DOCTYPE html>
 <html lang="en-US">
-  
-<!--------------------------------------------------------------------------------------------------------- HEAD --------------------------------------->
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-param" content="_csrf">
-    <title>Go Doc</title>
+	<!--------------------------------------------------------------------------
+------------------------------- HEAD --------------------------------------->
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="csrf-param" content="_csrf" />
+		<title>Go Doc</title>
 
-    <link rel="stylesheet" href="CSS/style.css">
-    <link rel="icon" href="CSS/LogoIcon.png">
-    <style>
-        /*CODE*/
-    </style>
+		<link rel="stylesheet" href="CSS/style.css" />
+		<link rel="icon" href="CSS/LogoIcon.png" />
+		<style>
+			h1 {
+				padding: 20px 0 50px 80px;
+			}
+		</style>
+		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+		<script src="JS/script.js"></script>
+	</head>
+	<!-- --------------------------- HEAD --------------------------------------- -->
 
-    <script src="JS/script.js"></script>
-<head>
-<!----------------------------- HEAD ------------------------------------------------------------------------------------------------------------------->
+	<!-- ------------------------------- BODY ------------------------------------- -->
+	<body>
+		<!-----NAVBAR--------------------------------------------------------------->
+		<nav class="navbar">
+			<a href="aMain.html" class="home-link" id="homePage"
+				><img src="CSS/LogoName.png" alt="Home" width="130" height="35"
+			/></a>
+			<div class="nav-links">
+				<a href="adminCalendar.html" id="userCalendarPage">Calendar</a>
+				<a href="adminProfile.html" id="userProfilePage">Profile</a>
+				<a href="LandingPage.html" id="landingPage" onclick="logout();">Logout</a>
+			</div>
+		</nav>
+		<br />
+		<!-----END: NAVBAR---------------------------------------------------------->
 
+		<div class="adminMain-body">
+			<h1>Hello, <input type="text" class="transparenttextbox" id="aMainName" readonly /></h1>
+			<br /><br />
 
+			<table class="apptTable" id="aApptTable">
+				<caption>
+					Upcoming Appointment(s)
+				</caption>
+				<thead style="background-color: #d1f1fe">
+					<tr>
+						<th>Date</th>
+						<th>Time</th>
+						<th colspan="2">Patient</th>
+						<th colspan="2">Appointment Type</th>
+						<th colspan="2">Comment</th>
+						<th>Edit Appointment</th>
+						<th>Cancel Appointment</th>
+					</tr>
+				</thead>
+				<tbody id="aApptTBody"></tbody>
+			</table>
 
-
-<!--------------------------------------------------------------------------------------------------------- BODY --------------------------------------->
-<body>
-<!-----NAVBAR--------------------------------------------------------------->
-    <nav class="navbar">
-        <a href="aMain.html" class="home-link" id="homePage"><img src="CSS/LogoName.png" alt="Home" width="130" height="35"></a>
-        <div class="nav-links">
-            <a href="adminCalendar.html" id="userCalendarPage">Calendar</a>
-            <a href="adminProfile.html" id="userProfilePage">Profile</a>
-            <a href="LandingPage.html" id="landingPage" onclick="logout();">Logout</a>
-        </div>
-    </nav>
-    <br>
-<!-----END: NAVBAR----------------------------------------------------------> 
-
-    <div class='adminMain-body'>
-        <h1>Hello, <input type="text" class="transparenttextbox" id="aMainName" readonly></h1>
-        <br><br>
-    
-        <table class="apptTable" id="aApptTable">
-            <caption>Upcoming Appointment(s)</caption>
-            <thead style="background-color: #d1f1fe;">
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th colspan="2">Patient</th>
-                    <th colspan="2">Appointment Type</th>
-                    <th colspan="2">Comment</th>
-                    <th>Edit Appointment</th>
-                    <th>Cancel Appointment</th>
-                </tr>
-            </thead>
-            <tbody id="aApptTBody">
-            </tbody>
-        </table>
-
-        <div id="anewAppointment" class="hidden">
-            <!-- <div class="header-container">
+			<div id="anewAppointment" class="hidden">
+				<!-- <div class="header-container">
                 <label style="font-size: 28px;">Choose your Doctor</label>
                 <img class="exitBtn" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
             </div>
@@ -71,24 +75,35 @@
                 <img class="doctBtn" id="drNgNewAppt" src="CSS/drTan.jpg" alt="Dr. Ng" onclick="newappt('drNg');">
                 <img class="doctBtn" id="drKohNewAppt" src="CSS/drTan.jpg" alt="Dr. Koh" onclick="newappt('drKoh');">
                 //<button id="closeBtn" onclick="closePopup(newappointment);">Cancel</button> -->
-            <br><br>
-        </div>
-    </div>
+				<br /><br />
+			</div>
+		</div>
 
-    <script>
-        //CODE
-    </script>
-</body>
-<!----------------------------- BODY ------------------------------------------------------------------------------------------------------------------->
+		<script>
+			/*TBE
+        //Edit Appt
+        function viewCFasmForm(asmId) {
+            window.location.href = "aCFasm.html?view_id=" + asmId;
+            getCFasmForm(asmId);
+        }  
 
+        //Cancel Appt 
+        function printCFuenoForm(uenoId) s{
+            getCFuenoForm(uenoId);
+            var newwindow = window.open("aCFueno.html?view_id=" + uenoId);
+            getPDF(newwindow, uenoId, "ueno");
+        }
+        */
+		</script>
+	</body>
+	<!-- --------------------------- BODY --------------------------------------- -->
 
-
-<!--------------------------------------------------------------------------------------------------------- FOOTER ------------------------------------->
-<br><br><br><br><br>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">&copy; Go Doc 2023</p>
-  </div>
-</footer>
-<!----------------------------- FOOTER ----------------------------------------------------------------------------------------------------------------->  
+	<!-- ------------------------------- FOOTER ----------------------------------- -->
+	<br /><br /><br /><br /><br />
+	<footer class="footer">
+		<div class="container">
+			<p class="pull-left">&copy; Go Doc 2023</p>
+		</div>
+	</footer>
+	<!-- --------------------------- FOOTER ------------------------------------- -->
 </html>
