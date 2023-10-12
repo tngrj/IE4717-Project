@@ -19,7 +19,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	$patient_name = $_SESSION['patient_name'];
 } else {
 	// Handle the case where the user is not logged in as a patient
-	header("Location: error.html");
+	header("Location: ../html/error.html");
 	exit();
 }
 ?>
@@ -36,15 +36,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	<meta name="csrf-param" content="_csrf" />
 	<title>Go Doc</title>
 
-	<link rel="stylesheet" href="CSS/style.css" />
-	<link rel="icon" href="CSS/LogoIcon.png" />
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="icon" href="../css/LogoIcon.png" />
 	<style>
 		h2 {
 			padding: 20px 0 0 80px;
 		}
 	</style>
 
-	<script src="JS/script.js"></script>
+	<script src="../js/script.js"></script>
 </head>
 <!----------- HEAD --------------------------------------->
 
@@ -53,7 +53,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 <body onload="displayuAppt();">
 	<!-----NAVBAR--------------------------------------------------------------->
 	<nav class="navbar">
-		<a href="uMain.html" class="home-link" id="homePage"><img src="CSS/LogoName.png" alt="Home" width="130" height="35" /></a>
+		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/LogoName.png" alt="Home" width="130" height="35" /></a>
 		<div class="nav-links">
 			<a href="userCalendar.html" id="userCalendarPage">Calendar</a>
 			<a href="userProfile.html" id="userProfilePage">Profile</a>
@@ -141,13 +141,13 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		<div id="unewAppointment" class="hidden">
 			<!-- <div class="header-container">
                 <label style="font-size: 28px;">Choose your Doctor</label>
-                <img class="exitBtn" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
+                <img class="exitBtn" id="closeBtn" src="css/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
             </div>
             <br>
                 //<button class="doctBtn" id="drTanNewAppt" onclick="newappt('drTan');">Dr. Tan</button>
-                <img class="doctBtn" id="drTanNewAppt" src="CSS/drTan.jpg" alt="Dr. Tan" onclick="newappt('drTan');">
-                <img class="doctBtn" id="drNgNewAppt" src="CSS/drTan.jpg" alt="Dr. Ng" onclick="newappt('drNg');">
-                <img class="doctBtn" id="drKohNewAppt" src="CSS/drTan.jpg" alt="Dr. Koh" onclick="newappt('drKoh');">
+                <img class="doctBtn" id="drTanNewAppt" src="css/drTan.jpg" alt="Dr. Tan" onclick="newappt('drTan');">
+                <img class="doctBtn" id="drNgNewAppt" src="css/drTan.jpg" alt="Dr. Ng" onclick="newappt('drNg');">
+                <img class="doctBtn" id="drKohNewAppt" src="css/drTan.jpg" alt="Dr. Koh" onclick="newappt('drKoh');">
                 //<button id="closeBtn" onclick="closePopup(newappointment);">Cancel</button> -->
 			<br /><br />
 		</div>
@@ -216,7 +216,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	function confirmLogout() {
 		if (confirm('Are you sure you want to log out?')) {
 			// If the user confirms, then trigger the logout process by navigating to the PHP script.
-			window.location.href = 'php/logout.php';
+			window.location.href = 'logout.php';
 		}
 	}
 
@@ -298,7 +298,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 			sessionStorage.setItem('doctorname', 'Dr Koh Wee Beng');
 			sessionStorage.setItem('positionname', 'Dentist');
 		}
-		imageSource = 'CSS/' + doctor + '.jpg';
+		imageSource = 'css/' + doctor + '.jpg';
 
 		const currentDate = new Date();
 		const options = {

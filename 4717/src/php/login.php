@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
     $_SESSION['patient_name'] = $row['first_name'] . ' ' . $row['last_name']; // Assuming 'first_name' and 'last_name' are the patient's name fields
 
     // Redirect to the patient main page
-    header("Location: ../uMain.php?user_type=patient&patient_id=" . $_SESSION['patient_id']);
+    header("Location: uMain.php?user_type=patient&patient_id=" . $_SESSION['patient_id']);
     exit();
 } else {
     // User is not a patient, check the Doctor table
@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
         exit();
     } else {
         // No match found in either table, show error message
-        header("Location: ../error.html");
+        header("Location: ../html/error.html");
         exit();
     }
 }

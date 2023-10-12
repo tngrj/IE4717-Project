@@ -6,5 +6,5 @@ session_start();
 session_destroy();
 
 // Redirect to the login page
-header("Location: ../LandingPage.html");
+header("Location: ../html/LandingPage.html");
 exit();

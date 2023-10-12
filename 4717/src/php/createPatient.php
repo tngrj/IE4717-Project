@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
     VALUES ('$firstname', '$lastname', '$dob', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../LandingPage.html");
+        header("Location: ../html/LandingPage.html");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
