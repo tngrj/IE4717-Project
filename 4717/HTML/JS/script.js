@@ -1,17 +1,3 @@
-//for both or send to API functions
-
-// ===== BOTH: STYLE ========================================================================================================================================================
-//Popout Message wif Version#1
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
 //Popout Version#1: Submission Prompt
 function popoutOne() {
 	var popup = document.createElement('div');
@@ -81,7 +67,6 @@ function toggleSelected(button) {
 }
 */
 
-// ===== BOTH: FUNCTION ========================================================================================================================================================
 //LOGIN
 function login() {
 	var request = new XMLHttpRequest();
@@ -142,6 +127,7 @@ function register() {
 		adduserinfo.addfirstname === '' ||
 		adduserinfo.addbirthday === ''
 	) {
+		//alert("Please fill in all fields.");
 		return;
 	}
 
@@ -162,22 +148,9 @@ function register() {
 	};
 	request.send(JSON.stringify(adduserinfo));
 }
+// +: CHANGE PASSWORD
 
-/* +: CHANGE PASSWORD */ //TBE: REGISTER
-
-//Close Overlay
-function closePopup(formDiv) {
-	formDiv.style.display = 'none';
-	document.body.classList.remove('overlay');
-
-	var inputElements = formDiv.querySelectorAll('input');
-	inputElements.forEach(function (input) {
-		input.value = '';
-	});
-}
-
-// ===== USER ========================================================================================================================================================
-// User - Main: Get Appointments
+// User - Main: Display Appointments
 function displayuAppt() {
 	var request = new XMLHttpRequest();
 	userId = sessionStorage.getItem('userId');
@@ -230,36 +203,4 @@ function displayuAppt() {
 	};
 
 	request.send();
-}
-
-//User - Main: Add Appointments
-function submituAppt() {
-	var request = new XMLHttpRequest();
-	var unewappt = new Object();
-
-	unewappt.doctorname = sessionStorage.getItem('doctorname');
-	unewappt.appttype = sessionStorage.getItem('appttype');
-	unewappt.apptdate = sessionStorage.getItem('apptdate');
-	unewappt.appttime = sessionStorage.getItem('appttime');
-	unewappt.apptcomment = sessionStorage.getItem('apptcomment');
-	unewappt.patientname = sessionStorage.getItem('userId');
-
-	request.open('POST', '/adduNewAppt', true);
-	request.setRequestHeader('Content-Type', 'application/json');
-
-	request.onload = function () {
-		response = JSON.parse(request.responseText);
-
-		if (response.message == 'Form is Submitted. Please close the page.') {
-			alert('Form is created successfully.');
-			sessionStorage.removeItem('doctorname');
-			sessionStorage.removeItem('appttype');
-			sessionStorage.removeItem('apptdate');
-			sessionStorage.removeItem('appttime');
-			sessionStorage.removeItem('apptcomment');
-			closePopup(unewAppointment);
-		}
-	};
-
-	request.send(JSON.stringify(unewappt));
 }

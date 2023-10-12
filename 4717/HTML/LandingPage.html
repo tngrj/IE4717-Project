@@ -9,10 +9,9 @@
         - popoutforms: login & signup - back btn, font type, spacing&colour
      3) Enhance the CSS
 -->
-
 <!DOCTYPE html>
 <html lang="en">
-	<!--------------------------------------------------------------------------------------------------------- HEAD --------------------------------------->
+	<!-- ------------------------------- HEAD ------------------------------------- -->
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -38,10 +37,33 @@
 
 		<script src="JS/script.js"></script>
 	</head>
-	<!----------------------------- HEAD ------------------------------------------------------------------------------------------------------------------->
+	<!-- --------------------------- HEAD --------------------------------------- -->
 
-	<!--------------------------------------------------------------------------------------------------------- BODY --------------------------------------->
+	<!-- 
+------------------------------- BODY ------------------------------------- -->
 	<body>
+		<!-----FORM----------------------------------------------------------------->
+		<!--  <div id='loginbody'>
+      <h1 style='font-family:Times New Roman, Times, serif; padding-left: 100px;'>Login</h1>
+      <p style='font-family:Times New Roman, Times, serif; padding-left: 100px;'>Please fill out the following fields to login:</p>
+      <br>
+      <form id="loginForm" action="/login" method="POST">
+            <label class='col-lg-1 control-label' for='email'>Username</label>
+            <div class='col-lg-3'><input type='text' name='email' id='email' autofocus required aria-required="true"></div>
+            <label class='col-lg-1 control-label' for='password'>Password</label>
+            <div class='col-lg-3'><input type='password' name='password' id='password' required aria-required="true"></div>
+            <div class='col-lg-offset-1 col-lg-3'>
+                <input type='hidden' name='rememberme' value='0'>
+                <input type='checkbox' name='rememberme' id='rememberme' value='1' checked> 
+                <label for='rememberme'>Remember Me</label>
+            </div>
+            <br>
+            <div class='col-lg-offset-1 col-lg-11'><button type='submit' class='btn btn-primary' id='submitLogin' onclick="login()">Login</button></div>
+      </form> 
+  </div>
+-->
+		<!-----END: FORM------------------------------------------------------------>
+
 		<div class="landing-content">
 			<h1>Go Doc</h1>
 			<br /><br />
@@ -66,7 +88,7 @@
 			</p>
 		</div>
 
-		<div class="hidden" id="landingLogin">
+		<div id="landingLogin" class="hidden">
 			<h2>Login</h2>
 			<br />
 			<form id="landingLoginForm" action="php/login.php" method="POST">
@@ -115,11 +137,42 @@
 				document.body.classList.add('overlay');
 			}
 
+			function closePopup(formDiv) {
+				formDiv.style.display = 'none';
+				document.body.classList.remove('overlay');
+
+				var inputElements = formDiv.querySelectorAll('input');
+				inputElements.forEach(function (input) {
+					input.value = '';
+				});
+			}
+
+			function getParameterByName(name, url) {
+				if (!url) url = window.location.href;
+				name = name.replace(/[\[\]]/g, '\\$&');
+				var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+					results = regex.exec(url);
+				if (!results) return null;
+				if (!results[2]) return '';
+				return decodeURIComponent(results[2].replace(/\+/g, ' '));
+			}
+
 			var message = getParameterByName('message');
 			if (message) {
 				popoutOne();
 			}
 		</script>
 	</body>
-	<!----------------------------- BODY ------------------------------------------------------------------------------------------------------------------->
+	<!-- --------------------------- BODY --------------------------------------- -->
+
+	<!-- ------------------------------- FOOTER ----------------------------------- -->
+	<br /><br /><br /><br /><br />
+	<!--
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">&copy; CLINIC 2023</p>
+  </div>
+</footer>
+-->
+	<!-- --------------------------- FOOTER ------------------------------------- -->
 </html>

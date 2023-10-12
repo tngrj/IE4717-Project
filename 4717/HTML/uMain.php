@@ -27,7 +27,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 <!DOCTYPE html>
 <html lang="en-US">
-<!-------------------------------------------------------------------------------------------------------- HEAD --------------------------------------->
+<!----------- HEAD --------------------------------------->
 
 <head>
 	<meta charset="UTF-8" />
@@ -46,9 +46,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 	<script src="JS/script.js"></script>
 </head>
-<!----------------------------- HEAD ------------------------------------------------------------------------------------------------------------------->
+<!----------- HEAD --------------------------------------->
 
-<!--------------------------------------------------------------------------------------------------------- BODY --------------------------------------->
+<!----------- BODY --------------------------------------->
 
 <body onload="displayuAppt();">
 	<!-----NAVBAR--------------------------------------------------------------->
@@ -65,7 +65,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 	<div class="userMain-body">
 		<h2>
-			Good <input type="text" class="inherit-transparenttextbox" id="uMainTime" readonly /><button id="booknewappointment" onclick="booknewappointment(unewAppointment);">
+			<input type="text" class="inherit-transparenttextbox" id="uMainTime" readonly /><button id="booknewappointment" onclick="booknewappointment(unewAppointment);">
 				Book a new Appointment
 			</button>
 		</h2>
@@ -138,21 +138,33 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 			<tbody id="ushApptTBody"></tbody>
 		</table>
 
-		<div id="unewAppointment" class="hidden"><br /><br /></div>
+		<div id="unewAppointment" class="hidden">
+			<!-- <div class="header-container">
+                <label style="font-size: 28px;">Choose your Doctor</label>
+                <img class="exitBtn" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
+            </div>
+            <br>
+                //<button class="doctBtn" id="drTanNewAppt" onclick="newappt('drTan');">Dr. Tan</button>
+                <img class="doctBtn" id="drTanNewAppt" src="CSS/drTan.jpg" alt="Dr. Tan" onclick="newappt('drTan');">
+                <img class="doctBtn" id="drNgNewAppt" src="CSS/drTan.jpg" alt="Dr. Ng" onclick="newappt('drNg');">
+                <img class="doctBtn" id="drKohNewAppt" src="CSS/drTan.jpg" alt="Dr. Koh" onclick="newappt('drKoh');">
+                //<button id="closeBtn" onclick="closePopup(newappointment);">Cancel</button> -->
+			<br /><br />
+		</div>
 	</div>
 
 
 </body>
-<!----------------------------- BODY ------------------------------------------------------------------------------------------------------------------->
+<!----------- HEAD --------------------------------------->
 
-<!--------------------------------------------------------------------------------------------------------- FOOTER ------------------------------------->
+<!----------- FOOTER ------------------------------------->
 <br /><br /><br /><br /><br />
 <footer class="footer">
 	<div class="container">
 		<p class="pull-left">&copy; Go Doc 2023</p>
 	</div>
 </footer>
-<!----------------------------- FOOTER ----------------------------------------------------------------------------------------------------------------->
+<!----------- FOOTER ------------------------------------->
 
 </html>
 

@@ -1,3 +1,12 @@
+/*
+Elements: Textbox, Button, 
+Prompt, Nav, Footer
+Table, Overlay
+Div
+--------
+Specific by Page
+*/
+
 .hidden {
 	display: none;
 }
@@ -145,7 +154,11 @@ th {
 .centered-t {
 	text-align: center;
 }
-
+/*
+td{
+    text-align:left;
+}
+*/
 td input[type='text'] {
 	width: 80%;
 	height: 80%;
@@ -191,8 +204,8 @@ td input[type='text'] {
 	display: flex;
 	margin-right: 20px;
 	padding: 10px;
-	width: 200px;
-	height: 150px;
+	width: 150px;
+	height: 200px;
 	flex-direction: column;
 	align-items: center;
 	border: 1px solid #000000;
@@ -410,7 +423,7 @@ td input[type='text'] {
 
 #appttype {
 	padding: 10px;
-	width: 320px;
+	height: 45px;
 	width: 320px;
 	border: none;
 	border-radius: 10px;
