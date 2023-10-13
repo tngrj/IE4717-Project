@@ -13,6 +13,8 @@
 <?php
 session_start();
 
+include 'patientAppt.php';
+
 // Check if the user is logged in as a patient
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	$patient_id = $_SESSION['patient_id'];
@@ -37,13 +39,14 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	<title>Go Doc</title>
 
 	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/form.css" />
 	<link rel="icon" href="../css/LogoIcon.png" />
 	<style>
 		h2 {
 			padding: 20px 0 0 80px;
 		}
 	</style>
-
+	<script src="../js/cancelAppt.js"></script>
 	<script src="../js/script.js"></script>
 </head>
 <!----------- HEAD --------------------------------------->
@@ -65,7 +68,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 	<div class="userMain-body">
 		<h2>
-			<input type="text" class="inherit-transparenttextbox" id="uMainTime" readonly /><button id="booknewappointment" onclick="booknewappointment(unewAppointment);">
+			Good <input type="text" class="inherit-transparenttextbox" id="uMainTime" readonly />
+			<button id="booknewappointment" onclick="booknewappointment(unewAppointment);">
 				Book a new Appointment
 			</button>
 		</h2>
@@ -75,7 +79,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 					font-family: 'Times New Roman', Times, serif;
 					font-weight: bold;
 					font-size: 32px;
-				" class="transparenttextbox" id="uMainName" readonly />
+				" class="transparenttextbox" readonly><?php echo $patient_name ?></input>
 		<br /><br />
 
 
@@ -96,9 +100,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 				</thead>
 				<tbody>
 					<?php
-					include 'php/patientAppt.php';
-
-					foreach ($appointments as $appointment) {
+					foreach ($today_appointments as $appointment) {
 					?>
 						<tr>
 							<td><?php echo $appointment['id']; ?></td>
@@ -108,7 +110,19 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 							<td><?php echo $appointment['consultation_type']; ?></td>
 							<td><?php echo $appointment['status']; ?></td>
 							<td><?php echo $appointment['comments']; ?></td>
-							<td><button>View Details</button></td>
+							<td>
+								<button onclick="openModal(
+								'<?php echo $appointment['id']; ?>',
+								'<?php echo $appointment['scheduled_date']; ?>',
+								'<?php echo $appointment['scheduled_time']; ?>',
+								'<?php echo $appointment['doctor_name']; ?>',
+								'<?php echo $appointment['consultation_type']; ?>',
+								'<?php echo $appointment['status']; ?>',
+								'<?php echo $appointment['comments']; ?>'
+								)">Cancel</button>
+								<br><br>
+								<button>Reschedule</button>
+							</td>
 						</tr>
 					<?php
 					}
@@ -121,35 +135,82 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 		<br /><br /><br /><br /><br />
 
-		<table class="apptTable" id="ushApptTable">
-			<caption>
-				Scheduled Appointment(s)
-			</caption>
-			<thead style="background-color: #d1f1fe">
-				<tr>
-					<th colspan="1">No.</th>
-					<th colspan="3">Date</th>
-					<th colspan="3">Start Time</th>
-					<th colspan="3">Doctor</th>
-					<th colspan="5">Appointment Type</th>
-					<th colspan="3" class="centered-t">Action</th>
-				</tr>
-			</thead>
-			<tbody id="ushApptTBody"></tbody>
-		</table>
+		<div id="appointmentTableContainer">
+			<table class="apptTable" id="uupApptTable">
+				<caption>Scheduled Appointment(s)</caption>
+				<thead style="background-color: #d1f1fe;">
+					<tr>
+						<th>No.</th>
+						<th>Date</th>
+						<th>Start Time</th>
+						<th>Doctor</th>
+						<th>Appointment Type</th>
+						<th>Status</th>
+						<th>Comments</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($other_appointments as $appointment) {
+					?>
+						<tr>
+							<td><?php echo $appointment['id']; ?></td>
+							<td><?php echo $appointment['scheduled_date']; ?></td>
+							<td><?php echo $appointment['scheduled_time']; ?></td>
+							<td><?php echo $appointment['doctor_name']; ?></td>
+							<td><?php echo $appointment['consultation_type']; ?></td>
+							<td><?php echo $appointment['status']; ?></td>
+							<td><?php echo $appointment['comments']; ?></td>
+							<td>
+								<button onclick="openModal(
+								'<?php echo $appointment['id']; ?>',
+								'<?php echo $appointment['scheduled_date']; ?>',
+								'<?php echo $appointment['scheduled_time']; ?>',
+								'<?php echo $appointment['doctor_name']; ?>',
+								'<?php echo $appointment['consultation_type']; ?>',
+								'<?php echo $appointment['status']; ?>',
+								'<?php echo $appointment['comments']; ?>'
+								)">Cancel</button>
+								<br><br>
+								<button>Reschedule</button>
+							</td>
+						</tr>
+					<?php
+					}
+					?>
+				</tbody>
+			</table>
+		</div>
 
 		<div id="unewAppointment" class="hidden">
-			<!-- <div class="header-container">
-                <label style="font-size: 28px;">Choose your Doctor</label>
-                <img class="exitBtn" id="closeBtn" src="css/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
-            </div>
-            <br>
-                //<button class="doctBtn" id="drTanNewAppt" onclick="newappt('drTan');">Dr. Tan</button>
-                <img class="doctBtn" id="drTanNewAppt" src="css/drTan.jpg" alt="Dr. Tan" onclick="newappt('drTan');">
-                <img class="doctBtn" id="drNgNewAppt" src="css/drTan.jpg" alt="Dr. Ng" onclick="newappt('drNg');">
-                <img class="doctBtn" id="drKohNewAppt" src="css/drTan.jpg" alt="Dr. Koh" onclick="newappt('drKoh');">
-                //<button id="closeBtn" onclick="closePopup(newappointment);">Cancel</button> -->
-			<br /><br />
+			<div class="header-container">
+				<label style="font-size: 28px;">Choose your Doctor</label>
+				<img class="exitBtn header-container-right" id="closeBtn" src="../css/cancel.png" alt="close button" onclick="closePopup('unewAppointment');">
+			</div>
+			<br>
+			<button class="doctBtn" onclick="bookAppointment('drTan');">Dr. Tan</button>
+			<button class="doctBtn" onclick="bookAppointment('drLim');">Dr. Lim</button>
+			<button class="doctBtn" onclick="bookAppointment('drKoh');">Dr. Koh</button>
+		</div>
+	</div>
+
+	<!-- Confirmation Modal -->
+
+	<div class="form-popup-bg" id="cancellationFormContainer">
+		<div class="form-container">
+			<button class="close-button" onclick="closeCancellationForm()">X</button>
+			<div class="modal-content">
+				<h2>Confirm Appointment Cancellation</h2><br>
+				<p>Appointment Details:</p>
+				<p>Date: <span id="modalDate"></span></p>
+				<p>Start Time: <span id="modalStartTime"></span></p>
+				<p>Doctor: <span id="modalDoctor"></span></p>
+				<p>Appointment Type: <span id="modalAppointmentType"></span></p>
+				<p>Status: <span id="modalStatus"></span></p>
+				<p>Comments: <span id="modalComments"></span></p>
+			</div>
+			<button onclick="cancelAppointment()">Confirm Cancellation</button>
 		</div>
 	</div>
 
@@ -169,50 +230,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 </html>
 
 <script>
-	// function updateAppointmentTable() {
-	// 	// Use JavaScript to fetch appointment data from patientAppt.php
-	// 	fetch('patientAppt.php')
-	// 		.then(response => response.json())
-	// 		.then(appointments => {
-	// 			// Check if there's an error message
-	// 			if (appointments.error) {
-	// 				// Handle access denied or other errors
-	// 				document.getElementById('appointmentTableContainer').innerHTML = "<p>" + appointments.error + "</p>";
-	// 			} else {
-	// 				// Build the HTML table with the retrieved appointment data
-	// 				let tableHtml = "<table class='apptTable' id='uupApptTable'><caption>Upcoming Appointment(s)</caption><thead style='background-color: #d1f1fe'><tr><th colspan='1'>No.</th><th colspan='3'>Date</th><th colspan='3'>Start Time</th><th colspan='3'>Doctor</th><th colspan='5'>Appointment Type</th><th colspan='3' class='centered-t'>Action</th></tr></thead><tbody id='uupApptTBody'>";
-	// 				for (let i = 0; i < appointments.length; i++) {
-	// 					const appointment = appointments[i];
-	// 					tableHtml += "<tr>";
-	// 					tableHtml += "<td>" + (i + 1) + "</td>";
-	// 					tableHtml += "<td>" + appointment.scheduled_date + "</td>";
-	// 					tableHtml += "<td>" + appointment.scheduled_time + "</td>";
-	// 					tableHtml += "<td>" + appointment.doctor_name + "</td>";
-	// 					tableHtml += "<td>" + appointment.consultation_type + "</td>";
-	// 					// Add more appointment information fields as needed
-	// 					tableHtml += "<td><button onclick='cancelAppointment(" + appointment.id + ")'>Cancel</button></td>";
-	// 					tableHtml += "</tr>";
-	// 				}
-	// 				tableHtml += "</tbody></table>";
-
-	// 				// Update the appointment table container with the generated table
-	// 				document.getElementById('appointmentTableContainer').innerHTML = tableHtml;
-	// 			}
-	// 		})
-	// 		.catch(error => {
-	// 			console.error(error);
-	// 		});
-	// }
-
-	// // Call the function to initially populate the appointment table
-	// updateAppointmentTable();
-
-	// // Function to handle appointment cancellation (you can implement this)
-	// function cancelAppointment(appointmentId) {
-	// 	// Implement appointment cancellation logic here
-	// 	// After cancellation, you may want to call updateAppointmentTable() to refresh the table
-	// }
-
 	function confirmLogout() {
 		if (confirm('Are you sure you want to log out?')) {
 			// If the user confirms, then trigger the logout process by navigating to the PHP script.
@@ -231,15 +248,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		document.getElementById('uMainTime').value = 'Evening';
 	}
 
-	var firstName = sessionStorage.getItem('firstname');
-	var lastName = sessionStorage.getItem('lastname');
-	var userName =
-		firstName.charAt(0).toUpperCase() +
-		firstName.slice(1).toLowerCase() +
-		' ' +
-		lastName.charAt(0).toUpperCase() +
-		lastName.slice(1).toLowerCase();
-	document.getElementById('uMainName').value = userName;
 
 	const overlayStack = [];
 
