@@ -121,8 +121,8 @@ Specific by Page
 
 /* Table */
 .apptTable {
-	margin: 0 auto;
-	width: calc(100% - 160px);
+	margin: 0 0 0 2em;
+	width: calc(100% - 50px);
 	border: none;
 	border-collapse: collapse;
 	font-size: 12px;
@@ -133,6 +133,29 @@ Specific by Page
 	font-size: 20px;
 	font-weight: bold;
 	text-align: left;
+}
+.appointment-hero {
+	display: flex;
+}
+
+.appointment-card {
+	display: flex;
+	flex-direction: column;
+	text-align: start;
+	padding: 3em 2em 0.5em 1em;
+	margin: 2em 0 2em 6em;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+}
+
+.appointment-hero button {
+	margin: 2em 5.5em 0 auto;
+}
+.appointment-modal {
+	padding: 2em 0 2em 0;
+	margin: 0 6em 0 6em;
+	background-color: #f2f2f2;
+	border-radius: 10px;
 }
 
 th,
@@ -341,7 +364,6 @@ td input[type='text'] {
 /* --- User - Main Page ------------------------------------------------------------------------------------------------------------------------- */
 #booknewappointment {
 	float: right;
-	margin-right: 80px;
 	width: 250px;
 	height: 55px;
 	border-radius: 30px;

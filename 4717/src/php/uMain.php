@@ -41,11 +41,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	<link rel="stylesheet" href="../css/style.css" />
 	<link rel="stylesheet" href="../css/form.css" />
 	<link rel="icon" href="../css/LogoIcon.png" />
-	<style>
-		h2 {
-			padding: 20px 0 0 80px;
-		}
-	</style>
 	<script src="../js/cancelAppt.js"></script>
 	<script src="../js/script.js"></script>
 </head>
@@ -67,120 +62,116 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	<!-----END: NAVBAR---------------------------------------------------------->
 
 	<div class="userMain-body">
-		<h2>
-			Good <input type="text" class="inherit-transparenttextbox" id="uMainTime" readonly />
+		<div class="appointment-hero">
+			<div class="appointment-card">
+				<h4 id="uMainTime"></h4>
+				<h2><?php echo $patient_name ?></h2>
+			</div>
 			<button id="booknewappointment" onclick="booknewappointment(unewAppointment);">
 				Book a new Appointment
 			</button>
-		</h2>
-		<br />
-		<input type="text" style="
-					padding: 0 0 50px 80px;
-					font-family: 'Times New Roman', Times, serif;
-					font-weight: bold;
-					font-size: 32px;
-				" class="transparenttextbox" readonly><?php echo $patient_name ?></input>
-		<br /><br />
-
-
-		<div id="appointmentTableContainer">
-			<table class="apptTable" id="uupApptTable">
-				<caption>Upcoming Appointment(s)</caption>
-				<thead style="background-color: #d1f1fe;">
-					<tr>
-						<th>No.</th>
-						<th>Date</th>
-						<th>Start Time</th>
-						<th>Doctor</th>
-						<th>Appointment Type</th>
-						<th>Status</th>
-						<th>Comments</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-					foreach ($today_appointments as $appointment) {
-					?>
-						<tr>
-							<td><?php echo $appointment['id']; ?></td>
-							<td><?php echo $appointment['scheduled_date']; ?></td>
-							<td><?php echo $appointment['scheduled_time']; ?></td>
-							<td><?php echo $appointment['doctor_name']; ?></td>
-							<td><?php echo $appointment['consultation_type']; ?></td>
-							<td><?php echo $appointment['status']; ?></td>
-							<td><?php echo $appointment['comments']; ?></td>
-							<td>
-								<button onclick="openModal(
-								'<?php echo $appointment['id']; ?>',
-								'<?php echo $appointment['scheduled_date']; ?>',
-								'<?php echo $appointment['scheduled_time']; ?>',
-								'<?php echo $appointment['doctor_name']; ?>',
-								'<?php echo $appointment['consultation_type']; ?>',
-								'<?php echo $appointment['status']; ?>',
-								'<?php echo $appointment['comments']; ?>'
-								)">Cancel</button>
-								<br><br>
-								<button>Reschedule</button>
-							</td>
-						</tr>
-					<?php
-					}
-					?>
-				</tbody>
-			</table>
 		</div>
 
 
 
-		<br /><br /><br /><br /><br />
-
-		<div id="appointmentTableContainer">
-			<table class="apptTable" id="uupApptTable">
-				<caption>Scheduled Appointment(s)</caption>
-				<thead style="background-color: #d1f1fe;">
-					<tr>
-						<th>No.</th>
-						<th>Date</th>
-						<th>Start Time</th>
-						<th>Doctor</th>
-						<th>Appointment Type</th>
-						<th>Status</th>
-						<th>Comments</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-					foreach ($other_appointments as $appointment) {
-					?>
+		<div class="appointment-modal">
+			<div id="appointmentTableContainer">
+				<table class="apptTable">
+					<caption>Upcoming Appointment(s)</caption>
+					<thead>
 						<tr>
-							<td><?php echo $appointment['id']; ?></td>
-							<td><?php echo $appointment['scheduled_date']; ?></td>
-							<td><?php echo $appointment['scheduled_time']; ?></td>
-							<td><?php echo $appointment['doctor_name']; ?></td>
-							<td><?php echo $appointment['consultation_type']; ?></td>
-							<td><?php echo $appointment['status']; ?></td>
-							<td><?php echo $appointment['comments']; ?></td>
-							<td>
-								<button onclick="openModal(
-								'<?php echo $appointment['id']; ?>',
-								'<?php echo $appointment['scheduled_date']; ?>',
-								'<?php echo $appointment['scheduled_time']; ?>',
-								'<?php echo $appointment['doctor_name']; ?>',
-								'<?php echo $appointment['consultation_type']; ?>',
-								'<?php echo $appointment['status']; ?>',
-								'<?php echo $appointment['comments']; ?>'
-								)">Cancel</button>
-								<br><br>
-								<button>Reschedule</button>
-							</td>
+							<th>No.</th>
+							<th>Date</th>
+							<th>Start Time</th>
+							<th>Doctor</th>
+							<th>Appointment Type</th>
+							<th>Status</th>
+							<th>Comments</th>
+							<th>Action</th>
 						</tr>
-					<?php
-					}
-					?>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<?php
+						foreach ($today_appointments as $appointment) {
+						?>
+							<tr>
+								<td><?php echo $appointment['id']; ?></td>
+								<td><?php echo $appointment['scheduled_date']; ?></td>
+								<td><?php echo $appointment['scheduled_time']; ?></td>
+								<td><?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?></td>
+								<td><?php echo $appointment['consultation_type']; ?></td>
+								<td><?php echo $appointment['status']; ?></td>
+								<td><?php echo $appointment['comments']; ?></td>
+								<td>
+									<button onclick="openModal(
+									'<?php echo $appointment['id']; ?>',
+									'<?php echo $appointment['scheduled_date']; ?>',
+									'<?php echo $appointment['scheduled_time']; ?>',
+									'<?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?>',
+									'<?php echo $appointment['consultation_type']; ?>',
+									'<?php echo $appointment['status']; ?>',
+									'<?php echo $appointment['comments']; ?>'
+									)">Cancel</button>
+									<button>Reschedule</button>
+								</td>
+							</tr>
+						<?php
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
+
+
+
+			<br /><br /><br /><br /><br />
+
+			<div id="appointmentTableContainer">
+				<table class="apptTable">
+					<caption>Scheduled Appointment(s)</caption>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Date</th>
+							<th>Start Time</th>
+							<th>Doctor</th>
+							<th>Appointment Type</th>
+							<th>Status</th>
+							<th>Comments</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						foreach ($other_appointments as $appointment) {
+						?>
+							<tr>
+								<td><?php echo $appointment['id']; ?></td>
+								<td><?php echo $appointment['scheduled_date']; ?></td>
+								<td><?php echo $appointment['scheduled_time']; ?></td>
+								<td><?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?></td>
+								<td><?php echo $appointment['consultation_type']; ?></td>
+								<td><?php echo $appointment['status']; ?></td>
+								<td><?php echo $appointment['comments']; ?></td>
+								<td>
+									<button onclick="openModal(
+									'<?php echo $appointment['id']; ?>',
+									'<?php echo $appointment['scheduled_date']; ?>',
+									'<?php echo $appointment['scheduled_time']; ?>',
+									'<?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?>',
+									'<?php echo $appointment['consultation_type']; ?>',
+									'<?php echo $appointment['status']; ?>',
+									'<?php echo $appointment['comments']; ?>'
+									)">Cancel</button>
+									<button>Reschedule</button>
+								</td>
+							</tr>
+						<?php
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		<div id="unewAppointment" class="hidden">
@@ -239,13 +230,14 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 	var now = new Date();
 	var hours = now.getHours();
+	var greetingElement = document.getElementById('uMainTime');
 
 	if (hours >= 0 && hours < 12) {
-		document.getElementById('uMainTime').value = 'Morning';
+		greetingElement.textContent = 'Good Morning';
 	} else if (hours >= 12 && hours < 17) {
-		document.getElementById('uMainTime').value = 'Afternoon';
+		greetingElement.textContent = 'Good Afternoon';
 	} else {
-		document.getElementById('uMainTime').value = 'Evening';
+		greetingElement.textContent = 'Good Evening';
 	}
 
 
@@ -543,11 +535,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
             getCFasmForm(asmId);
         }  
 
-        //Cancel Appt 
-        function printCFuenoForm(uenoId) s{
-            getCFuenoForm(uenoId);
-            var newwindow = window.open("aCFueno.html?view_id=" + uenoId);
-            getPDF(newwindow, uenoId, "ueno");
-        }
+       
         */
 </script>

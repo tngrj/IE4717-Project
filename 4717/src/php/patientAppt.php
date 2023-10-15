@@ -8,8 +8,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     // Get the current date
     $current_date = date('Y-m-d');
 
-    // Retrieve all appointments for the specified patient
-    $sql = "SELECT * FROM Appointment WHERE patient_id = ?";
+    // Retrieve all appointments for the specified patient along with the doctor's name
+    $sql = "SELECT A.*, D.first_name AS doctor_first_name, D.last_name AS doctor_last_name
+            FROM Appointment AS A
+            JOIN Doctor AS D ON A.doctor_id = D.id
+            WHERE A.patient_id = ?";
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $patient_id);
     $stmt->execute();
