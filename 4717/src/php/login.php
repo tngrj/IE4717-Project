@@ -16,27 +16,32 @@ if ($result->num_rows > 0) {
     // User is a patient, store patient data in session
     $row = $result->fetch_assoc();
     $_SESSION['user_type'] = 'patient';
-    $_SESSION['patient_id'] = $row['id']; // Assuming 'id' is the patient's ID in the database
-    $_SESSION['patient_name'] = $row['first_name'] . ' ' . $row['last_name']; // Assuming 'first_name' and 'last_name' are the patient's name fields
+    $_SESSION['patient_id'] = $row['id'];
+    $_SESSION['patient_name'] = $row['first_name'] . ' ' . $row['last_name'];
 
     // Redirect to the patient main page
     header("Location: uMain.php?user_type=patient&patient_id=" . $_SESSION['patient_id']);
     exit();
-} else {
-    // User is not a patient, check the Doctor table
-    $sql = "SELECT * FROM Doctor WHERE email='$email' AND password='$password'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // User is a doctor, redirect to the doctor main page
-        header("Location: ../aMain.html");
-        exit();
-    } else {
-        // No match found in either table, show error message
-        header("Location: ../html/error.html");
-        exit();
-    }
 }
 
+// Check if the user exists in the Doctor table
+$sql = "SELECT * FROM Doctor WHERE email='$email' AND password='$password'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // User is a doctor, store doctor data in session
+    $row = $result->fetch_assoc();
+    $_SESSION['user_type'] = 'doctor';
+    $_SESSION['doctor_id'] = $row['id'];
+    $_SESSION['doctor_name'] = $row['first_name'] . ' ' . $row['last_name'];
+
+    // Redirect to the doctor main page
+    header("Location: aMain.php?user_type=doctor&doctor_id=" . $_SESSION['doctor_id']);
+    exit();
+}
+
+// No match found in either table, show error message
+header("Location: ../html/error.html");
+exit();
 
 $conn->close();
