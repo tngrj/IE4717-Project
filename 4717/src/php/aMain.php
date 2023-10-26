@@ -8,7 +8,7 @@ session_start();
 
 include 'doctorAppt.php';
 
-// Check if the user is logged in as a patient
+// Check if the user is logged in as a doctor
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 	$doctor_id = $_SESSION['doctor_id'];
 	$doctor_name = $_SESSION['doctor_name'];
@@ -40,11 +40,11 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 <body>
 	<!-----NAVBAR--------------------------------------------------------------->
 	<nav class="navbar">
-		<a href="aMain.php" class="home-link" id="homePage"><img src="../css/LogoName.png" alt="Home" width="130" height="35" /></a>
+		<a href="aMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
-			<a href="adminCalendar.html" id="userCalendarPage">Calendar</a>
-			<a href="adminProfile.html" id="userProfilePage">Profile</a>
-			<a href="#" id="logoutButton" onclick="confirmLogout();">Logout</a>
+			<a href="aMain.php"><img src="../css/calendar.png" title="Calendar" /></a>
+			<a href="adminProfile.php"><img src="../css/profile.png" title="Profile" /></a>
+			<a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
 		</div>
 	</nav>
 
@@ -55,17 +55,18 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 		<div class="appointment-hero">
 			<div class="appointment-card">
 				<h4 id="uMainTime"></h4>
-				<h2><?php echo $doctor_name ?></h2>
+				<h2>Dr <?php echo $doctor_name ?></h2>
 			</div>
 		</div>
 
 		<div class="appointment-modal">
 			<div id="appointmentTableContainer">
 				<table class="apptTable">
-					<caption>Scheduled Appointment(s)</caption>
+					<caption>New Appointment(s)</caption>
 					<thead>
 						<tr>
 							<th>No.</th>
+							<th>Patient Name</th>
 							<th>Date</th>
 							<th>Start Time</th>
 							<th>Appointment Type</th>
@@ -76,10 +77,61 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 					</thead>
 					<tbody>
 						<?php
-						foreach ($other_appointments as $appointment) {
+						foreach ($new_appointments as $appointment) {
 						?>
 							<tr>
 								<td><?php echo $appointment['id']; ?></td>
+								<td><?php echo $appointment['patient_name']; ?></td>
+								<td><?php echo $appointment['scheduled_date']; ?></td>
+								<td><?php echo $appointment['scheduled_time']; ?></td>
+								<td><?php echo $appointment['consultation_type']; ?></td>
+								<td><?php echo $appointment['status']; ?></td>
+								<td><?php echo $appointment['comments']; ?></td>
+								<td>
+									<button onclick="openModal(
+										'<?php echo $appointment['id']; ?>',
+										'<?php echo $appointment['scheduled_date']; ?>',
+										'<?php echo $appointment['scheduled_time']; ?>',
+										'<?php echo $appointment['consultation_type']; ?>',
+										'<?php echo $appointment['status']; ?>',
+										'<?php echo $appointment['comments']; ?>'
+										)">Cancel</button>
+									<button>Reschedule</button>
+									<button>Complete</button>
+								</td>
+							</tr>
+						<?php
+						}
+						?>
+					</tbody>
+
+				</table>
+			</div>
+
+			<br>
+
+			<div id="appointmentTableContainer">
+				<table class="apptTable">
+					<caption>Scheduled Appointment(s)</caption>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>Patient Name</th>
+							<th>Date</th>
+							<th>Start Time</th>
+							<th>Appointment Type</th>
+							<th>Status</th>
+							<th>Comments</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						foreach ($scheduled_appointments as $appointment) {
+						?>
+							<tr>
+								<td><?php echo $appointment['id']; ?></td>
+								<td><?php echo $appointment['patient_name']; ?></td>
 								<td><?php echo $appointment['scheduled_date']; ?></td>
 								<td><?php echo $appointment['scheduled_time']; ?></td>
 								<td><?php echo $appointment['consultation_type']; ?></td>
@@ -102,21 +154,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 						?>
 					</tbody>
 				</table>
-			</div>
-
-
-			<div id="anewAppointment" class="hidden">
-				<!-- <div class="header-container">
-                <label style="font-size: 28px;">Choose your Doctor</label>
-                <img class="exitBtn" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
-            </div>
-            <br>
-                //<button class="doctBtn" id="drTanNewAppt" onclick="newappt('drTan');">Dr. Tan</button>
-                <img class="doctBtn" id="drTanNewAppt" src="CSS/drTan.jpg" alt="Dr. Tan" onclick="newappt('drTan');">
-                <img class="doctBtn" id="drNgNewAppt" src="CSS/drTan.jpg" alt="Dr. Ng" onclick="newappt('drNg');">
-                <img class="doctBtn" id="drKohNewAppt" src="CSS/drTan.jpg" alt="Dr. Koh" onclick="newappt('drKoh');">
-                //<button id="closeBtn" onclick="closePopup(newappointment);">Cancel</button> -->
-				<br /><br />
 			</div>
 		</div>
 
