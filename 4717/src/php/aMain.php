@@ -20,14 +20,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <!----------------------------- HEAD --------------------------------------->
 
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="csrf-param" content="_csrf" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Go Doc</title>
 
 	<link rel="stylesheet" href="../css/style.css" />

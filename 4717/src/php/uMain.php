@@ -28,14 +28,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <!----------- HEAD --------------------------------------->
 
 <head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="csrf-param" content="_csrf" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Go Doc</title>
 
 	<link rel="stylesheet" href="../css/style.css" />
@@ -51,11 +49,11 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 <body onload="displayuAppt();">
 	<!-----NAVBAR--------------------------------------------------------------->
 	<nav class="navbar">
-		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/LogoName.png" alt="Home" width="130" height="35" /></a>
+		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
-			<a href="userCalendar.html" id="userCalendarPage">Calendar</a>
-			<a href="userProfile.html" id="userProfilePage">Profile</a>
-			<a href="#" id="logoutButton" onclick="confirmLogout();">Logout</a>
+			<a href="doctorList.php"><img src="../css/doctors.png" title="List of Doctors" /></a>
+			<a href="userProfile.php"><img src="../css/profile.png" title="Profile" /></a>
+			<a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
 		</div>
 	</nav>
 	<br />
