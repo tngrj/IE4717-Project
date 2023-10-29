@@ -26,10 +26,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-<!----------- HEAD --------------------------------------->
 
 <head>
 	<meta charset="UTF-8">
@@ -42,12 +40,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	<script src="../js/cancelAppt.js"></script>
 	<script src="../js/script.js"></script>
 </head>
-<!----------- HEAD --------------------------------------->
 
-<!----------- BODY --------------------------------------->
-
-<body onload="displayuAppt();">
-	<!-----NAVBAR--------------------------------------------------------------->
+<body>
 	<nav class="navbar">
 		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
@@ -57,7 +51,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		</div>
 	</nav>
 	<br />
-	<!-----END: NAVBAR---------------------------------------------------------->
 
 	<div class="userMain-body">
 		<div class="appointment-hero">
@@ -69,8 +62,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 				Book a new Appointment
 			</button>
 		</div>
-
-
 
 		<div class="appointment-modal">
 			<div id="appointmentTableContainer">
@@ -101,6 +92,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 								<td><?php echo $appointment['status']; ?></td>
 								<td><?php echo $appointment['comments']; ?></td>
 								<td>
+									<button><img src="../css/edit.png" class="button-image"></button>
 									<button onclick="openModal(
 									'<?php echo $appointment['id']; ?>',
 									'<?php echo $appointment['scheduled_date']; ?>',
@@ -109,8 +101,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 									'<?php echo $appointment['consultation_type']; ?>',
 									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
-									)">Cancel</button>
-									<button>Reschedule</button>
+									)"><img src="../css/cancel2.png" class="button-image"></button>
 								</td>
 							</tr>
 						<?php
@@ -119,8 +110,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 					</tbody>
 				</table>
 			</div>
-
-
 
 			<br /><br /><br /><br /><br />
 
@@ -152,6 +141,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 								<td><?php echo $appointment['status']; ?></td>
 								<td><?php echo $appointment['comments']; ?></td>
 								<td>
+									<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
 									<button onclick="openModal(
 									'<?php echo $appointment['id']; ?>',
 									'<?php echo $appointment['scheduled_date']; ?>',
@@ -160,8 +150,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 									'<?php echo $appointment['consultation_type']; ?>',
 									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
-									)">Cancel</button>
-									<button>Reschedule</button>
+									)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
 								</td>
 							</tr>
 						<?php
@@ -205,16 +194,10 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 
 </body>
-<!----------- HEAD --------------------------------------->
 
-<!----------- FOOTER ------------------------------------->
-<br /><br /><br /><br /><br />
-<footer class="footer">
-	<div class="container">
-		<p class="pull-left">&copy; Go Doc 2023</p>
-	</div>
+<footer>
+	<p>&copy; Go Doc 2023</p>
 </footer>
-<!----------- FOOTER ------------------------------------->
 
 </html>
 

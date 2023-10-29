@@ -27,8 +27,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             if ($row['scheduled_date'] == $current_date) {
+                $row['scheduled_date'] = date("d-M-Y", strtotime($row['scheduled_date']));
+                $row['scheduled_time'] = date("H:i", strtotime($row['scheduled_time']));
                 $today_appointments[] = $row;
             } else {
+                $row['scheduled_date'] = date("d-M-Y", strtotime($row['scheduled_date']));
+                $row['scheduled_time'] = date("H:i", strtotime($row['scheduled_time']));
                 $other_appointments[] = $row;
             }
         }
