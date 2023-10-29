@@ -129,7 +129,7 @@ footer {
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	margin: 10px; /* Adjust the margin as needed */
+	margin: 1em; /* Adjust the margin as needed */
 	padding: 10px; /* Optional padding for the footer */
 	width: 100%; /* Set the width to 100% to extend to the full viewport width */
 	border-top: 1px solid #d9d9d9; /* Change to match the footer color */
@@ -150,23 +150,50 @@ footer {
 	font-weight: bold;
 	text-align: left;
 }
-.appointment-hero {
-	display: flex;
-}
 
 .appointment-card {
 	display: flex;
 	flex-direction: column;
 	text-align: start;
+	width: 15em;
+	height: 10em;
 	padding: 3em 2em 0.5em 1em;
 	margin: 2em 0 2em 6em;
 	background-color: #f2f2f2;
 	border-radius: 10px;
 }
 
+.appointment-hero {
+	display: flex;
+}
+
 .appointment-hero button {
 	margin: 2em 5.5em 0 auto;
 }
+
+.appointment-hero table {
+	width: 100%;
+	border-radius: 10px;
+	margin: 2.5em 8em 3em 3em;
+	background-color: #f2f2f2;
+	border: none;
+	border-collapse: collapse;
+	font-size: 12px;
+}
+
+.appointment-hero table caption {
+	padding: 0 0 10px 0;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.appointment-hero table th,
+.appointment-hero table td {
+	padding: 1.4em;
+	text-align: left;
+}
+
 .appointment-modal {
 	padding: 2em 0 2em 0;
 	margin: 0 6em 0 6em;
@@ -220,6 +247,11 @@ td button {
 	margin-right: 1em;
 	width: 3em;
 	height: 3em;
+}
+
+.btn-group {
+	display: flex;
+	flex-direction: row;
 }
 
 /* Overlay */

@@ -4,7 +4,7 @@ require_once 'db-connect.php';
 // Check if the user is logged in as a doctor
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
     $doctor_id = $_SESSION['doctor_id'];
-    $current_date = date('Y-m-d');
+    $current_date = date('d-M-Y');
 
     $sql = "SELECT A.*, 
             CONCAT(P.first_name, ' ', P.last_name) AS patient_name
@@ -24,6 +24,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             if (isset($row['scheduled_date'], $row['seen'])) {
+                $row['scheduled_date'] = date("d-M-Y", strtotime($row['scheduled_date'])); // Format scheduled_date
+                $row['scheduled_time'] = date("H:i", strtotime($row['scheduled_time'])); // Format scheduled_time
                 $appointmentData = $row;
 
                 if ($row['scheduled_date'] == $current_date) {

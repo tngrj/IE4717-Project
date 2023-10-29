@@ -44,95 +44,131 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 	</nav>
 	<br />
 
-	<div class="adminMain-body">
-		<div class="appointment-hero">
-			<div class="appointment-card">
-				<h4 id="uMainTime"></h4>
-				<h2>Dr <?php echo $doctor_name ?></h2>
-			</div>
+
+	<div class="appointment-hero">
+		<div class="appointment-card">
+			<h4 id="uMainTime"></h4>
+			<h2>Dr <?php echo $doctor_name ?></h2>
 		</div>
 
-		<div class="appointment-modal">
-			<div id="appointmentTableContainer">
-				<table class="apptTable">
-					<caption>New Appointment(s)</caption>
-					<thead>
-						<tr>
-							<th>No.</th>
-							<th>Patient Name</th>
-							<th>Date</th>
-							<th>Start Time</th>
-							<th>Appointment Type</th>
-							<th>Status</th>
-							<th>Comments</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						foreach ($new_appointments as $appointment) {
-						?>
-							<tr>
-								<td><?php echo $appointment['id']; ?></td>
-								<td><?php echo $appointment['patient_name']; ?></td>
-								<td><?php echo $appointment['scheduled_date']; ?></td>
-								<td><?php echo $appointment['scheduled_time']; ?></td>
-								<td><?php echo $appointment['consultation_type']; ?></td>
-								<td><?php echo $appointment['status']; ?></td>
-								<td><?php echo $appointment['comments']; ?></td>
-								<td>
-									<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
-									<button onclick="openModal(
-										'<?php echo $appointment['id']; ?>',
-										'<?php echo $appointment['scheduled_date']; ?>',
-										'<?php echo $appointment['scheduled_time']; ?>',
-										'<?php echo $appointment['consultation_type']; ?>',
-										'<?php echo $appointment['status']; ?>',
-										'<?php echo $appointment['comments']; ?>'
-										)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
-									<button><img src="../css/confirm.png" class="button-image" title="Confirm Appointment"></button>
-								</td>
-							</tr>
-						<?php
-						}
-						?>
-					</tbody>
+		<table>
+			<caption>Upcoming Appointment(s) - Today</caption>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Patient Name</th>
+					<th>Start Time</th>
+					<th>Appointment Type</th>
+					<th>Status</th>
+					<th>Comments</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				foreach ($today_appointments as $appointment) {
+				?>
+					<tr>
+						<td><?php echo $appointment['id']; ?></td>
+						<td><?php echo $appointment['patient_name']; ?></td>
+						<td><?php echo $appointment['scheduled_time']; ?></td>
+						<td><?php echo $appointment['consultation_type']; ?></td>
+						<td><?php echo $appointment['status']; ?></td>
+						<td><?php echo $appointment['comments']; ?></td>
 
-				</table>
-			</div>
+					</tr>
+				<?php
+				}
+				?>
+			</tbody>
+		</table>
 
-			<br>
+	</div>
 
-			<div id="appointmentTableContainer">
-				<table class="apptTable">
-					<caption>Scheduled Appointment(s)</caption>
-					<thead>
-						<tr>
-							<th>No.</th>
-							<th>Patient Name</th>
-							<th>Date</th>
-							<th>Start Time</th>
-							<th>Appointment Type</th>
-							<th>Status</th>
-							<th>Comments</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						foreach ($scheduled_appointments as $appointment) {
-						?>
-							<tr>
-								<td><?php echo $appointment['id']; ?></td>
-								<td><?php echo $appointment['patient_name']; ?></td>
-								<td><?php echo $appointment['scheduled_date']; ?></td>
-								<td><?php echo $appointment['scheduled_time']; ?></td>
-								<td><?php echo $appointment['consultation_type']; ?></td>
-								<td><?php echo $appointment['status']; ?></td>
-								<td><?php echo $appointment['comments']; ?></td>
-								<td>
-									<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
-									<button onclick="openModal(
+	<div class="appointment-modal">
+		<table class="apptTable">
+			<caption>New Appointment(s)</caption>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Patient Name</th>
+					<th>Date</th>
+					<th>Start Time</th>
+					<th>Appointment Type</th>
+					<th>Status</th>
+					<th>Comments</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				foreach ($new_appointments as $appointment) {
+				?>
+					<tr>
+						<td><?php echo $appointment['id']; ?></td>
+						<td><?php echo $appointment['patient_name']; ?></td>
+						<td><?php echo $appointment['scheduled_date']; ?></td>
+						<td><?php echo $appointment['scheduled_time']; ?></td>
+						<td><?php echo $appointment['consultation_type']; ?></td>
+						<td><?php echo $appointment['status']; ?></td>
+						<td><?php echo $appointment['comments']; ?></td>
+						<td>
+							<div class="btn-group">
+								<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
+								<button onclick="openModal(
+											'<?php echo $appointment['id']; ?>',
+											'<?php echo $appointment['scheduled_date']; ?>',
+											'<?php echo $appointment['scheduled_time']; ?>',
+											'<?php echo $appointment['consultation_type']; ?>',
+											'<?php echo $appointment['status']; ?>',
+											'<?php echo $appointment['comments']; ?>'
+											)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
+								<form action="confirmAppt.php" method="post">
+									<input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+									<button type="submit">
+										<img src="../css/confirm.png" class="button-image" title="Confirm Appointment">
+									</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				<?php
+				}
+				?>
+			</tbody>
+
+		</table>
+
+		<br>
+
+		<table class="apptTable">
+			<caption>Scheduled Appointment(s)</caption>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>Patient Name</th>
+					<th>Date</th>
+					<th>Start Time</th>
+					<th>Appointment Type</th>
+					<th>Status</th>
+					<th>Comments</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				foreach ($scheduled_appointments as $appointment) {
+				?>
+					<tr>
+						<td><?php echo $appointment['id']; ?></td>
+						<td><?php echo $appointment['patient_name']; ?></td>
+						<td><?php echo $appointment['scheduled_date']; ?></td>
+						<td><?php echo $appointment['scheduled_time']; ?></td>
+						<td><?php echo $appointment['consultation_type']; ?></td>
+						<td><?php echo $appointment['status']; ?></td>
+						<td><?php echo $appointment['comments']; ?></td>
+						<td>
+							<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
+							<button onclick="openModal(
 									'<?php echo $appointment['id']; ?>',
 									'<?php echo $appointment['scheduled_date']; ?>',
 									'<?php echo $appointment['scheduled_time']; ?>',
@@ -140,18 +176,18 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
 									)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
-								</td>
-							</tr>
-						<?php
-						}
-						?>
-					</tbody>
-				</table>
-			</div>
-		</div>
+						</td>
+					</tr>
+				<?php
+				}
+				?>
+			</tbody>
+		</table>
 
-		<script>
-			/*TBE
+	</div>
+
+	<script>
+		/*TBE
         //Edit Appt
         function viewCFasmForm(asmId) {
             window.location.href = "aCFasm.html?view_id=" + asmId;
@@ -166,26 +202,26 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
         }
         */
 
-			var now = new Date();
-			var hours = now.getHours();
-			var greetingElement = document.getElementById('uMainTime');
+		var now = new Date();
+		var hours = now.getHours();
+		var greetingElement = document.getElementById('uMainTime');
 
-			if (hours >= 0 && hours < 12) {
-				greetingElement.textContent = 'Good Morning';
-			} else if (hours >= 12 && hours < 17) {
-				greetingElement.textContent = 'Good Afternoon';
-			} else {
-				greetingElement.textContent = 'Good Evening';
+		if (hours >= 0 && hours < 12) {
+			greetingElement.textContent = 'Good Morning';
+		} else if (hours >= 12 && hours < 17) {
+			greetingElement.textContent = 'Good Afternoon';
+		} else {
+			greetingElement.textContent = 'Good Evening';
+		}
+
+
+		function confirmLogout() {
+			if (confirm('Are you sure you want to log out?')) {
+				// If the user confirms, then trigger the logout process by navigating to the PHP script.
+				window.location.href = 'logout.php';
 			}
-
-
-			function confirmLogout() {
-				if (confirm('Are you sure you want to log out?')) {
-					// If the user confirms, then trigger the logout process by navigating to the PHP script.
-					window.location.href = 'logout.php';
-				}
-			}
-		</script>
+		}
+	</script>
 </body>
 
 <footer>
