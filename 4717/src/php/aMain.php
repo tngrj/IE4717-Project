@@ -38,7 +38,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 		<a href="aMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
 			<a href="aMain.php"><img src="../css/calendar.png" title="Calendar" /></a>
-			<a href="adminProfile.php"><img src="../css/profile.png" title="Profile" /></a>
+			<a href="doctorProfile.php"><img src="../css/profile.png" title="Profile" /></a>
 			<a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
 		</div>
 	</nav>

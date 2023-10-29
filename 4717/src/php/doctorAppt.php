@@ -6,6 +6,19 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
     $doctor_id = $_SESSION['doctor_id'];
     $current_date = date('d-M-Y');
 
+    // Get doctor name (Required when name is updated)
+    $sql = "SELECT * FROM Doctor WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $doctor_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $_SESSION['doctor_name'] = $row['first_name'] . ' ' . $row['last_name'];
+    }
+
+    // Get appointments
     $sql = "SELECT A.*, 
             CONCAT(P.first_name, ' ', P.last_name) AS patient_name
             FROM Appointment AS A
