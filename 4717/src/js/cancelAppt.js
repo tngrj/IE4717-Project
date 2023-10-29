@@ -21,5 +21,5 @@ function closeCancellationForm() {
 
 // Function to cancel the appointment
 function cancelAppointment() {
-	window.location.href = `cancelAppointment.php?id=${appointmentId}`;
+	window.location.href = `cancelAppt.php?id=${appointmentId}`;
 }
