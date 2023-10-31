@@ -1,11 +1,14 @@
 <?php
 session_start();
 
-// Check if the user is logged in as a doctor
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
-    $doctor_id = $_SESSION['doctor_id'];
+include 'patientAppt.php';
+
+// Check if the user is logged in as a patient
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
+    $patient_id = $_SESSION['patient_id'];
+    $patient_name = $_SESSION['patient_name'];
 } else {
-    // Handle the case where the user is not logged in as a doctor
+    // Handle the case where the user is not logged in as a patient
     header("Location: ../html/error.html");
     exit();
 }
@@ -22,15 +25,16 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/form.css" />
     <link rel="icon" href="../css/LogoIcon.png" />
+    <script src="../js/cancelAppt.js"></script>
     <script src="../js/script.js"></script>
 </head>
 
 <body>
     <nav class="navbar">
-        <a href="aMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
+        <a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
         <div class="nav-links">
-            <a href="aMain.php"><img src="../css/calendar.png" title="Calendar" /></a>
-            <a href="adminProfile.php"><img src="../css/profile.png" title="Profile" /></a>
+            <a href="doctorList.php"><img src="../css/doctors.png" title="List of Doctors" /></a>
+            <a href="patientProfile.php"><img src="../css/profile.png" title="Profile" /></a>
             <a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
         </div>
     </nav>
@@ -43,16 +47,14 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
                 <button id="confirm-button" type="submit" style="display: none;"><img src="../css/confirm.png" class="button-image" title="Confirm"></button>
             </div>
             <div class="profile-info">
-                <input type="hidden" name="user_id" value="<?php echo $doctor_id; ?>">
-                <input type="hidden" name="user_type" value="doctor">
+                <input type="hidden" name="user_id" value="<?php echo $patient_id; ?>">
+                <input type="hidden" name="user_type" value="patient">
                 <?php
                 include 'db-connect.php';
 
-                $doctor_id = $_SESSION['doctor_id'];
-
-                $query = "SELECT * FROM Doctor WHERE id = ?";
+                $query = "SELECT * FROM Patient WHERE id = ?";
                 $stmt = $conn->prepare($query);
-                $stmt->bind_param("i", $doctor_id);
+                $stmt->bind_param("i", $patient_id);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
@@ -62,12 +64,10 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
                     echo "<input type='text' class='profile-section' id='first-name' name='first_name' readonly value='" . $row['first_name'] . "'>";
                     echo "<p>Last Name:</p>";
                     echo "<input type='text' class='profile-section' id='last-name' name='last_name' readonly value='" . $row['last_name'] . "'>";
+                    echo "<p>Date of Birth:</p>";
+                    echo "<input type='date' class='profile-section' id='dob' name='date_of_birth' readonly value='" . $row['date_of_birth'] . "'>";
                     echo "<p>Email:</p>";
                     echo "<input type='email' class='profile-section' id='email' name='email' readonly value='" . $row['email'] . "'>";
-                    echo "<p>Specialization:</p>";
-                    echo "<input type='text' class='profile-section' id='specialization' name='specialization' readonly value='" . $row['specialization'] . "'>";
-                    echo "<p>Biography:</p>";
-                    echo "<textarea class='profile-section' id='biography' name='biography' readonly>" . $row['biography'] . "</textarea>";
                 }
                 $stmt->close();
                 $conn->close();
@@ -75,6 +75,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
             </div>
         </div>
     </form>
+
 </body>
 
 <footer>

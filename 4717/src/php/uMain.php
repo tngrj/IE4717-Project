@@ -46,7 +46,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
 			<a href="doctorList.php"><img src="../css/doctors.png" title="List of Doctors" /></a>
-			<a href="userProfile.php"><img src="../css/profile.png" title="Profile" /></a>
+			<a href="patientProfile.php"><img src="../css/profile.png" title="Profile" /></a>
 			<a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
 		</div>
 	</nav>
