@@ -363,6 +363,7 @@ td button {
 }
 
 #landingLoginBtn {
+	border: none;
 	width: 300px;
 	height: 60px;
 	border-radius: 38px;
@@ -403,8 +404,10 @@ td button {
 
 #landingLoginForm input[type='text'],
 #landingLoginForm input[type='password'],
+#landingLoginForm input[type='email'],
 #landingSignUpForm input[type='text'],
-#landingSignUpForm input[type='password'] {
+#landingSignUpForm input[type='password'],
+#landingSignUpForm input[type='email'] {
 	margin: 10px 0;
 	padding: 15px;
 	width: 300px;
@@ -431,6 +434,7 @@ td button {
 
 #LoginBtn,
 #SignUpBtn {
+	border: none;
 	width: 300px;
 	height: 55px;
 	border-radius: 20px;
@@ -444,19 +448,6 @@ td button {
 	background-color: #15c1b3;
 }
 
-/*TBE: Close Button
-#closeBtn {
-    height: 60px;
-    width: 300px; 
-    border-radius: 38px;
-    background: #15C193; 
-    color: #ffffff;
-    font-size: 20px;
-}
-
-#closeBtn:hover {
-    background-color: #15c1b3;
-}
 */
 /* End: Landing Page ---------------------------------------------------------------------------------------------------------------------------- */
 /* END: BOTH ==================================================================================================================================== */
