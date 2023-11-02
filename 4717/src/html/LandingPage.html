@@ -35,6 +35,7 @@
 		</style>
 
 		<script src="../js/script.js"></script>
+		<script src="../js/validateEmail.js"></script>
 	</head>
 	<!-- --------------------------- HEAD --------------------------------------- -->
 
@@ -70,7 +71,7 @@
 				src="../css/animation_lmzcv7t2.json"
 				background="transparent"
 				speed="1.5"
-				style="width: 500px; height: 500px"
+				style="width: 400px; height: 400px"
 				loop
 				autoplay
 			></lottie-player>
@@ -114,14 +115,26 @@
 				<div class="modal-content">
 					<h2>Register</h2>
 					<br />
-					<form id="landingSignUpForm" action="../php/createPatient.php" method="POST">
+					<form
+						id="landingSignUpForm"
+						action="../php/createPatient.php"
+						method="POST"
+						onsubmit="return validateEmail()"
+					>
 						<label for="addfirstname">Name</label><br />
 						<input type="text" name="addfirstname" placeholder="First Name" required /><br />
 						<input type="text" name="addlastname" placeholder="Last Name" required /><br /><br />
 						<label for="adddob">Date of Birth</label><br />
 						<input type="date" name="adddob" required /><br /><br />
 						<label for="addemail">Email</label><br />
-						<input type="email" name="addemail" required /><br /><br />
+						<input
+							type="email"
+							name="addemail"
+							id="emailInput"
+							onkeyup="validateEmail()"
+							required
+						/>
+						<span id="emailError" class="error-message"></span><br /><br />
 						<label for="addpassword">Password</label><br />
 						<input type="password" name="addpassword" required /><br /><br />
 						<button type="submit" id="SignUpBtn">Register</button>
