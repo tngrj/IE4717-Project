@@ -1,8 +1,3 @@
-<!-- 1) Change the Logo 
-     2) Edit Table
-     3) Remove all Bootstrap
--->
-
 <?php
 session_start();
 

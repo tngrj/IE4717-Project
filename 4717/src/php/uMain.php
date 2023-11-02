@@ -99,7 +99,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 									'<?php echo $appointment['scheduled_time']; ?>',
 									'<?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?>',
 									'<?php echo $appointment['consultation_type']; ?>',
-									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
 									)"><img src="../css/cancel2.png" class="button-image"></button>
 								</td>
@@ -148,7 +147,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 									'<?php echo $appointment['scheduled_time']; ?>',
 									'<?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?>',
 									'<?php echo $appointment['consultation_type']; ?>',
-									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
 									)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
 								</td>
@@ -180,15 +178,13 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 			<button class="close-button" onclick="closeCancellationForm()">X</button>
 			<div class="modal-content">
 				<h2>Confirm Appointment Cancellation</h2><br>
-				<p>Appointment Details:</p>
 				<p>Date: <span id="modalDate"></span></p>
 				<p>Start Time: <span id="modalStartTime"></span></p>
 				<p>Doctor: <span id="modalDoctor"></span></p>
 				<p>Appointment Type: <span id="modalAppointmentType"></span></p>
-				<p>Status: <span id="modalStatus"></span></p>
 				<p>Comments: <span id="modalComments"></span></p>
 			</div>
-			<button onclick="cancelAppointment()">Confirm Cancellation</button>
+			<button class="cancelBtn" onclick="cancelAppointment()">Confirm</button>
 		</div>
 	</div>
 

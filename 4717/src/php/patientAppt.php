@@ -6,7 +6,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     $patient_id = $_SESSION['patient_id'];
     $current_date = date('Y-m-d');
 
-    // Get doctor name (Required when name is updated)
+    // Get patient name (Required when name is updated)
     $sql = "SELECT * FROM Patient WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $patient_id);
