@@ -1,24 +1,13 @@
-<!-- Week6
-    1) ADD PHONE NUMBER & ALLERGY, @JS, MYSQL side also
-    2) CHANGE PATIENT USERTYPE TO JS SIDE FOR REGISTER FUNCTION NT IN API SIDE, @API SIDE CHANGE LOGIN TO GET DATA FROM TWO TABLES & IF STATMENT TO SEE SAVE IN WHICH TABLE 
--->
-
-<!-- 1) Forms Validation & API(PHP)
-     2) Change the CSS; 
-        - change & add image: logo, landingpage1
-        - popoutforms: login & signup - back btn, font type, spacing&colour
-     3) Enhance the CSS
--->
 <!DOCTYPE html>
 <html lang="en">
-	<!-- ------------------------------- HEAD ------------------------------------- -->
+	<!-- ----------------------------- HEAD ------------------------------------- -->
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Go Doc</title>
 		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="icon" href="../css/LogoIcon.png" />
+		<link rel="icon" href="../css/logo.png" />
 		<style>
 			h1 {
 				font-size: 60px;
@@ -32,36 +21,12 @@
 				line-height: normal;
 			}
 		</style>
-
 		<script src="../js/script.js"></script>
 	</head>
-	<!-- --------------------------- HEAD --------------------------------------- -->
+	<!-- ----------------------------- HEAD ------------------------------------- -->
 
-	<!-- 
-------------------------------- BODY ------------------------------------- -->
+	<!-- ----------------------------- BODY ------------------------------------- -->
 	<body>
-		<!-----FORM----------------------------------------------------------------->
-		<!--  <div id='loginbody'>
-      <h1 style='font-family:Times New Roman, Times, serif; padding-left: 100px;'>Login</h1>
-      <p style='font-family:Times New Roman, Times, serif; padding-left: 100px;'>Please fill out the following fields to login:</p>
-      <br>
-      <form id="loginForm" action="/login" method="POST">
-            <label class='col-lg-1 control-label' for='email'>Username</label>
-            <div class='col-lg-3'><input type='text' name='email' id='email' autofocus required aria-required="true"></div>
-            <label class='col-lg-1 control-label' for='password'>Password</label>
-            <div class='col-lg-3'><input type='password' name='password' id='password' required aria-required="true"></div>
-            <div class='col-lg-offset-1 col-lg-3'>
-                <input type='hidden' name='rememberme' value='0'>
-                <input type='checkbox' name='rememberme' id='rememberme' value='1' checked> 
-                <label for='rememberme'>Remember Me</label>
-            </div>
-            <br>
-            <div class='col-lg-offset-1 col-lg-11'><button type='submit' class='btn btn-primary' id='submitLogin' onclick="login()">Login</button></div>
-      </form> 
-  </div>
--->
-		<!-----END: FORM------------------------------------------------------------>
-
 		<div class="landing-content">
 			<h1>Go Doc</h1>
 			<br /><br />
@@ -75,49 +40,65 @@
 			></lottie-player>
 			<hr />
 			<br />
-			<button type="submit" id="landingLoginBtn" onclick="landingPage(landingLogin);">
-				Login with Email</button
+			<button type="submit" id="landingLoginBtn" onclick="landingPage(landingLogin);">Login with Email</button
 			><br /><br />
-			<p style="display: inline-block">
-				Don't have an account?
-				<button type="submit" id="landingSignUpBtn" onclick="landingPage(landingSignUp);">
-					Sign Up
-				</button>
+			<p style="display: inline-block">Don't have an account?
+				<button type="submit" id="landingSignUpBtn" onclick="landingPage(landingSignUp);">Sign Up</button>
 			</p>
 		</div>
 
 		<div id="landingLogin" class="hidden">
-			<h2>Login</h2>
+			<div class="login-header">
+				<h2>Login</h2>
+				<button id="closeBtn" onclick="closePopup(landingLogin);"></button>
+			</div>
+			<!--<h2>Login</h2>-->
+			<!--<button id="closeBtn" onclick="closePopup(landingLogin);"></button>-->
 			<br />
 			<form id="landingLoginForm" action="../php/login.php" method="POST">
-				<label>Email</label><br />
-				<input type="email" name="username" /><br /><br />
-				<label>Password</label><br />
-				<input type="password" name="password" /><br /><br /><br />
+				<label for="username">Email</label><br />
+				<input type="email" name="username" id="username" autocomplete="off" style="margin: 10px 0; padding: 15px; width: 300px; height: 30px; border: 1px solid #999; border-radius: 20px; background-color: #d9d9d9;"><br /><br />
+				<label for="password">Password</label><br />
+				<input type="password" name="password" id="password" autocomplete="off"/><br /><br /><br />
 				<button type="submit" id="LoginBtn">Login</button>
 			</form>
-			<button id="closeBtn" onclick="closePopup(landingLogin);">Back</button>
 		</div>
 
 		<div class="hidden" id="landingSignUp">
-			<h2>Register</h2>
+			<div class="login-header">
+				<h2>Register</h2>
+				<button id="closeBtn" onclick="closePopup(landingSignUp);"></button>
+			</div>
 			<br />
 			<form id="landingSignUpForm" action="../php/createPatient.php" method="POST">
 				<label for="addfirstname">Name</label><br />
-				<input type="text" name="addfirstname" placeholder="First Name" required /><br />
-				<input type="text" name="addlastname" placeholder="Last Name" required /><br /><br />
+				<input type="text" name="addfirstname" id="addfirstname" placeholder="First Name" required /><br />
+				<input type="text" name="addlastname" id="addlastname" placeholder="Last Name" required /><br /><br />
 				<label for="adddob">Date of Birth</label><br />
-				<input type="date" name="adddob" required /><br /><br />
+				<input type="date" name="adddob" id="adddob" required /><br /><br />
 				<label for="addemail">Email</label><br />
-				<input type="text" name="addemail" required /><br /><br />
+				<input type="text" name="addemail" id="addemail" required /><br /><br />
 				<label for="addpassword">Password</label><br />
-				<input type="password" name="addpassword" required /><br /><br /><br />
+				<input type="password" name="addpassword" id="addpassword" required /><br /><br /><br />
 				<button type="submit" id="SignUpBtn">Register</button>
 			</form>
-			<button id="closeBtn" onclick="closePopup(landingSignUp);">Back</button>
 		</div>
 
 		<script>
+
+			var message;
+
+			document.addEventListener("DOMContentLoaded", function() {
+				//document.getElementById('username').value = '';
+				//document.getElementById('password').value = '';
+				
+				message = getParameterByName('message');
+				if (message) {
+					popoutOne(message);
+				}
+
+			});
+
 			const urlParams = new URLSearchParams(window.location.search);
 			const email = urlParams.get('open');
 			if (email) {
@@ -139,38 +120,33 @@
 				formDiv.style.display = 'none';
 				document.body.classList.remove('overlay');
 
+				
 				var inputElements = formDiv.querySelectorAll('input');
 				inputElements.forEach(function (input) {
 					input.value = '';
-				});
+				});	
+				document.getElementById('username').value = "";
+				document.getElementById('password').value = "";
 			}
 
+			
 			function getParameterByName(name, url) {
 				if (!url) url = window.location.href;
-				name = name.replace(/[\[\]]/g, '\\$&');
+				//name = name.replace(/[\[\]]/g, '\\$&');
+				name = name.replace(/([A-Z])/g, ' $1').trim();
 				var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
 					results = regex.exec(url);
 				if (!results) return null;
 				if (!results[2]) return '';
 				return decodeURIComponent(results[2].replace(/\+/g, ' '));
 			}
-
+			/*
 			var message = getParameterByName('message');
 			if (message) {
 				popoutOne();
 			}
+			*/
 		</script>
 	</body>
 	<!-- --------------------------- BODY --------------------------------------- -->
-
-	<!-- ------------------------------- FOOTER ----------------------------------- -->
-	<br /><br /><br /><br /><br />
-	<!--
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">&copy; CLINIC 2023</p>
-  </div>
-</footer>
--->
-	<!-- --------------------------- FOOTER ------------------------------------- -->
 </html>

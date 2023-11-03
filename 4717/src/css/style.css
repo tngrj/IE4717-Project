@@ -105,7 +105,7 @@ Specific by Page
 	box-sizing: border-box;
 }
 
-//Could be removed doesn't seem like it does anything
+/*/Could be removed doesn't seem like it does anything*/
 .nav-links a:link,
 .nav-links a:visited {
 	color: white;
@@ -113,13 +113,13 @@ Specific by Page
 	text-decoration: none;
 }
 
-//Could be removed doesn't seem like it does anything
+/*landingLogin/Could be removed doesn't seem like it does anything*/
 .nav-links a:hover {
 	color: #1762d3;
 }
 
 /* Footer */
-//Is this even used?
+/*/Is this even used?*/
 .content {
 	padding-bottom: 60px;
 	min-height: calc(100vh - 60px);
@@ -401,7 +401,6 @@ td button {
 	z-index: 1000;
 }
 
-#landingLoginForm input[type='text'],
 #landingLoginForm input[type='password'],
 #landingSignUpForm input[type='text'],
 #landingSignUpForm input[type='password'] {
@@ -444,20 +443,23 @@ td button {
 	background-color: #15c1b3;
 }
 
-/*TBE: Close Button
-#closeBtn {
-    height: 60px;
-    width: 300px; 
-    border-radius: 38px;
-    background: #15C193; 
-    color: #ffffff;
-    font-size: 20px;
+.login-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
 }
 
-#closeBtn:hover {
-    background-color: #15c1b3;
+#closeBtn {
+    width: 40px;
+    height: 40px; 
+    background-image: url('cancel.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+	background-color: white;
+    border: none; 
+    cursor: pointer;
 }
-*/
+
 /* End: Landing Page ---------------------------------------------------------------------------------------------------------------------------- */
 /* END: BOTH ==================================================================================================================================== */
 
@@ -483,6 +485,8 @@ td button {
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	background-color: white;
+	max-height: 90vh;
+	overflow-y: auto;
 	z-index: 1000;
 }
 

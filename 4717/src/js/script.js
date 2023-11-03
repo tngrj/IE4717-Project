@@ -1,5 +1,6 @@
 //Popout Version#1: Submission Prompt
-function popoutOne() {
+function popoutOne(message) {
+	console.log('Message1:', message); 
 	var popup = document.createElement('div');
 	popup.textContent = message;
 	popup.style.position = 'fixed';
@@ -67,7 +68,7 @@ function toggleSelected(button) {
 }
 */
 
-//LOGIN
+/*LOGIN
 function login() {
 	var request = new XMLHttpRequest();
 	var userinfo = new Object();
@@ -108,6 +109,7 @@ function login() {
 	};
 	request.send(JSON.stringify(userinfo));
 }
+*/
 
 //REGISTER
 function register() {

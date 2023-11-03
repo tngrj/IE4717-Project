@@ -14,14 +14,17 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // Email already exists, show error message
-    echo "Error: Email already exists";
+    //echo "Error: Email already exists";
+    header("Location: ../html/LandingPage.html?message=EmailAlreadyExists");
+    exit();
 } else {
     // Insert data into the database
     $sql = "INSERT INTO Patient (first_name, last_name, date_of_birth, email, password)
     VALUES ('$firstname', '$lastname', '$dob', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../html/LandingPage.html");
+        //header("Location: ../html/LandingPage.html");
+        header("Location: ../html/LandingPage.html?message=RegistrationSuccessful");
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

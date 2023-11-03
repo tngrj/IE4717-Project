@@ -28,6 +28,7 @@ if (isset($_SESSION['availableTimeSlots'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Go Doc</title>
 
+	<!--<link rel="stylesheet" href="../css/style.css" />-->
 	<link rel="stylesheet" href="../css/style.css" />
 	<link rel="stylesheet" href="../css/form.css" />
 	<link rel="icon" href="../css/LogoIcon.png" />
@@ -232,6 +233,215 @@ if (isset($_SESSION['availableTimeSlots'])) {
 
 	const overlayStack = [];
 
+	/*
+	//User: Book New Appointment
+	//as we use image, when add new doctor, have to add html also. to solve this, instead of picture use dropbox as make it dynamic...
+	function booknewappointment(formDiv) {
+		formDiv.style.display = 'block';
+		document.body.classList.add('overlay');
+		const overlayContent = document.querySelector('#unewAppointment');
+		overlayStack.push(overlayContent.innerHTML);
+		overlayContent.innerHTML = `
+                <div class="header-container">
+                    <label style="font-size: 28px;">Choose your Doctor</label>
+                    <img class="exitBtn header-container-right" id="closeBtn" src="css/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
+                </div>
+                <br>
+                <img class="doctBtn" id="drTanNewAppt" src="src/css/drTan.jpg" alt="Dr. Tan" onclick="newapptdoctor('drTan');">
+                <img class="doctBtn" id="drNgNewAppt" src="css/drTan.jpg" alt="Dr. Lim" onclick="newapptdoctor('drLim');">
+                <img class="doctBtn" id="drKohNewAppt" src="css/drTan.jpg" alt="Dr. Koh" onclick="newapptdoctor('drKoh');">
+            `;
+		//overlayStack.push(overlayContent.innerHTML);
+	}
+	*/
+
+	/*
+	//User: New Appt - Back Button
+	function backPopup(formDiv) {
+		if (overlayStack.length > 0) {
+			const previousContent = overlayStack.pop();
+			const overlayContent = document.querySelector('#unewAppointment');
+			overlayContent.innerHTML = previousContent;
+		}
+	}
+
+    //User: New Appt - Exit Button
+    function closePopup(formDiv) {
+        formDiv.style.display = 'none';
+         document.body.classList.remove('overlay');
+    }
+	*/
+
+/*
+	//User: New Appt - Doctor
+	function newapptdoctor(doctor) {
+		const overlayContent = document.querySelector('#unewAppointment');
+
+		sessionStorage.setItem('doctor', doctor);
+
+		let doctorname, doctorid, positionname;
+		if (doctor === 'drTan') {
+			sessionStorage.setItem('doctorname', 'Dr Tan Wee Lian');
+			sessionStorage.setItem('doctorid', '1');
+			sessionStorage.setItem('positionname', 'Family Physician');
+
+		} else if (doctor === 'drLim') {
+			sessionStorage.setItem('doctorname', 'Dr Lim Koon Meng');
+			sessionStorage.setItem('doctorid', '2');
+			sessionStorage.setItem('positionname', 'Family Physician');
+		} else if (doctor === 'drKoh') {
+			sessionStorage.setItem('doctorname', 'Dr Koh Wee Beng');
+			sessionStorage.setItem('doctorid', '3');
+			sessionStorage.setItem('positionname', 'Dentist');
+		}
+
+		const currentDate = new Date();
+		const options = { year: 'numeric', month: 'long'};
+		const currentMonthYear = currentDate.toLocaleDateString('en-US', options);
+		sessionStorage.setItem('currentMonthYear', currentMonthYear);
+
+		overlayStack.push(overlayContent.innerHTML);
+		overlayContent.innerHTML = `
+                <div class="header-container">
+                    <img class="exitBtn header-container-left" id="backBtn" src="CSS/cancel.png" alt="back button" onclick="backPopup(unewAppointment);">  
+                    <img class="exitBtn header-container-right" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
+                </div>
+                <br>
+                <div class="body-container">
+                    <img class="doctBtn" id="drImage" src="css/${doctor}.jpg" alt="drImage">
+                    <div class="doctor-info">
+                        <label style="font-size: 28px;" id="doctorname">Doctor Name</label><br>
+                        <label style="font-size: 18px;" id="positionname">Position</label>
+                    </div>
+                </div>
+                <br>
+
+				<label style="font-size: 22px; font-weight: bold;" id="monthname">Month</label><br><br>
+				<div id="date-buttons-container"></div><br><br>
+				<h3>Morning</h3><br>
+				<div id="timeam-buttons-container"></div><br>
+				<h3>Afternoon</h3><br>
+				<div id="timepm-buttons-container"></div><br>
+            `;
+
+		document.getElementById('doctorname').textContent = sessionStorage.getItem('doctorname');
+		document.getElementById('positionname').textContent = sessionStorage.getItem('positionname');
+		document.getElementById('monthname').textContent = sessionStorage.getItem('currentMonthYear');
+
+		//*
+		const dateButtonContainer = document.getElementById('date-buttons-container');
+		const morningButtonContainer = document.getElementById('timeam-buttons-container');
+		const afternoonButtonContainer = document.getElementById('timepm-buttons-container');
+
+		const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		//const buttonContainer = document.getElementById('date-buttons-container');
+		for (let i = 0; i < daysOfWeek.length; i++) {
+			const day = daysOfWeek[i];
+			const date = new Date();
+			date.setDate(date.getDate() + i);
+			const shortDay = day.slice(0, 3);
+			const dateParts = date.toLocaleDateString().split('/');
+			const shortDate = `${dateParts[1]}`;
+			const button = document.createElement('button');
+			button.innerHTML = `${shortDay}<br>${shortDate}`;
+			button.classList.add('dayBtn');
+			button.setAttribute('onclick', 'newappttime(this)');
+			buttonContainer.appendChild(button);
+		}
+		//*
+		generateDateButtons();
+
+		//*
+		const morningContainer = document.getElementById('timeam-buttons-container');
+		const morningHeader = document.createElement('h3');
+		morningHeader.textContent = 'Morning';
+		morningContainer.appendChild(morningHeader);
+
+		const afternoonContainter = document.getElementById('timeom-buttons-containter');
+		const afternoonHeader = document.createElement('h3');
+		afternoonHeader.textContent = 'Afternoon';
+		morningContainer.appendChild(afternoonHeader);
+		
+	}
+*/
+/*
+	function generateDateButtons() {
+        const dateButtonContainer = document.getElementById('date-buttons-container');
+		const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+		alert('cp1');
+        for (let i = 0; i < daysOfWeek.length; i++) {
+			const day = daysOfWeek[i];
+			const date = new Date();
+			date.setDate(date.getDate() + i);
+			const shortDay = day.slice(0, 3);
+			const dateParts = date.toLocaleDateString().split('/');
+			const shortDate = `${dateParts[1]}`;
+			const button = document.createElement('button');
+			button.innerHTML = `${shortDay}<br>${shortDate}`;
+			button.classList.add('dayBtn');
+			button.setAttribute('onclick', 'newappttime(this)');
+			buttonContainer.appendChild(button);
+    
+		}
+	}
+
+	
+	function selectDay(button) {
+		const dateButtons = document.querySelectorAll('.dayBtn');
+		dateButtons.forEach((dateBtn) => dateBtn.classList.remove('selected'));
+
+		button.classList.add('selected');
+
+		const selectedDate = button.textContent;
+		const doctorId = sessionStorage.getItem('doctorid'); 
+
+		const availableTimeSlots = getAvailableTimeSlots(doctorId, selectedDate); // Implement this function accordingly
+
+		generateTimeButtons(availableTimeSlots);
+	}
+
+	function getAvailableTimeSlots(doctorId, selectedDate) {
+
+		return fetch('doctorAvailability.php', {
+			method: 'POST',
+			body: JSON.stringify({ doctorId, selectedDate }),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				return data;
+			})
+			.catch((error) => {
+				console.error('Error fetching available time slots:', error);
+				return [];
+			});
+	}
+
+	function generateTimeButtons(availableTimeSlots) {
+		const timeButtonContainer = document.getElementById('time-buttons-container');
+		timeButtonContainer.innerHTML = ''; 
+
+		if (availableTimeSlots.length === 0) {
+			timeButtonContainer.innerHTML = 'No available time slots for this date.';
+		} else {
+			availableTimeSlots.forEach((timeSlot) => {
+				const button = document.createElement('button');
+				button.textContent = timeSlot;
+				button.classList.add('timeBtn');
+				button.addEventListener('click', () => selectTime(button));
+				timeButtonContainer.appendChild(button);
+			});
+		}
+	}
+
+	function selectTime(button) {
+		const selectedTime = button.textContent;
+	}	
+*/
+
 //User: New Appt - Doctor
 function newapptdoctor(doctor) {
 		const overlayContent = document.querySelector('#unewAppointment');
@@ -308,7 +518,36 @@ function newapptdoctor(doctor) {
 			button.setAttribute('onclick', 'newappttime(this)');
 			dateButtonContainer.appendChild(button);
 		}
-		generateTimeSlots(false, <?php echo json_encode($availableTimeSlots); ?>);
+
+		document.querySelectorAll('.dayBtn').forEach((button) => {
+			button.addEventListener('click', function () {
+				document.querySelectorAll('.dayBtn').forEach((btn) => {
+					btn.classList.remove('selected');
+				});
+
+				this.classList.add('selected');
+				const selectedDate = this.getAttribute('data-date'); 
+
+				document.getElementById('selectedDateInput').value = selectedDate;
+				document.getElementById('dateForm').submit();
+
+				const availableTimeSlots = <?= json_encode($availableTimeSlots) ?>;
+				if (availableTimeSlots.length === 0) {
+					// No rows found, generate buttons in intervals of 15 minutes
+					const noRowsMessage = "No rows found for the given date and doctor.";
+					document.getElementById('resultMessage').textContent = noRowsMessage;
+					generateButtonsForInterval(true);
+				} else {
+					// Available time slots found, generate buttons excluding the values in availableTimeSlots
+					document.getElementById('resultMessage').textContent = ''; // Clear the result message
+					generateButtonsForInterval(false, availableTimeSlots);
+				}
+
+				//document.getElementById('dateForm').submit();
+				
+			});
+		});
+		
         /*
         const timeamButtonContainer = document.getElementById('timeam-buttons-container');
         const morningTimeSlots = generateTimeSlots(8, 12, 15);
@@ -332,30 +571,8 @@ function newapptdoctor(doctor) {
 		*/
 	}
 
-	function attachDateButtonListeners() {
-		document.querySelectorAll('.dayBtn').forEach((button) => {
-			button.addEventListener('click', function () {
-				document.querySelectorAll('.dayBtn').forEach((btn) => {
-					btn.classList.remove('selected');
-				});
-
-				this.classList.add('selected');
-				const selectedDate = this.getAttribute('data-date'); 
-
-				document.getElementById('selectedDateInput').value = selectedDate;
-				document.getElementById('dateForm').submit();
-			});
-
-			if (availableTimeSlots.length === 0) {
-				generateTimeSlots(true);
-			} else {
-				generateTimeSlots(false, <?php echo json_encode($availableTimeSlots); ?>);  // Generate available time slots
-			}
-		});
-	}
-
-
 	function generateTimeSlots(noRows, availableTimeSlots) {
+
 		const timeamButtonContainer = document.getElementById('timeam-buttons-container');
 		const timepmButtonContainer = document.getElementById('timepm-buttons-container');
 		timeamButtonContainer.innerHTML = '';
@@ -367,11 +584,6 @@ function newapptdoctor(doctor) {
 		const endHourPM = 20;  // 8 pm
 		const intervalMinutes = 15;
 
-		const currentDate = new Date(); // Current date and time
-		const currentHour = currentDate.getHours();
-		const currentMinute = currentDate.getMinutes();
-
-		/*
 		for (let hour = startHourAM; hour < endHourAM; hour++) {
 			for (let minute = 0; minute < 60; minute += intervalMinutes) {
 				const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
@@ -403,50 +615,50 @@ function newapptdoctor(doctor) {
 				}
 			}
 		}
-		*/
-		for (let hour = startHourAM; hour < endHourAM; hour++) {
-			for (let minute = 0; minute < 60; minute += intervalMinutes) {
-				const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-
-				// Compare the time with the current time to filter out past time slots
-				const timeParts = time.split(':');
-				const timeHour = parseInt(timeParts[0], 10);
-				const timeMinute = parseInt(timeParts[1], 10);
-
-				if ((hour > currentHour || (hour === currentHour && minute >= currentMinute)) && (noRows || !availableTimeSlots.includes(time))) {
-					if (time >= '08:00' && time < '12:00') {
-						timeamButtonContainer.appendChild(createTimeSlotButton(time));
-					}
-				}
-			}
-		}
-
-		for (let hour = startHourPM; hour < endHourPM; hour++) {
-			for (let minute = 0; minute < 60; minute += intervalMinutes) {
-				const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-
-				// Compare the time with the current time to filter out past time slots
-				const timeParts = time.split(':');
-				const timeHour = parseInt(timeParts[0], 10);
-				const timeMinute = parseInt(timeParts[1], 10);
-
-				if ((hour > currentHour || (hour === currentHour && minute >= currentMinute)) && (noRows || !availableTimeSlots.includes(time))) {
-					if (time >= '14:00' && time < '20:00') {
-						timepmButtonContainer.appendChild(createTimeSlotButton(time));
-					}
-				}
-			}
-    	}
-
 	}
+
+
+	/*
+						function generateTimeSlots(availableTimeSlots) {
+
+							const timeamButtonContainer = document.getElementById('timeam-buttons-container');
+							const timepmButtonContainer = document.getElementById('timepm-buttons-container');
+							timeamButtonContainer.innerHTML = '';
+							timepmButtonContainer.innerHTML = '';
+
+							availableTimeSlots.forEach((timeSlot) => {
+								const button = document.createElement('button');
+								button.textContent = timeSlot;
+								button.classList.add('timeBtn');
+								button.setAttribute('onclick', 'selectTimeSlot(this)');
+								if (timeSlot >= '08:00' && timeSlot < '12:00') {
+									timeamButtonContainer.appendChild(button);
+								} else {
+									timepmButtonContainer.appendChild(button);
+								}
+							});
+						}
+
+	*/
+
+    /*
+    function generateTimeSlots(startHour, endHour, intervalMinutes) {
+        const timeSlots = [];
+        const currentTime = new Date();
+        currentTime.setHours(startHour, 0, 0, 0);
+    
+        while (currentTime.getHours() < endHour) {
+        const hours = currentTime.getHours();
+        const minutes = currentTime.getMinutes();
+        const timeSlot = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        timeSlots.push(timeSlot);
+        currentTime.setMinutes(currentTime.getMinutes() + intervalMinutes);
+        }
+    
+        return timeSlots;
+    }
+    */
 	
-	function createTimeSlotButton(time) {
-		const button = document.createElement('button');
-		button.textContent = time;
-		button.classList.add('timeBtn');
-		button.setAttribute('onclick', 'selectTimeSlot(this)');
-		return button;
-	}
 
 	function newappttime(button) {
 		button.classList.toggle('selected');
@@ -575,5 +787,39 @@ function newapptdoctor(doctor) {
 		document.getElementById('appttime').textContent = appttime;
 		document.getElementById('apptcomment').textContent = apptcomment;
 	}
+
+	/*TBD: User - Main: Add Appointments
+        function submituAppt() {
+
+            var request = new XMLHttpRequest();
+            var unewappt = new Object();
+
+            unewappt.doctorname = sessionStorage.getItem("doctorname");
+            unewappt.appttype = sessionStorage.getItem("appttype");
+            unewappt.apptdate = sessionStorage.getItem("apptdate");
+            unewappt.appttime = sessionStorage.getItem("appttime");
+            unewappt.apptcomment = sessionStorage.getItem("apptcomment");
+            unewappt.patientname = sessionStorage.getItem("userId");
+
+            request.open("POST", "/adduNewAppt", true);
+            request.setRequestHeader("Content-Type", "application/json");
+
+            request.onload = function () {
+                response = JSON.parse(request.responseText);
+
+                    if (response.message == "Form is Submitted. Please close the page.") {
+                        alert("Form is created successfully.");
+                        sessionStorage.removeItem("doctorname");
+                        sessionStorage.removeItem("appttype");
+                        sessionStorage.removeItem("apptdate");
+                        sessionStorage.removeItem("appttime");
+                        sessionStorage.removeItem("apptcomment");
+                        closePopup(unewAppointment);
+                    }
+            };
+
+            request.send(JSON.stringify(unewappt));
+        }
+        */
 
 </script>
