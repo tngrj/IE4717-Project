@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 	<!-- ----------------------------- HEAD ------------------------------------- -->
+=======
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Go Doc</title>
 		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
+<<<<<<< HEAD
 		<link rel="icon" href="../css/logo.png" />
+=======
+		<link rel="stylesheet" href="../css/form.css" />
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 		<style>
 			h1 {
-				font-size: 60px;
+				font-size: 80px;
 			}
 			h2 {
 				color: #000;
@@ -22,10 +29,15 @@
 			}
 		</style>
 		<script src="../js/script.js"></script>
+		<script src="../js/validateEmail.js"></script>
 	</head>
+<<<<<<< HEAD
 	<!-- ----------------------------- HEAD ------------------------------------- -->
 
 	<!-- ----------------------------- BODY ------------------------------------- -->
+=======
+
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 	<body>
 		<div class="landing-content">
 			<h1>Go Doc</h1>
@@ -33,13 +45,14 @@
 			<lottie-player
 				src="../css/animation_lmzcv7t2.json"
 				background="transparent"
-				speed="1"
-				style="width: 300px; height: 300px"
+				speed="1.5"
+				style="width: 400px; height: 400px"
 				loop
 				autoplay
 			></lottie-player>
 			<hr />
 			<br />
+<<<<<<< HEAD
 			<button type="submit" id="landingLoginBtn" onclick="landingPage(landingLogin);">Login with Email</button
 			><br /><br />
 			<p style="display: inline-block">Don't have an account?
@@ -98,6 +111,79 @@
 				}
 
 			});
+=======
+			<button type="submit" id="landingLoginBtn" onclick="toggleForm('loginContainer')">
+				Login with Email</button
+			><br /><br />
+			<p style="display: inline-block">
+				Don't have an account?
+				<button type="submit" id="landingSignUpBtn" onclick="toggleForm('signUpContainer')">
+					Sign Up
+				</button>
+			</p>
+		</div>
+
+		<div class="form-popup-bg" id="loginContainer">
+			<div class="form-container">
+				<button class="close-button" onclick="toggleForm('loginContainer')">
+					<img src="../css/cancel2.png" class="button-image" title="Close Form" />
+				</button>
+				<div class="modal-content">
+					<h2>Login</h2>
+					<br />
+					<form id="landingLoginForm" action="../php/login.php" method="POST">
+						<label>Email</label><br />
+						<input type="email" name="username" /><br /><br />
+						<label>Password</label><br />
+						<input type="password" name="password" /><br /><br />
+						<button type="submit" id="LoginBtn">Login</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-popup-bg" id="signUpContainer">
+			<div class="form-container">
+				<button class="close-button" onclick="toggleForm('signUpContainer')">
+					<img src="../css/cancel2.png" class="button-image" title="Close Form" />
+				</button>
+				<div class="modal-content">
+					<h2>Register</h2>
+					<br />
+					<form
+						id="landingSignUpForm"
+						action="../php/createPatient.php"
+						method="POST"
+						onsubmit="return validateEmail()"
+					>
+						<label for="addfirstname">Name</label><br />
+						<input type="text" name="addfirstname" placeholder="First Name" required /><br />
+						<input type="text" name="addlastname" placeholder="Last Name" required /><br /><br />
+						<label for="adddob">Date of Birth</label><br />
+						<input type="date" name="adddob" required /><br /><br />
+						<label for="addemail">Email</label><br />
+						<input
+							type="email"
+							name="addemail"
+							id="emailInput"
+							onkeyup="validateEmail()"
+							required
+						/>
+						<span id="emailError" class="error-message"></span><br /><br />
+						<label for="addpassword">Password</label><br />
+						<input type="password" name="addpassword" required /><br /><br />
+						<button type="submit" id="SignUpBtn">Register</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			function toggleForm(formId) {
+				const formContainer = document.getElementById(formId);
+				formContainer.classList.toggle('is-visible');
+			}
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 
 			const urlParams = new URLSearchParams(window.location.search);
 			const email = urlParams.get('open');
@@ -111,6 +197,7 @@
 				}
 			}
 
+<<<<<<< HEAD
 			function landingPage(formDiv) {
 				formDiv.style.display = 'block';
 				document.body.classList.add('overlay');
@@ -130,6 +217,8 @@
 			}
 
 			
+=======
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 			function getParameterByName(name, url) {
 				if (!url) url = window.location.href;
 				//name = name.replace(/[\[\]]/g, '\\$&');
@@ -148,5 +237,8 @@
 			*/
 		</script>
 	</body>
+<<<<<<< HEAD
 	<!-- --------------------------- BODY --------------------------------------- -->
+=======
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 </html>

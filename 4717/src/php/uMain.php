@@ -57,7 +57,7 @@ if (isset($_SESSION['availableTimeSlots'])) {
 		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
 			<a href="doctorList.php"><img src="../css/doctors.png" title="List of Doctors" /></a>
-			<a href="userProfile.php"><img src="../css/profile.png" title="Profile" /></a>
+			<a href="patientProfile.php"><img src="../css/profile.png" title="Profile" /></a>
 			<a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
 		</div>
 	</nav>
@@ -110,7 +110,6 @@ if (isset($_SESSION['availableTimeSlots'])) {
 									'<?php echo $appointment['scheduled_time']; ?>',
 									'<?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?>',
 									'<?php echo $appointment['consultation_type']; ?>',
-									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
 									)"><img src="../css/cancel2.png" class="button-image"></button>
 								</td>
@@ -159,7 +158,6 @@ if (isset($_SESSION['availableTimeSlots'])) {
 									'<?php echo $appointment['scheduled_time']; ?>',
 									'<?php echo $appointment['doctor_first_name'] . ' ' . $appointment['doctor_last_name']; ?>',
 									'<?php echo $appointment['consultation_type']; ?>',
-									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
 									)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
 								</td>
@@ -191,15 +189,13 @@ if (isset($_SESSION['availableTimeSlots'])) {
 			<button class="close-button" onclick="closeCancellationForm()">X</button>
 			<div class="modal-content">
 				<h2>Confirm Appointment Cancellation</h2><br>
-				<p>Appointment Details:</p>
 				<p>Date: <span id="modalDate"></span></p>
 				<p>Start Time: <span id="modalStartTime"></span></p>
 				<p>Doctor: <span id="modalDoctor"></span></p>
 				<p>Appointment Type: <span id="modalAppointmentType"></span></p>
-				<p>Status: <span id="modalStatus"></span></p>
 				<p>Comments: <span id="modalComments"></span></p>
 			</div>
-			<button onclick="cancelAppointment()">Confirm Cancellation</button>
+			<button class="cancelBtn" onclick="cancelAppointment()">Confirm</button>
 		</div>
 	</div>
 </body>

@@ -4,9 +4,19 @@ require_once 'db-connect.php';
 // Check if the user is logged in as a patient
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     $patient_id = $_SESSION['patient_id'];
-
-    // Get the current date
     $current_date = date('Y-m-d');
+
+    // Get patient name (Required when name is updated)
+    $sql = "SELECT * FROM Patient WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $patient_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $_SESSION['patient_name'] = $row['first_name'] . ' ' . $row['last_name'];
+    }
 
     // Retrieve all appointments for the specified patient along with the doctor's name
     $sql = "SELECT A.*, D.first_name AS doctor_first_name, D.last_name AS doctor_last_name

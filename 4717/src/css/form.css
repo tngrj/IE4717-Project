@@ -16,7 +16,7 @@
 	top: 0;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(94, 110, 141, 0.9);
+	background-color: #508494;
 	opacity: 0;
 	visibility: hidden;
 	-webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
@@ -35,7 +35,7 @@
 }
 
 .form-container {
-	background-color: #2d3638;
+	background-color: #faf9f9;
 	border-radius: 10px;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	display: flex;
@@ -48,7 +48,6 @@
 	margin-right: auto;
 	position: relative;
 	padding: 40px;
-	color: #fff;
 }
 
 .modal-content {
@@ -60,14 +59,13 @@
 }
 
 .close-button {
-	background: none;
-	color: #fff;
+	border: none;
+	background: transparent;
 	width: 40px;
 	height: 40px;
 	position: absolute;
-	top: 0;
-	right: 0;
-	border: solid 1px #fff;
+	top: 0.5em;
+	right: 0.5em;
 }
 
 .form-popup-bg:before {

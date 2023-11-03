@@ -363,6 +363,7 @@ td button {
 }
 
 #landingLoginBtn {
+	border: none;
 	width: 300px;
 	height: 60px;
 	border-radius: 38px;
@@ -402,8 +403,10 @@ td button {
 }
 
 #landingLoginForm input[type='password'],
+#landingLoginForm input[type='email'],
 #landingSignUpForm input[type='text'],
-#landingSignUpForm input[type='password'] {
+#landingSignUpForm input[type='password'],
+#landingSignUpForm input[type='email'] {
 	margin: 10px 0;
 	padding: 15px;
 	width: 300px;
@@ -429,7 +432,9 @@ td button {
 }
 
 #LoginBtn,
-#SignUpBtn {
+#SignUpBtn,
+.cancelBtn {
+	border: none;
 	width: 300px;
 	height: 55px;
 	border-radius: 20px;
@@ -443,6 +448,7 @@ td button {
 	background-color: #15c1b3;
 }
 
+<<<<<<< HEAD
 .login-header {
     display: flex;
     justify-content: space-between; 
@@ -460,12 +466,15 @@ td button {
     cursor: pointer;
 }
 
+=======
+>>>>>>> f19b2502dd78db5a5c4217b085d389646ab07894
 /* End: Landing Page ---------------------------------------------------------------------------------------------------------------------------- */
 /* END: BOTH ==================================================================================================================================== */
 
 /* === USER ===================================================================================================================================== */
 /* --- User - Main Page ------------------------------------------------------------------------------------------------------------------------- */
 #booknewappointment {
+	border: none;
 	float: right;
 	width: 250px;
 	height: 55px;
