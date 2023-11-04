@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-include 'patientAppt.php';
 include 'db-connect.php';
 
 // Check if the user is logged in as a patient
@@ -22,10 +21,8 @@ $result = $conn->query($sql);
 $conn->close();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
-<!----------- HEAD --------------------------------------->
 
 <head>
     <meta charset="UTF-8">
@@ -36,12 +33,8 @@ $conn->close();
     <link rel="icon" href="../css/logo.png" />
     <script src="../js/script.js"></script>
 </head>
-<!----------- HEAD --------------------------------------->
-
-<!----------- BODY --------------------------------------->
 
 <body>
-    <!-----NAVBAR--------------------------------------------------------------->
     <nav class="navbar">
         <a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
         <div class="nav-links">
@@ -51,8 +44,8 @@ $conn->close();
         </div>
     </nav>
     <br />
-    <!-----END: NAVBAR---------------------------------------------------------->
-    <div class="">
+
+    <div>
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -60,12 +53,16 @@ $conn->close();
                 $doctorEmail = $row['email'];
                 $specialization = $row['specialization'];
                 $biography = $row['biography'];
+                $imagePath = $row['image'];
 
                 echo '<div class="doctor-card">';
+                echo '<img class="doc-image" src="../assets/' . $imagePath . '" alt="' . $doctorName . '" />';
+                echo '<div class="doctor-info">';
                 echo '<h3>' . $doctorName . '</h3>';
                 echo '<p>Email: ' . $doctorEmail . '</p>';
                 echo '<p>Specialization: ' . $specialization . '</p>';
                 echo '<p>Biography: ' . $biography . '</p>';
+                echo '</div>';
                 echo '</div>';
             }
         } else {
@@ -76,19 +73,12 @@ $conn->close();
 
 
 </body>
-<!----------- HEAD --------------------------------------->
 
-<!----------- FOOTER ------------------------------------->
-<br /><br /><br /><br /><br />
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; Go Doc 2023</p>
-    </div>
+<footer>
+    <p>&copy; Go Doc 2023</p>
 </footer>
-<!----------- FOOTER ------------------------------------->
 
 </html>
-
 
 <script>
     function confirmLogout() {
