@@ -37,6 +37,7 @@
 	</head>
 
 	<body>
+		<!-- No idea what this does -->
 		<!-----FORM----------------------------------------------------------------->
 		<!--  <div id='loginbody'>
       <h1 style='font-family:Times New Roman, Times, serif; padding-left: 100px;'>Login</h1>
@@ -83,6 +84,7 @@
 			</p>
 		</div>
 
+		<!-- Login Form -->
 		<div class="form-popup-bg" id="loginContainer">
 			<div class="form-container">
 				<button class="close-button" onclick="toggleForm('loginContainer')">
@@ -102,6 +104,7 @@
 			</div>
 		</div>
 
+		<!-- Sign Up Form -->
 		<div class="form-popup-bg" id="signUpContainer">
 			<div class="form-container">
 				<button class="close-button" onclick="toggleForm('signUpContainer')">
@@ -112,10 +115,25 @@
 					<br />
 					<form
 						id="landingSignUpForm"
-						action="../php/createPatient.php"
+						action="../php/createUser.php"
 						method="POST"
 						onsubmit="return validateEmail()"
+						enctype="multipart/form-data"
 					>
+						<label for="accesscode">Access Code (For Doctors Only)</label><br />
+						<input type="text" name="accesscode" id="accessCode" />
+						<br />
+						<button type="button" id="checkAccessCode">Check Access Code</button><br /><br />
+
+						<div id="doctorFields" style="display: none">
+							<label for="addspecialization">Specialization</label><br />
+							<input type="text" name="addspecialization" /><br /><br />
+							<label for="addbiography">Biography</label><br />
+							<textarea name="addbiography" rows="4"></textarea><br /><br />
+							<label for="addimage">Upload Image</label><br />
+							<input type="file" name="addimage" accept="image/*" /><br /><br />
+						</div>
+
 						<label for="addfirstname">Name</label><br />
 						<input type="text" name="addfirstname" placeholder="First Name" required /><br />
 						<input type="text" name="addlastname" placeholder="Last Name" required /><br /><br />
@@ -139,6 +157,19 @@
 		</div>
 
 		<script>
+			// Get the access code field and the doctor fields
+			document.getElementById('checkAccessCode').addEventListener('click', function () {
+				const accessCode = document.getElementById('accessCode').value;
+				const doctorFields = document.getElementById('doctorFields');
+
+				if (accessCode === '5564') {
+					doctorFields.style.display = 'block';
+				} else {
+					doctorFields.style.display = 'none';
+				}
+			});
+
+			// Toggles Login and Registration Forms
 			function toggleForm(formId) {
 				const formContainer = document.getElementById(formId);
 				formContainer.classList.toggle('is-visible');
@@ -156,6 +187,7 @@
 				}
 			}
 
+			// No idea what this does
 			function getParameterByName(name, url) {
 				if (!url) url = window.location.href;
 				name = name.replace(/[\[\]]/g, '\\$&');
@@ -165,7 +197,7 @@
 				if (!results[2]) return '';
 				return decodeURIComponent(results[2].replace(/\+/g, ' '));
 			}
-
+			// No idea what this does
 			var message = getParameterByName('message');
 			if (message) {
 				popoutOne();
