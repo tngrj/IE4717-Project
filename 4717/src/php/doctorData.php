@@ -28,6 +28,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
                 $doctorData[$doctorId] = array(
                     'doctorName' => $doctorName,
                     'doctorImage' => $doctorImage,
+                    'doctorId' => $doctorId,
                     'appointments' => array()
                 );
             }

@@ -116,7 +116,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 											'<?php echo $appointment['consultation_type']; ?>',
 											'<?php echo $appointment['status']; ?>',
 											'<?php echo $appointment['comments']; ?>'
-											)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
+											)"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
 								<form action="confirmAppt.php" method="post">
 									<input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
 									<button type="submit">
@@ -170,7 +170,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 									'<?php echo $appointment['consultation_type']; ?>',
 									'<?php echo $appointment['status']; ?>',
 									'<?php echo $appointment['comments']; ?>'
-									)"><img src="../css/cancel2.png" class="button-image" title="Cancel Appointment"></button>
+									)"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
 						</td>
 					</tr>
 				<?php

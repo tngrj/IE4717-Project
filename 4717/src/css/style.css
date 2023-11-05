@@ -241,13 +241,69 @@ footer {
 	padding: 0.5em;
 }
 
+.appointment-timings {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em;
+	margin: 0.5em 0.5em;
+}
+
+.time-card {
+	background-color: #bfebf8;
+	border: none;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	padding: 1em;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.selected-day {
+	background: #17a7d3 !important;
+	color: white !important;
+}
+
+.booked {
+	background: #bcbcbc !important;
+	color: black !important;
+}
+
+.days-of-week {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em;
+	margin: 0.5em 0.5em;
+}
+
+.day-card {
+	background-color: #bfebf8;
+	border: none;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	padding: 1em;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 .profile-card {
 	display: flex;
 	flex-direction: column;
 	text-align: start;
 	background-color: #f2f2f2;
 	border-radius: 10px;
-	width: 30%;
+	width: 10%;
 	padding: 2em;
 	margin: 2em auto;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
