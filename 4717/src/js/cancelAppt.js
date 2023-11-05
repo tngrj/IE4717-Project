@@ -12,12 +12,6 @@ function openModal(id, date, startTime, doctor, appointmentType, comments) {
 	cancellationFormContainer.classList.add('is-visible');
 }
 
-// Function to close the confirmation modal
-function closeCancellationForm() {
-	const cancellationFormContainer = document.getElementById('cancellationFormContainer');
-	cancellationFormContainer.classList.remove('is-visible');
-}
-
 // Function to cancel the appointment
 function cancelAppointment() {
 	window.location.href = `cancelAppt.php?id=${appointmentId}`;

@@ -49,7 +49,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     }
 
     $stmt->close();
-    $conn->close();
 } else {
     // Handle the case where the user is not logged in as a patient or doesn't have access
     echo json_encode(['error' => 'Access denied']);

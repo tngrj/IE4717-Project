@@ -14,6 +14,7 @@
 session_start();
 
 include 'patientAppt.php';
+include 'doctorData.php';
 
 // Check if the user is logged in as a patient
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
@@ -58,7 +59,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 				<h4 id="uMainTime"></h4>
 				<h2><?php echo $patient_name ?></h2>
 			</div>
-			<button id="booknewappointment" onclick="booknewappointment(unewAppointment);">
+			<button id="booknewappointment" onclick="toggleForm('bookingContainer')">
 				Book a new Appointment
 			</button>
 		</div>
@@ -175,7 +176,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 	<div class="form-popup-bg" id="cancellationFormContainer">
 		<div class="form-container">
-			<button class="close-button" onclick="closeCancellationForm()">X</button>
+			<button class="close-button" onclick="toggleForm('cancellationFormContainer')">
+				<img src="../css/cancel2.png" class="button-image" title="Close Form" />
+			</button>
 			<div class="modal-content">
 				<h2>Confirm Appointment Cancellation</h2><br>
 				<p>Date: <span id="modalDate"></span></p>
@@ -187,6 +190,34 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 			<button class="cancelBtn" onclick="cancelAppointment()">Confirm</button>
 		</div>
 	</div>
+
+	<!-- Booking Modal -->
+
+	<div class="form-popup-bg" id="bookingContainer">
+		<div class="form-container" style="max-width:800px">
+			<button class="close-button" onclick="toggleForm('bookingContainer')">
+				<img src="../css/cancel2.png" class="button-image" title="Close Form" />
+			</button>
+			<div class="modal-content">
+				<h2>Choose your Doctor</h2><br>
+				<div class="row">
+					<?php
+					foreach ($doctorData as $doctor) {
+						$doctorName = $doctor['doctorName'];
+						$doctorImage = '../assets/' . $doctor['doctorImage'];
+						$doctorId = $doctor['doctorId'];
+
+						echo '<div class="card">
+	                    <img src="' . $doctorImage . '" alt="' . $doctorName . '" class="doc-image">
+	                    <p class="doctor-name">' . $doctorName . '</p>
+	                  </div>';
+					}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 
 </body>
@@ -217,6 +248,11 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		greetingElement.textContent = 'Good Evening';
 	}
 
+	// Toggles Booking / Cancellation Modal
+	function toggleForm(formId) {
+		const formContainer = document.getElementById(formId);
+		formContainer.classList.toggle('is-visible');
+	}
 
 	const overlayStack = [];
 
@@ -250,12 +286,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	}
 
 	/*TBD
-        //User: New Appt - Exit Button
-        function closePopup(formDiv) {
-            formDiv.style.display = 'none';
-            document.body.classList.remove('overlay');
-        }
-        */
+	//User: New Appt - Exit Button
+	function closePopup(formDiv) {
+	formDiv.style.display = 'none';
+	document.body.classList.remove('overlay');
+	}
+	*/
 
 	//User: New Appt - Doctor
 	function newapptdoctor(doctor) {
@@ -290,28 +326,28 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		//change to calender?
 		overlayStack.push(overlayContent.innerHTML);
 		overlayContent.innerHTML = `
-                <div class="header-container">
-                    <img class="exitBtn header-container-left" id="backBtn" src="CSS/cancel.png" alt="back button" onclick="backPopup(unewAppointment);">  
-                    <img class="exitBtn header-container-right" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
-                </div>
-                <br>
-                <div class="body-container">
-                    <img class="doctBtn" id="drImage" src="${imageSource}" alt="drImage">
-                    <div class="doctor-info">
-                        <label style="font-size: 28px;" id="doctorname">Doctor Name</label><br>
-                        <label style="font-size: 18px;" id="positionname">Position</label>
-                    </div>
-                </div>
-                <br>
-                <label style="font-size: 22px; font-weight: bold;" id="monthname">Month</label><br><br>
-                <div id="buttons-container"></div><br><br>
-                <h3>Morning</h3><br>
-//based on date selected, get time, use for loop to generate?<br><br>
-                <h3>Afternoon</h3><br>
-                <button class="timeBtn" value="1500" onclick="newappttime(this)">1500</button>
-                <button class="timeBtn" value="1700" onclick="newappttime(this)">1700</button>
-//based on date selected, get time, use for loop to generate?<br><br>
-            `;
+				<div class="header-container">
+					<img class="exitBtn header-container-left" id="backBtn" src="CSS/cancel.png" alt="back button" onclick="backPopup(unewAppointment);">
+					<img class="exitBtn header-container-right" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">
+				</div>
+				<br>
+				<div class="body-container">
+					<img class="doctBtn" id="drImage" src="${imageSource}" alt="drImage">
+					<div class="doctor-info">
+						<label style="font-size: 28px;" id="doctorname">Doctor Name</label><br>
+						<label style="font-size: 18px;" id="positionname">Position</label>
+					</div>
+				</div>
+				<br>
+				<label style="font-size: 22px; font-weight: bold;" id="monthname">Month</label><br><br>
+				<div id="buttons-container"></div><br><br>
+				<h3>Morning</h3><br>
+				//based on date selected, get time, use for loop to generate?<br><br>
+				<h3>Afternoon</h3><br>
+				<button class="timeBtn" value="1500" onclick="newappttime(this)">1500</button>
+				<button class="timeBtn" value="1700" onclick="newappttime(this)">1700</button>
+				//based on date selected, get time, use for loop to generate?<br><br>
+				`;
 
 		document.getElementById('doctorname').textContent = sessionStorage.getItem('doctorname');
 		document.getElementById('positionname').textContent =
@@ -381,40 +417,40 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		overlayStack.push(overlayContent.innerHTML);
 		overlayContent.innerHTML = `
 
-                <div class="header-container">
-                    <img class="exitBtn header-container-left" id="backBtn" src="CSS/cancel.png" alt="back button" onclick="backPopup(unewAppointment);">  
-                    <img class="exitBtn header-container-right" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">                
-                </div>
-                <br>
-                <div class="body-container">
-                    <img class="doctBtn" id="drImage" src="${imageSource}" alt="drImage">
-                    <div class="doctor-info">
-                        <label style="font-size: 28px;" id="doctorname">Doctor Name</label><br>
-                        <label style="font-size: 18px;" id="positionname">Position</label>
-                    </div>
-                </div>
-                <div class="header-container">
-                    <p style="font-size: 18px; font-weight: bold;">You selected: </p>
-                    <select id='appttype' required>
-                        <option value="" disabled selected hidden>Select Appointment Type</option>
-                        <option value="Consultation">Consultation</option>
-                        <option value="Medical Examination">Medical Examination</option>
-                    </select>
-                </div>
-                <br><br>
-                <div class="body-container">
-                    <div class="label-container">
-                        <label style="font-size: 18px; font-weight: bold;" id="currentMonthYear">Month Year</label><br>
-                        <label class="confirmoption" id="apptdate">Appointment Day<br>Date</label><br>
-                        <label class="confirmoption" id="appttime">Appointment Time</label>
-                    </div>
-                    <textarea rows="10" cols="30" class="commentbox" id='uapptcomment' placeholder="Comment(s)"></textarea>
-                </div>
-                <br><br>
-                <button type='submit' id='submituAppt' onclick="checkrequired();">Confirm</button>
-                <br><br>
-                    
-            `;
+					<div class="header-container">
+						<img class="exitBtn header-container-left" id="backBtn" src="CSS/cancel.png" alt="back button" onclick="backPopup(unewAppointment);">
+						<img class="exitBtn header-container-right" id="closeBtn" src="CSS/cancel.png" alt="close button" onclick="closePopup(unewAppointment);">
+					</div>
+					<br>
+					<div class="body-container">
+						<img class="doctBtn" id="drImage" src="${imageSource}" alt="drImage">
+						<div class="doctor-info">
+							<label style="font-size: 28px;" id="doctorname">Doctor Name</label><br>
+							<label style="font-size: 18px;" id="positionname">Position</label>
+						</div>
+					</div>
+					<div class="header-container">
+						<p style="font-size: 18px; font-weight: bold;">You selected: </p>
+						<select id='appttype' required>
+							<option value="" disabled selected hidden>Select Appointment Type</option>
+							<option value="Consultation">Consultation</option>
+							<option value="Medical Examination">Medical Examination</option>
+						</select>
+					</div>
+					<br><br>
+					<div class="body-container">
+						<div class="label-container">
+							<label style="font-size: 18px; font-weight: bold;" id="currentMonthYear">Month Year</label><br>
+							<label class="confirmoption" id="apptdate">Appointment Day<br>Date</label><br>
+							<label class="confirmoption" id="appttime">Appointment Time</label>
+						</div>
+						<textarea rows="10" cols="30" class="commentbox" id='uapptcomment' placeholder="Comment(s)"></textarea>
+					</div>
+					<br><br>
+					<button type='submit' id='submituAppt' onclick="checkrequired();">Confirm</button>
+					<br><br>
+
+					`;
 
 		document.getElementById('doctorname').textContent = doctorname;
 		document.getElementById('positionname').textContent = positionname;
@@ -449,19 +485,19 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		overlayStack.push(overlayContent.innerHTML);
 		overlayContent.innerHTML = `
 
-                <label class="headertextbox">Appointment Confirmed</label>
-                <br><br><br><br>
-                <div class="label-container-two">
-                    <label id="doctorname">Doctor Name</label><br>
-                    <label class="transparenttextbox" id="appttype">Appointment Type</label><br>
-                    <label id="apptdate">Appointment Date<br>Day </label><br>
-                    <label id="appttime">Appointment Time</label><br><br>
-                    <p>Comment(s):</p><br>
-                    <label id="apptcomment">Appointment Comment</label>
-                </div>
-                <br><br>
-                <button type='submit' id='submituAppt' onclick="submituAppt();">Close</button>
-            `;
+					<label class="headertextbox">Appointment Confirmed</label>
+					<br><br><br><br>
+					<div class="label-container-two">
+						<label id="doctorname">Doctor Name</label><br>
+						<label class="transparenttextbox" id="appttype">Appointment Type</label><br>
+						<label id="apptdate">Appointment Date<br>Day </label><br>
+						<label id="appttime">Appointment Time</label><br><br>
+						<p>Comment(s):</p><br>
+						<label id="apptcomment">Appointment Comment</label>
+					</div>
+					<br><br>
+					<button type='submit' id='submituAppt' onclick="submituAppt();">Close</button>
+					`;
 
 		document.getElementById('doctorname').textContent = doctorname;
 		document.getElementById('appttype').textContent = appttype;
@@ -472,46 +508,46 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	}
 
 	/*TBD: User - Main: Add Appointments
-        function submituAppt() {
+	function submituAppt() {
 
-            var request = new XMLHttpRequest();
-            var unewappt = new Object();
+	var request = new XMLHttpRequest();
+	var unewappt = new Object();
 
-            unewappt.doctorname = sessionStorage.getItem("doctorname");
-            unewappt.appttype = sessionStorage.getItem("appttype");
-            unewappt.apptdate = sessionStorage.getItem("apptdate");
-            unewappt.appttime = sessionStorage.getItem("appttime");
-            unewappt.apptcomment = sessionStorage.getItem("apptcomment");
-            unewappt.patientname = sessionStorage.getItem("userId");
+	unewappt.doctorname = sessionStorage.getItem("doctorname");
+	unewappt.appttype = sessionStorage.getItem("appttype");
+	unewappt.apptdate = sessionStorage.getItem("apptdate");
+	unewappt.appttime = sessionStorage.getItem("appttime");
+	unewappt.apptcomment = sessionStorage.getItem("apptcomment");
+	unewappt.patientname = sessionStorage.getItem("userId");
 
-            request.open("POST", "/adduNewAppt", true);
-            request.setRequestHeader("Content-Type", "application/json");
+	request.open("POST", "/adduNewAppt", true);
+	request.setRequestHeader("Content-Type", "application/json");
 
-            request.onload = function () {
-                response = JSON.parse(request.responseText);
+	request.onload = function () {
+	response = JSON.parse(request.responseText);
 
-                    if (response.message == "Form is Submitted. Please close the page.") {
-                        alert("Form is created successfully.");
-                        sessionStorage.removeItem("doctorname");
-                        sessionStorage.removeItem("appttype");
-                        sessionStorage.removeItem("apptdate");
-                        sessionStorage.removeItem("appttime");
-                        sessionStorage.removeItem("apptcomment");
-                        closePopup(unewAppointment);
-                    }
-            };
+	if (response.message == "Form is Submitted. Please close the page.") {
+	alert("Form is created successfully.");
+	sessionStorage.removeItem("doctorname");
+	sessionStorage.removeItem("appttype");
+	sessionStorage.removeItem("apptdate");
+	sessionStorage.removeItem("appttime");
+	sessionStorage.removeItem("apptcomment");
+	closePopup(unewAppointment);
+	}
+	};
 
-            request.send(JSON.stringify(unewappt));
-        }
-        */
+	request.send(JSON.stringify(unewappt));
+	}
+	*/
 
 	/*TBE
-        //Edit Appt
-        function viewCFasmForm(asmId) {
-            window.location.href = "aCFasm.html?view_id=" + asmId;
-            getCFasmForm(asmId);
-        }  
+	//Edit Appt
+	function viewCFasmForm(asmId) {
+	window.location.href = "aCFasm.html?view_id=" + asmId;
+	getCFasmForm(asmId);
+	}
 
-       
-        */
+
+	*/
 </script>

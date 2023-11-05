@@ -84,6 +84,13 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 </html>
 
 <script>
+    function confirmLogout() {
+        if (confirm('Are you sure you want to log out?')) {
+            // If the user confirms, then trigger the logout process by navigating to the PHP script.
+            window.location.href = 'logout.php';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const editButton = document.getElementById('edit-button');
         const confirmButton = document.getElementById('confirm-button');
