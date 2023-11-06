@@ -33,7 +33,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
 <body>
 	<nav class="navbar">
-		<a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
+		<a href="uMain.php" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
 		<div class="nav-links">
 			<a href="doctorList.php"><img src="../css/doctors.png" title="List of Doctors" /></a>
 			<a href="patientProfile.php"><img src="../css/profile.png" title="Profile" /></a>
@@ -172,36 +172,57 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 	<!-- Booking Modal -->
 
 	<div class="form-popup-bg" id="bookingContainer">
-		<!-- Need to find a way to fix so i dont have the style class here... -->
 		<div class="form-container" style="max-width:800px">
 			<button class="close-button" onclick="toggleForm('bookingContainer')">
 				<img src="../css/cancel.png" class="button-image" title="Close Form" />
 			</button>
 			<div class="modal-content">
 				<h2>Choose your Doctor</h2><br>
-				<div class="row">
+				<div class="row" id="doctorList">
 					<?php
 					foreach ($doctorData as $doctor) {
 						$doctorName = $doctor['doctorName'];
 						$doctorImage = '../assets/' . $doctor['doctorImage'];
 						$doctorId = $doctor['doctorId'];
-						echo '<div class="card">
-							<input type="hidden" id="doctorId" value="' . $doctorId . '">
-						    <img src="' . $doctorImage . '" alt="' . $doctorName . '" class="doc-image">
-						    <p class="doctor-name">' . $doctorName . '</p>
-						  </div>';
+						echo '<div class="card doctor-card" data-doctorid="' . $doctorId . '">
+                        <img src="' . $doctorImage . '" alt="' . $doctorName . '" class="doc-image">
+                        <p class="doctor-name">' . $doctorName . '</p>
+                    </div>';
 					}
 					?>
 				</div>
+
+				<!-- Hidden until Doctor is selected -->
 				<div class="appointment-data" style="display: none;">
 					<h3 id="selectedDoctorName">Selected Doctor: </h3>
 					<img id="selectedDoctorImage" class="doc-image" alt="Selected Doctor" />
-					<div class="days-of-week">
+					<div class="days-of-week" id="dayList">
 					</div>
-					<div class="appointment-timings">
+					<div class="appointment-timings" id="timeList">
 					</div>
 				</div>
 
+				<!-- Hidden until time is selected -->
+				<div class="appointment-details" style="display: none;">
+					<h3>Appointment Details</h3><br />
+					<form id="appointmentForm" action="createAppt.php" method="POST">
+						<input type="hidden" name="doctor_id" id="selectedDoctorId">
+						<input type="hidden" name="patient_id" id="patientId" value="<?php echo $patient_id; ?>">
+						<input type="hidden" name="selected_date" id="selectedDate">
+						<input type="hidden" name="selected_time" id="selectedTime">
+						<label for="appointmentType">Select Appointment Type:</label>
+						<select name="appointment_type" id="appointmentType">
+							<option value="General Check-Up">General Check-Up</option>
+							<option value="Specialist Consultation">Specialist Consultation</option>
+							<option value="Vaccination">Vaccination</option>
+							<option value="Follow Up">Follow Up</option>
+							<option value="Preventive Screening">Preventive Screening</option>
+						</select>
+						<label for="userComments">Comments (optional):</label>
+						<textarea name="comment" id="userComments" class="commentbox"></textarea>
+						<button type="submit" class="submitBtn" id="submitAppointment">Submit Appointment</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -215,6 +236,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 </html>
 
 <script>
+	// Prompt the user to confirm logout
 	function confirmLogout() {
 		if (confirm('Are you sure you want to log out?')) {
 			// If the user confirms, then trigger the logout process by navigating to the PHP script.
@@ -222,6 +244,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 		}
 	}
 
+	// Get the current time and display the appropriate greeting
 	var now = new Date();
 	var hours = now.getHours();
 	var greetingElement = document.getElementById('uMainTime');
@@ -257,16 +280,22 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 			]
 		});
 	<?php } ?>
-	console.log(doctorDataJS);
 
-	const doctorCards = document.querySelectorAll('.card');
+	// Add an event listener to each doctor card
+	const doctorCards = document.querySelectorAll('.doctor-card');
 	doctorCards.forEach((card) => {
-		const doctorId = card.querySelector('#doctorId').value;
+		const doctorId = card.getAttribute('data-doctorid');
 		card.addEventListener('click', () => {
+			// Update the selected doctor ID to form input
+			const selectedDoctorIdInput = document.getElementById('selectedDoctorId');
+			selectedDoctorIdInput.value = doctorId;
+
+			// Trigger the function to toggle the appointment data
 			toggleAppointmentData(doctorId);
 		});
 	});
 
+	// Toggle the appointment data when a doctor card is clicked
 	function toggleAppointmentData(doctorId) {
 		const appointmentData = document.querySelector('.appointment-data');
 		const isVisible = appointmentData.style.display === 'block';
@@ -320,9 +349,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 					// Add a click event listener to select/deselect the day
 					dayCard.addEventListener('click', () => {
 						if (selectedDay) {
-							selectedDay.classList.remove('selected-day'); // Deselect the previous day
+							selectedDay.classList.remove('selected'); // Deselect the previous day
 						}
-						dayCard.classList.add('selected-day'); // Select the clicked day
+						dayCard.classList.add('selected'); // Select the clicked day
 						selectedDay = dayCard; // Update the selected day
 
 						// Check if the selected day has appointments
@@ -338,18 +367,22 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 						const appointments = selectedDoctor.appointments;
 
 						// Extract the time slots for the selected day
-						const selectedAppointments = appointments.filter(appointment => appointment.scheduledDate === formattedDate);
+						const selectedAppointments = appointments.filter(
+							(appointment) => appointment.scheduledDate === formattedDate
+						);
 
 						// Create an array of booked time slots for the selected day
-						const bookedTimeSlots = selectedAppointments.map(appointment => appointment.scheduledTime);
+						const bookedTimeSlots = selectedAppointments.map(
+							(appointment) => appointment.scheduledTime
+						);
 
 						// Loop through time slots and disable booked slots
-						timeCardContainer.childNodes.forEach(slot => {
+						timeCardContainer.childNodes.forEach((slot) => {
 							let slotTime = slot.textContent.replace(' AM', '').replace(' PM', '');
 							const isPM = slot.textContent.includes('PM');
 
-							const [hour, minute] = slotTime.split(':').map(str => parseInt(str));
-							const adjustedHour = (isPM && hour !== 12) ? hour + 12 : (!isPM && hour === 12) ? 0 : hour;
+							const [hour, minute] = slotTime.split(':').map((str) => parseInt(str));
+							const adjustedHour = isPM && hour !== 12 ? hour + 12 : !isPM && hour === 12 ? 0 : hour;
 
 							slotTime = `${adjustedHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
 
@@ -361,10 +394,20 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 					daysOfWeekContainer.appendChild(dayCard);
 				});
 
-				const morningSlots = ["8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM"];
-				const afternoonSlots = ["1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+				const timeSlots = [
+					'8:00 AM',
+					'9:00 AM',
+					'10:00 AM',
+					'11:00 AM',
+					'1:00 PM',
+					'2:00 PM',
+					'3:00 PM',
+					'4:00 PM',
+				];
 
-				morningSlots.forEach((slot, index) => {
+				let selectedTimeSlot = null;
+
+				timeSlots.forEach((slot, index) => {
 					const timeCard = document.createElement('button');
 					timeCard.classList.add('time-card');
 					timeCard.textContent = slot;
@@ -372,20 +415,85 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 					// Add a data attribute to identify the time slot
 					timeCard.setAttribute('data-slot', index);
 
+					timeCard.addEventListener('click', () => {
+						if (selectedTimeSlot) {
+							// Remove the "selected" class from the previously selected time slot
+							selectedTimeSlot.classList.remove('selected');
+						}
+
+						// Add the "selected" class to the clicked time slot
+						timeCard.classList.add('selected');
+
+						// Update the selected time slot
+						selectedTimeSlot = timeCard;
+
+						const selectedTime = convertTo24HourFormat(slot);
+						handleTimeSlotSelection(selectedTime);
+					});
+
 					timeCardContainer.appendChild(timeCard);
 				});
 
-				afternoonSlots.forEach((slot, index) => {
-					const timeCard = document.createElement('button');
-					timeCard.classList.add('time-card');
-					timeCard.textContent = slot;
+				function convertTo24HourFormat(time) {
+					const [timePart, meridian] = time.split(' ');
+					const [hour, minute] = timePart.split(':');
 
-					// Add a data attribute to identify the time slot
-					timeCard.setAttribute('data-slot', index);
+					let hour24 = parseInt(hour);
 
-					timeCardContainer.appendChild(timeCard);
-				});
+					if (meridian === 'PM' && hour24 !== 12) {
+						hour24 += 12;
+					} else if (meridian === 'AM' && hour24 === 12) {
+						hour24 = 0;
+					}
+
+					return hour24.toString().padStart(2, '0') + ':' + minute;
+				}
+
+				function handleTimeSlotSelection(selectedTime) {
+					// Handle the logic for selecting a time slot here
+					const appointmentDetail = document.querySelector('.appointment-details').style.display = 'flex';
+				}
 			}
 		}
+	}
+
+	dayList.addEventListener('click', (event) => {
+		if (event.target.classList.contains('day-card')) {
+			const selectedDay = event.target.textContent;
+			const formattedDate = formatDate(new Date(), selectedDay);
+			document.getElementById('selectedDate').value = formattedDate;
+			// enableSubmitButton();
+		}
+	});
+
+	timeList.addEventListener('click', (event) => {
+		if (event.target.classList.contains('time-card')) {
+			const selectedTime = event.target.textContent;
+			const formattedTime = formatTime(selectedTime);
+			document.getElementById('selectedTime').value = formattedTime;
+			// enableSubmitButton();
+		}
+	});
+
+	function formatDate(currentDate, selectedDay) {
+		const dateParts = selectedDay.split(' ');
+		const day = dateParts[1];
+		const month = currentDate.getMonth() + 1;
+		const year = currentDate.getFullYear();
+		return `${year}-${month.toString().padStart(2, '0')}-${day.padStart(2, '0')}`;
+	}
+
+	function formatTime(selectedTime) {
+		const timeParts = selectedTime.split(' ');
+		const time = timeParts[0];
+		const meridian = timeParts[1];
+		const [hours, minutes] = time.split(':');
+		let formattedHours = parseInt(hours, 10);
+		if (meridian === 'PM' && formattedHours !== 12) {
+			formattedHours += 12;
+		} else if (meridian === 'AM' && formattedHours === 12) {
+			formattedHours = 0;
+		}
+		return `${formattedHours.toString().padStart(2, '0')}:${minutes}:00`;
 	}
 </script>
