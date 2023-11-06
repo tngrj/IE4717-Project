@@ -39,8 +39,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
         <div class="profile-card">
             <div class="btn-group">
                 <h1>Profile</h1>
-                <button id="edit-button" type="button"><img src="../css/edit.png" class="button-image" title="Edit Profile"></button>
-                <button id="confirm-button" type="submit" style="display: none;"><img src="../css/confirm.png" class="button-image" title="Confirm"></button>
+                <button id="edit-button" class="profile-btn" type="button"><img src="../css/edit.png" title="Edit Profile"></button>
+                <button id="confirm-button" class="profile-btn" type="submit" style="display: none;"><img src="../css/confirm.png" title="Confirm"></button>
             </div>
             <div class="profile-info">
                 <input type="hidden" name="user_id" value="<?php echo $doctor_id; ?>">

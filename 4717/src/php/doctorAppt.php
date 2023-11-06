@@ -55,5 +55,5 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
     $stmt->close();
     $conn->close();
 } else {
-    echo json_encode(['error' => 'Access denied']);
+    echo "Access denied";
 }

@@ -182,21 +182,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 	</div>
 
 	<script>
-		/*TBE
-        //Edit Appt
-        function viewCFasmForm(asmId) {
-            window.location.href = "aCFasm.html?view_id=" + asmId;
-            getCFasmForm(asmId);
-        }  
-
-        //Cancel Appt 
-        function printCFuenoForm(uenoId) s{
-            getCFuenoForm(uenoId);
-            var newwindow = window.open("aCFueno.html?view_id=" + uenoId);
-            getPDF(newwindow, uenoId, "ueno");
-        }
-        */
-
 		var now = new Date();
 		var hours = now.getHours();
 		var greetingElement = document.getElementById('uMainTime');
@@ -208,7 +193,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 		} else {
 			greetingElement.textContent = 'Good Evening';
 		}
-
 
 		function confirmLogout() {
 			if (confirm('Are you sure you want to log out?')) {

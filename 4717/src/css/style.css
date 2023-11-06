@@ -11,37 +11,6 @@ Specific by Page
 	display: none;
 }
 
-/* Transparent Textbox */
-.transparenttextbox {
-	border: none;
-	background: none;
-}
-
-.inherit-transparenttextbox {
-	width: auto;
-	border: none;
-	background: transparent;
-	font-family: inherit;
-	font-size: inherit;
-	font-weight: inherit;
-}
-
-/* Coloured Textbox */
-.headertextbox {
-	position: fixed;
-	left: 50%;
-	padding: 10px;
-	width: auto;
-	transform: translateX(-50%);
-	border: none;
-	border-radius: 10px;
-	background: #15c193;
-	color: #ffffff;
-	font-size: 20px;
-	line-height: 1;
-	white-space: nowrap;
-}
-
 .bodytextbox {
 	padding: 10px;
 	border: none;
@@ -86,11 +55,6 @@ Specific by Page
 	color: #020202;
 }
 
-.home-link {
-	color: white;
-	font-weight: bold;
-	text-decoration: none;
-}
 .nav-links {
 	display: flex;
 	flex-direction: row;
@@ -103,26 +67,6 @@ Specific by Page
 	border-radius: 10px;
 	padding: 0.5em;
 	box-sizing: border-box;
-}
-
-//Could be removed doesn't seem like it does anything
-.nav-links a:link,
-.nav-links a:visited {
-	color: white;
-	transition: color 0.3s;
-	text-decoration: none;
-}
-
-//Could be removed doesn't seem like it does anything
-.nav-links a:hover {
-	color: #1762d3;
-}
-
-/* Footer */
-//Is this even used?
-.content {
-	padding-bottom: 60px;
-	min-height: calc(100vh - 60px);
 }
 
 footer {
@@ -151,18 +95,42 @@ footer {
 	text-align: left;
 }
 
-.appointment-card {
-	display: flex;
-	flex-direction: column;
-	text-align: start;
-	width: 15em;
-	height: 10em;
-	padding: 3em 2em 0.5em 1em;
-	margin: 2em 0 2em 6em;
+.appointment-modal {
+	padding: 2em 0 2em 0;
+	margin: 0 6em 0 6em;
 	background-color: #f2f2f2;
 	border-radius: 10px;
 }
 
+th,
+td,
+tr {
+	padding: 8px;
+	border: none;
+	text-align: left;
+}
+
+th {
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid rgb(0, 0, 0);
+	border-left: none;
+	/*text-align:left;*/
+}
+
+td input[type='text'] {
+	width: 80%;
+	height: 80%;
+}
+td button {
+	border: none;
+	background: none;
+	margin-right: 1em;
+	width: 3em;
+	height: 3em;
+}
+
+/* Hero */
 .appointment-hero {
 	display: flex;
 }
@@ -194,9 +162,14 @@ footer {
 	text-align: left;
 }
 
-.appointment-modal {
-	padding: 2em 0 2em 0;
-	margin: 0 6em 0 6em;
+.appointment-card {
+	display: flex;
+	flex-direction: column;
+	text-align: start;
+	width: 15em;
+	height: 10em;
+	padding: 3em 2em 0.5em 1em;
+	margin: 2em 0 2em 6em;
 	background-color: #f2f2f2;
 	border-radius: 10px;
 }
@@ -241,74 +214,28 @@ footer {
 	padding: 0.5em;
 }
 
-.appointment-timings {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	padding: 0.5em;
-	margin: 0.5em 0.5em;
-}
-
-.time-card {
-	background-color: #bfebf8;
-	border: none;
-	color: black;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	padding: 1em;
-	margin: 4px 2px;
-	cursor: pointer;
-	border-radius: 10px;
-}
-
-.selected-day {
-	background: #17a7d3 !important;
-	color: white !important;
-}
-
-.booked {
-	background: #bcbcbc !important;
-	color: black !important;
-}
-
-.days-of-week {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	padding: 0.5em;
-	margin: 0.5em 0.5em;
-}
-
-.day-card {
-	background-color: #bfebf8;
-	border: none;
-	color: black;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	padding: 1em;
-	margin: 4px 2px;
-	cursor: pointer;
-	border-radius: 10px;
-}
-
 .profile-card {
 	display: flex;
 	flex-direction: column;
 	text-align: start;
 	background-color: #f2f2f2;
 	border-radius: 10px;
-	width: 10%;
+	width: 30%;
 	padding: 2em;
 	margin: 2em auto;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 }
+.profile-btn {
+	display: flex;
+	padding-left: 1em;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
 
+.profile-btn img {
+	width: 60%;
+}
 .profile-info {
 	text-align: start;
 	padding: 1em;
@@ -331,47 +258,13 @@ footer {
 	display: flex;
 	flex-direction: row;
 }
-th,
-td,
-tr {
-	padding: 8px;
-	border: none;
-	text-align: left;
-}
-
-th {
-	border-top: none;
-	border-right: none;
-	border-bottom: 1px solid rgb(0, 0, 0);
-	border-left: none;
-	/*text-align:left;*/
-}
-
-.centered-t {
-	text-align: center;
-}
-/*
-td{
-    text-align:left;
-}
-*/
-td input[type='text'] {
-	width: 80%;
-	height: 80%;
-}
-td button {
-	border: none;
-	background: none;
-	margin-right: 1em;
-	width: 3em;
-	height: 3em;
-}
 
 .btn-group {
 	display: flex;
 	flex-direction: row;
 }
 
+/* I intend to remove this */
 /* Overlay */
 .overlay {
 	position: fixed;
@@ -435,6 +328,7 @@ td button {
 	font-size: 18px;
 	font-weight: bold;
 }
+/* Removed til here *
 
 /* === BOTH ===================================================================================================================================== */
 /* --- Landing Page ----------------------------------------------------------------------------------------------------------------------------- */
@@ -559,6 +453,112 @@ td button {
 	font-size: 18px;
 }
 
+.appointment-timings {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em;
+	margin: 0.5em 0.5em;
+}
+
+.appointment-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em;
+	margin: 0.5em 0.5em;
+}
+
+.time-card {
+	background-color: #bfebf8;
+	border: none;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	padding: 1em;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.selected {
+	background: #17a7d3 !important;
+	color: white !important;
+}
+
+.booked {
+	background: #bcbcbc !important;
+	color: #bcbcbc !important;
+}
+
+.days-of-week {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5em;
+	margin: 0.5em 0.5em;
+}
+
+.day-card {
+	background-color: #bfebf8;
+	border: none;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	padding: 1em;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+#appointmentType {
+	padding: 10px;
+	height: 45px;
+	width: 320px;
+	border: none;
+	border-radius: 10px;
+	background: #17a7d3;
+	color: #ffffff;
+	font-size: 18px;
+	margin: 1em;
+}
+
+.submitBtn {
+	border: none;
+	float: center;
+	width: 250px;
+	height: 55px;
+	margin: 1em;
+	border-radius: 30px;
+	background: #15c193;
+	color: #ffffff;
+	font-size: 18px;
+}
+
+.button-image {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background: transparent;
+}
+
+.commentbox {
+	padding: 10px;
+	width: 320px;
+	height: 100px;
+	border: 1px solid #000000;
+	border-radius: 10px;
+	font-size: 14px;
+}
+
+/* Everything below here I intend to remove */
 #unewAppointment {
 	position: fixed;
 	padding: 60px;
@@ -668,15 +668,6 @@ td button {
 	text-align: center;
 }
 
-.commentbox {
-	padding: 10px;
-	width: 320px;
-	height: 200px;
-	border: 1px solid #000000;
-	border-radius: 10px;
-	font-size: 14px;
-}
-
 #submituAppt {
 	display: block;
 	margin: auto;
@@ -695,14 +686,3 @@ td button {
 	background: #15c1c1;
 	color: #ffffff;
 }
-
-/* End: User - Main Page ------------------------------------------------------------------------------------------------------------------------ */
-
-/* END: USER ==================================================================================================================================== */
-
-/* === ADMIN ==================================================================================================================================== */
-/* --- Admin Main Page -------------------------------------------------------------------------------------------------------------------------- */
-
-/* End: Admin - Main Page ----------------------------------------------------------------------------------------------------------------------- */
-
-/* END: ADMIN =================================================================================================================================== */
