@@ -7,11 +7,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
     $current_date = date('d-M-Y');
 
     // Get doctor name (Required when name is updated)
-    $sql = "SELECT * FROM Doctor WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $doctor_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $sql = "SELECT * FROM Doctor WHERE id = $doctor_id";
+    $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -23,12 +20,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
             CONCAT(P.first_name, ' ', P.last_name) AS patient_name
             FROM Appointment AS A
             JOIN Patient AS P ON A.patient_id = P.id
-            WHERE A.doctor_id = ?";
+            WHERE A.doctor_id = $doctor_id";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $doctor_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $result = $conn->query($sql);
 
     $today_appointments = [];
     $scheduled_appointments = [];
@@ -52,7 +46,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
         }
     }
 
-    $stmt->close();
     $conn->close();
 } else {
     echo "Access denied";

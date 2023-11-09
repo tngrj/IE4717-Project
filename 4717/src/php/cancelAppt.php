@@ -5,23 +5,22 @@ require_once 'db-connect.php';
 if (isset($_GET['id'])) {
     $appointmentId = $_GET['id'];
 
+    $message = array();
+
+    // Convert the appointment ID to an integer for safety
+    $appointmentId = (int)$appointmentId;
+
     // SQL query to delete the appointment with the provided ID
-    $sql = "DELETE FROM Appointment WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $appointmentId);
+    $sql = "DELETE FROM Appointment WHERE id = $appointmentId";
 
-    if ($stmt->execute()) {
-        // Appointment deleted successfully
-
-        // Redirect the user back to uMain.php
-        header("Location: uMain.php");
-        exit();
+    // Execute the SQL query
+    if ($conn->query($sql)) {
+        $message[] = 'Appointment deleted successfully.';
     } else {
-        echo "Error: " . $stmt->error;
+        $message[] = 'Error deleting appointment: ' . $conn->error;
     }
-
-    $stmt->close();
-} else {
-    // Handle the case where the 'id' parameter is not set
-    echo "Invalid request.";
+    header('Location: uMain.php?message=' . implode('||', $message));
 }
+
+// Close the database connection
+$conn->close();

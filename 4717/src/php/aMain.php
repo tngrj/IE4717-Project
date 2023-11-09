@@ -117,7 +117,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 											'<?php echo $appointment['status']; ?>',
 											'<?php echo $appointment['comments']; ?>'
 											)"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
-								<form action="confirmAppt.php" method="post">
+								<form action="doctorSeen.php" method="post">
 									<input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
 									<button type="submit">
 										<img src="../css/confirm.png" class="button-image" title="Confirm Appointment">

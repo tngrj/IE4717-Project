@@ -43,6 +43,5 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
     $result->close();
 } else {
-    // Handle the case where the user is not logged in as a patient or doesn't have access
     echo "Access denied";
 }

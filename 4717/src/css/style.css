@@ -2,31 +2,11 @@
 	display: none;
 }
 
-.bodytextbox {
-	padding: 10px;
-	border: none;
-	border-radius: 10px;
-	background: #17a7d3;
-	color: #ffffff;
-	font-size: 20px;
-}
-
 /* Main Buttons */
 .exitBtn {
 	padding: 5px;
 	width: 50px;
 	height: 50px;
-}
-
-/* Prompt */
-.arrow-up {
-	position: absolute;
-	top: -8px;
-	left: 10%;
-	transform: translateX(-50%);
-	border-right: 5px solid transparent;
-	border-bottom: 8px solid #15c1c1;
-	border-left: 5px solid transparent;
 }
 
 /* Nav Bar*/
@@ -106,7 +86,6 @@ th {
 	border-right: none;
 	border-bottom: 1px solid rgb(0, 0, 0);
 	border-left: none;
-	/*text-align:left;*/
 }
 
 td input[type='text'] {
@@ -205,6 +184,19 @@ td button {
 	padding: 0.5em;
 }
 
+.btn-group {
+	display: flex;
+	flex-direction: row;
+}
+
+.button-image {
+	width: 100%;
+	height: 100%;
+	border: none;
+	background: transparent;
+}
+
+/* Profile Page */
 .profile-card {
 	display: flex;
 	flex-direction: column;
@@ -250,13 +242,7 @@ td button {
 	flex-direction: row;
 }
 
-.btn-group {
-	display: flex;
-	flex-direction: row;
-}
-
-/* === BOTH ===================================================================================================================================== */
-/* --- Landing Page ----------------------------------------------------------------------------------------------------------------------------- */
+/* Landing Page */
 .landing-content {
 	position: absolute;
 	top: 50%;
@@ -362,11 +348,7 @@ td button {
 	background-color: #15c1b3;
 }
 
-/* End: Landing Page ---------------------------------------------------------------------------------------------------------------------------- */
-/* END: BOTH ==================================================================================================================================== */
-
-/* === USER ===================================================================================================================================== */
-/* --- User - Main Page ------------------------------------------------------------------------------------------------------------------------- */
+/* Popup Modal */
 .message {
 	display: flex;
 	flex-direction: row;
@@ -396,6 +378,7 @@ td button {
 	width: 50%;
 }
 
+/* Appointment Booking */
 #booknewappointment {
 	border: none;
 	float: right;
@@ -497,13 +480,6 @@ td button {
 	background: #15c193;
 	color: #ffffff;
 	font-size: 18px;
-}
-
-.button-image {
-	width: 100%;
-	height: 100%;
-	border: none;
-	background: transparent;
 }
 
 .commentbox {
