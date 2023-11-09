@@ -367,6 +367,35 @@ td button {
 
 /* === USER ===================================================================================================================================== */
 /* --- User - Main Page ------------------------------------------------------------------------------------------------------------------------- */
+.message {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 10em;
+	left: 50%;
+	border-radius: 1em;
+	transform: translateX(-50%);
+	width: 100%;
+	max-width: 500px;
+	background-color: #77dd77;
+	color: black;
+	text-align: center;
+	padding: 10px;
+	z-index: 9999;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.message button {
+	width: 10%;
+}
+
+.message img {
+	width: 50%;
+}
+
 #booknewappointment {
 	border: none;
 	float: right;
