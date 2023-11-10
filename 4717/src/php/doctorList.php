@@ -79,12 +79,3 @@ $conn->close();
 </footer>
 
 </html>
-
-<script>
-    function confirmLogout() {
-        if (confirm('Are you sure you want to log out?')) {
-            // If the user confirms, then trigger the logout process by navigating to the PHP script.
-            window.location.href = 'logout.php';
-        }
-    }
-</script>

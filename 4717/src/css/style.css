@@ -291,12 +291,10 @@ td button {
 	z-index: 1000;
 }
 
-#landingLoginForm input[type='text'],
-#landingLoginForm input[type='password'],
-#landingLoginForm input[type='email'],
-#landingSignUpForm input[type='text'],
-#landingSignUpForm input[type='password'],
-#landingSignUpForm input[type='email'] {
+#landingLoginForm input,
+#landingSignUpForm input,
+#landingSignUpForm textarea,
+#landingSignUpForm input[type='date'] {
 	margin: 10px 0;
 	padding: 15px;
 	width: 300px;
@@ -307,23 +305,11 @@ td button {
 }
 
 #landingSignUpForm textarea {
-	margin: 10px 0;
-	padding: 15px;
-	width: 300px;
 	height: 60px;
-	border: 1px solid #999;
-	border-radius: 20px;
-	background-color: #d9d9d9;
 }
 
 #landingSignUpForm input[type='date'] {
-	margin: 10px 0;
-	padding: 15px;
-	width: 300px;
 	height: 30px;
-	border: 1px solid #999;
-	border-radius: 20px;
-	background-color: #d9d9d9;
 	appearance: none;
 }
 
@@ -351,14 +337,13 @@ td button {
 /* Popup Modal */
 .message {
 	display: flex;
-	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	position: fixed;
 	top: 10em;
 	left: 50%;
-	border-radius: 1em;
 	transform: translateX(-50%);
+	border-radius: 1em;
 	width: 100%;
 	max-width: 500px;
 	background-color: #77dd77;

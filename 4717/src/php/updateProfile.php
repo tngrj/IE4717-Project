@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Update the database with the new values
     if ($user_type == 'doctor') {
-
         // Extract other form values
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
@@ -16,37 +15,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $specialization = $_POST['specialization'];
         $biography = $_POST['biography'];
 
-        $query = "UPDATE Doctor SET first_name=?, last_name=?, email=?, specialization=?, biography=? WHERE id=?";
+        $query = "UPDATE Doctor SET first_name='$first_name', last_name='$last_name', email='$email', specialization='$specialization', biography='$biography' WHERE id=$user_id";
     } else {
-
         // Extract other form values
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $date_of_birth = $_POST['date_of_birth'];
         $email = $_POST['email'];
 
-        $query = "UPDATE Patient SET first_name=?, last_name=? , date_of_birth=? , email=? WHERE id=?";
+        $query = "UPDATE Patient SET first_name='$first_name', last_name='$last_name', date_of_birth='$date_of_birth', email='$email' WHERE id=$user_id";
     }
-    $stmt = $conn->prepare($query);
+
+    if (mysqli_query($conn, $query)) {
+        // Add a success message to the array
+        $messages[] = "Profile update successful!";
+    } else {
+        // Add an error message to the array
+        $messages[] = "Profile update failed.";
+    }
+    // Redirect back to the profile page with the messages
     if ($user_type == 'doctor') {
-        $stmt->bind_param("sssssi", $first_name, $last_name, $email, $specialization, $biography, $user_id);
+        header("Location: doctorProfile.php?message=" . implode('<br>', $messages));
     } else {
-        $stmt->bind_param("ssssi", $first_name, $last_name, $date_of_birth, $email, $user_id);
+        header("Location: patientProfile.php?message=" . implode('<br>', $messages));
     }
-
-    if ($stmt->execute()) {
-        // Redirect back to the profile page after the update
-        if ($user_type == 'doctor') {
-            header("Location: doctorProfile.php");
-        } else {
-            header("Location: patientProfile.php");
-        }
-        exit();
-    } else {
-        echo "Profile update failed.";
-    }
-
-    $stmt->close();
+    exit();
 }
 
 $conn->close();

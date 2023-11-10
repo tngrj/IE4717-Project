@@ -14,6 +14,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 }
 ?>
 
+<?php
+if (isset($_GET['message'])) {
+    $messages = explode('||', $_GET['message']);
+    foreach ($messages as $msg) {
+        echo '<div id="popup" class="message"><span>' . $msg  . '</span><button class="button-image"><img src="../css/cancel.png" ></button> </div>';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +33,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/form.css" />
-    <link rel="icon" href="../css/LogoIcon.png" />
+    <link rel="icon" href="../css/logo.png" />
     <script src="../js/cancelAppt.js"></script>
     <script src="../js/script.js"></script>
 </head>
@@ -85,13 +94,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
 </html>
 
 <script>
-    function confirmLogout() {
-        if (confirm('Are you sure you want to log out?')) {
-            // If the user confirms, then trigger the logout process by navigating to the PHP script.
-            window.location.href = 'logout.php';
-        }
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
         const editButton = document.getElementById('edit-button');
         const confirmButton = document.getElementById('confirm-button');

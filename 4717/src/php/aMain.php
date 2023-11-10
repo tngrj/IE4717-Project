@@ -24,7 +24,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 
 	<link rel="stylesheet" href="../css/style.css" />
 	<link rel="stylesheet" href="../css/form.css" />
-	<link rel="icon" href="../css/LogoIcon.png" />
+	<link rel="icon" href="../css/logo.png" />
 	<script src="../js/script.js"></script>
 </head>
 
@@ -180,27 +180,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 		</table>
 
 	</div>
-
-	<script>
-		var now = new Date();
-		var hours = now.getHours();
-		var greetingElement = document.getElementById('uMainTime');
-
-		if (hours >= 0 && hours < 12) {
-			greetingElement.textContent = 'Good Morning';
-		} else if (hours >= 12 && hours < 17) {
-			greetingElement.textContent = 'Good Afternoon';
-		} else {
-			greetingElement.textContent = 'Good Evening';
-		}
-
-		function confirmLogout() {
-			if (confirm('Are you sure you want to log out?')) {
-				// If the user confirms, then trigger the logout process by navigating to the PHP script.
-				window.location.href = 'logout.php';
-			}
-		}
-	</script>
 </body>
 
 <footer>
