@@ -18,11 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the SQL query
     if ($conn->query($sql) === TRUE) {
-        $message[] = 'Appointment created successfully.';
+        header('Location: aMain.php?message=Appointment created successfully');
     } else {
-        $message[] = "Error creating appointment: " . $conn->error;
+        header('Location: aMain.php?message=Error creating appointment: ' . $conn->error);
     }
-    header('Location: uMain.php?message=' . implode('||', $message));
 }
 
 // Close the database connection

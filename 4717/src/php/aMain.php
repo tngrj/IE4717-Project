@@ -14,6 +14,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 }
 ?>
 
+<?php
+if (isset($_GET['message'])) {
+	$messages = explode('||', $_GET['message']);
+	foreach ($messages as $msg) {
+		echo '<div id="popup" class="message"><span>' . $msg  . '</span><button class="button-image"><img src="../css/cancel.png" ></button> </div>';
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +47,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 		</div>
 	</nav>
 	<br />
-
 
 	<div class="appointment-hero">
 		<div class="appointment-card">
@@ -76,12 +84,22 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 				?>
 			</tbody>
 		</table>
-
 	</div>
 
 	<div class="appointment-modal">
+		<?php generateAppointmentTable('New Appointment(s)', $new_appointments); ?>
+
+		<br>
+
+		<?php generateAppointmentTable('Scheduled Appointment(s)', $scheduled_appointments); ?>
+	</div>
+
+	<?php
+	function generateAppointmentTable($caption, $appointments)
+	{
+	?>
 		<table class="apptTable">
-			<caption>New Appointment(s)</caption>
+			<caption><?php echo $caption; ?></caption>
 			<thead>
 				<tr>
 					<th>No.</th>
@@ -95,9 +113,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 				</tr>
 			</thead>
 			<tbody>
-				<?php
-				foreach ($new_appointments as $appointment) {
-				?>
+				<?php foreach ($appointments as $appointment) : ?>
 					<tr>
 						<td><?php echo $appointment['id']; ?></td>
 						<td><?php echo $appointment['patient_name']; ?></td>
@@ -110,76 +126,33 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 							<div class="btn-group">
 								<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
 								<button onclick="openModal(
-											'<?php echo $appointment['id']; ?>',
-											'<?php echo $appointment['scheduled_date']; ?>',
-											'<?php echo $appointment['scheduled_time']; ?>',
-											'<?php echo $appointment['consultation_type']; ?>',
-											'<?php echo $appointment['status']; ?>',
-											'<?php echo $appointment['comments']; ?>'
-											)"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
-								<form action="doctorSeen.php" method="post">
-									<input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
-									<button type="submit">
-										<img src="../css/confirm.png" class="button-image" title="Confirm Appointment">
-									</button>
-								</form>
+                                    '<?php echo $appointment['id']; ?>',
+                                    '<?php echo $appointment['scheduled_date']; ?>',
+                                    '<?php echo $appointment['scheduled_time']; ?>',
+                                    '<?php echo $appointment['consultation_type']; ?>',
+                                    '<?php echo $appointment['status']; ?>',
+                                    '<?php echo $appointment['comments']; ?>'
+                                )"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
+								<?php
+								// Conditionally show the confirm button only for new appointments
+								if ($caption == 'New Appointment(s)') :
+								?>
+									<form action="doctorSeen.php" method="post">
+										<input type="hidden" name="appointment_id" value="<?php echo $appointment['id']; ?>">
+										<button type="submit">
+											<img src="../css/confirm.png" class="button-image" title="Confirm Appointment">
+										</button>
+									</form>
+								<?php endif; ?>
 							</div>
 						</td>
 					</tr>
-				<?php
-				}
-				?>
-			</tbody>
-
-		</table>
-
-		<br>
-
-		<table class="apptTable">
-			<caption>Scheduled Appointment(s)</caption>
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>Patient Name</th>
-					<th>Date</th>
-					<th>Start Time</th>
-					<th>Appointment Type</th>
-					<th>Status</th>
-					<th>Comments</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-				foreach ($scheduled_appointments as $appointment) {
-				?>
-					<tr>
-						<td><?php echo $appointment['id']; ?></td>
-						<td><?php echo $appointment['patient_name']; ?></td>
-						<td><?php echo $appointment['scheduled_date']; ?></td>
-						<td><?php echo $appointment['scheduled_time']; ?></td>
-						<td><?php echo $appointment['consultation_type']; ?></td>
-						<td><?php echo $appointment['status']; ?></td>
-						<td><?php echo $appointment['comments']; ?></td>
-						<td>
-							<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
-							<button onclick="openModal(
-									'<?php echo $appointment['id']; ?>',
-									'<?php echo $appointment['scheduled_date']; ?>',
-									'<?php echo $appointment['scheduled_time']; ?>',
-									'<?php echo $appointment['consultation_type']; ?>',
-									'<?php echo $appointment['status']; ?>',
-									'<?php echo $appointment['comments']; ?>'
-									)"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
-						</td>
-					</tr>
-				<?php
-				}
-				?>
+				<?php endforeach; ?>
 			</tbody>
 		</table>
-
-	</div>
+	<?php
+	}
+	?>
 </body>
 
 <footer>

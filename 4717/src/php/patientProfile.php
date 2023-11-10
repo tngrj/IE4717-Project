@@ -42,6 +42,7 @@ if (isset($_GET['message'])) {
     <nav class="navbar">
         <a href="uMain.php" class="home-link" id="homePage"><img src="../css/logo.png" alt="Home" width="50%" /></a>
         <div class="nav-links">
+            <a href="uMain.php"><img src="../css/calendar.png" title="Calendar" /></a>
             <a href="doctorList.php"><img src="../css/doctors.png" title="List of Doctors" /></a>
             <a href="patientProfile.php"><img src="../css/profile.png" title="Profile" /></a>
             <a href="#" id="logoutButton" onclick="confirmLogout();"><img src="../css/logout.png" title="Logout" width="80%" /></a>
@@ -61,11 +62,8 @@ if (isset($_GET['message'])) {
                 <?php
                 include 'db-connect.php';
 
-                $query = "SELECT * FROM Patient WHERE id = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("i", $patient_id);
-                $stmt->execute();
-                $result = $stmt->get_result();
+                $query = "SELECT * FROM Patient WHERE id = $patient_id";
+                $result = $conn->query($query);
 
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -78,7 +76,6 @@ if (isset($_GET['message'])) {
                     echo "<p>Email:</p>";
                     echo "<input type='email' class='profile-section' id='email' name='email' readonly value='" . $row['email'] . "'>";
                 }
-                $stmt->close();
                 $conn->close();
                 ?>
             </div>

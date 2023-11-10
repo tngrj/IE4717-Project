@@ -2,18 +2,15 @@
 	display: none;
 }
 
-/* Main Buttons */
-.exitBtn {
-	padding: 5px;
-	width: 50px;
-	height: 50px;
-}
-
 /* Nav Bar*/
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+body {
+	margin-bottom: 8em;
 }
 
 .navbar {
@@ -46,7 +43,8 @@ footer {
 	left: 0;
 	margin: 1em;
 	padding: 10px;
-	width: 100%;
+	width: calc(100% - 2em);
+	box-sizing: border-box;
 	border-top: 1px solid #d9d9d9;
 }
 
@@ -474,4 +472,11 @@ td button {
 	border: 1px solid #000000;
 	border-radius: 10px;
 	font-size: 14px;
+}
+
+#rescheduleForm {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

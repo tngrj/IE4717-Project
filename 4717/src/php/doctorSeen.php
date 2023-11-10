@@ -6,20 +6,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $appointmentId = $_POST['appointment_id'];
 
         // Update the 'seen' column in the database.
-        $sql = "UPDATE Appointment SET seen = 1 WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $appointmentId);
+        $sql = "UPDATE Appointment SET seen = 1 WHERE id = $appointmentId";
 
-        if ($stmt->execute()) {
-            // Redirect back to the previous page or provide a success message.
-            header('Location: aMain.php');
+        if ($conn->query($sql)) {
+            // Redirect back to the previous page with a success message.
+            header('Location: aMain.php?message=Appointment confirmed successfully');
             exit();
         } else {
             // Handle the case where the update failed.
             echo 'Error confirming appointment';
         }
 
-        $stmt->close();
         $conn->close();
     }
 }

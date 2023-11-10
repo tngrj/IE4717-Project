@@ -44,6 +44,19 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
                 }
             }
         }
+
+        // Sort arrays based on scheduled date and time
+        usort($today_appointments, function ($a, $b) {
+            return strtotime($a['scheduled_date'] . ' ' . $a['scheduled_time']) - strtotime($b['scheduled_date'] . ' ' . $b['scheduled_time']);
+        });
+
+        usort($scheduled_appointments, function ($a, $b) {
+            return strtotime($a['scheduled_date'] . ' ' . $a['scheduled_time']) - strtotime($b['scheduled_date'] . ' ' . $b['scheduled_time']);
+        });
+
+        usort($new_appointments, function ($a, $b) {
+            return strtotime($a['scheduled_date'] . ' ' . $a['scheduled_time']) - strtotime($b['scheduled_date'] . ' ' . $b['scheduled_time']);
+        });
     }
 
     $conn->close();

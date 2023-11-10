@@ -7,11 +7,8 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     $current_date = date('Y-m-d');
 
     // Get patient name (Required when name is updated)
-    $sql = "SELECT * FROM Patient WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $patient_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $sql = "SELECT * FROM Patient WHERE id = $patient_id";
+    $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -22,12 +19,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
     $sql = "SELECT A.*, D.first_name AS doctor_first_name, D.last_name AS doctor_last_name
             FROM Appointment AS A
             JOIN Doctor AS D ON A.doctor_id = D.id
-            WHERE A.patient_id = ?";
+            WHERE A.patient_id = $patient_id";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $patient_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $result = $conn->query($sql);
 
     // Initialize arrays to store appointments
     $today_appointments = [];
@@ -46,9 +40,16 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
                 $other_appointments[] = $row;
             }
         }
-    }
 
-    $stmt->close();
+        // Sort appointments by date and time
+        usort($today_appointments, function ($a, $b) {
+            return strtotime($a['scheduled_date'] . ' ' . $a['scheduled_time']) - strtotime($b['scheduled_date'] . ' ' . $b['scheduled_time']);
+        });
+
+        usort($other_appointments, function ($a, $b) {
+            return strtotime($a['scheduled_date'] . ' ' . $a['scheduled_time']) - strtotime($b['scheduled_date'] . ' ' . $b['scheduled_time']);
+        });
+    }
 } else {
     // Handle the case where the user is not logged in as a patient or doesn't have access
     echo "Access denied";

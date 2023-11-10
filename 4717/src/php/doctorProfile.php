@@ -59,11 +59,8 @@ if (isset($_GET['message'])) {
 
                 $doctor_id = $_SESSION['doctor_id'];
 
-                $query = "SELECT * FROM Doctor WHERE id = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("i", $doctor_id);
-                $stmt->execute();
-                $result = $stmt->get_result();
+                $query = "SELECT * FROM Doctor WHERE id = $doctor_id";
+                $result = $conn->query($query);
 
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
@@ -78,10 +75,11 @@ if (isset($_GET['message'])) {
                     echo "<p>Biography:</p>";
                     echo "<textarea class='profile-section' id='biography' name='biography' readonly>" . $row['biography'] . "</textarea>";
                 }
-                $stmt->close();
+
                 $conn->close();
                 ?>
             </div>
+
         </div>
     </form>
 </body>
