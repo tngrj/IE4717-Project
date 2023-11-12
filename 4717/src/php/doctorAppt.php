@@ -58,8 +58,6 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
             return strtotime($a['scheduled_date'] . ' ' . $a['scheduled_time']) - strtotime($b['scheduled_date'] . ' ' . $b['scheduled_time']);
         });
     }
-
-    $conn->close();
 } else {
     echo "Access denied";
 }

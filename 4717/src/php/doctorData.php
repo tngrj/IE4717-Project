@@ -2,7 +2,7 @@
 require_once 'db-connect.php';
 
 // Check if the user is logged in as a patient
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient') {
+if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'patient' || isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
 
     // Initialize an array to store the results
     $doctorData = array();

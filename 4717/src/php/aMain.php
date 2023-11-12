@@ -2,6 +2,7 @@
 session_start();
 
 include 'doctorAppt.php';
+include 'doctorData.php';
 
 // Check if the user is logged in as a doctor
 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'doctor') {
@@ -35,6 +36,7 @@ if (isset($_GET['message'])) {
 	<link rel="stylesheet" href="../css/form.css" />
 	<link rel="icon" href="../css/logo.png" />
 	<script src="../js/script.js"></script>
+	<script src="../js/rescheduleAppt.js"></script>
 </head>
 
 <body>
@@ -124,17 +126,11 @@ if (isset($_GET['message'])) {
 						<td><?php echo $appointment['comments']; ?></td>
 						<td>
 							<div class="btn-group">
-								<button><img src="../css/edit.png" class="button-image" title="Reschedule Appointment"></button>
-								<button onclick="openModal(
-                                    '<?php echo $appointment['id']; ?>',
-                                    '<?php echo $appointment['scheduled_date']; ?>',
-                                    '<?php echo $appointment['scheduled_time']; ?>',
-                                    '<?php echo $appointment['consultation_type']; ?>',
-                                    '<?php echo $appointment['status']; ?>',
-                                    '<?php echo $appointment['comments']; ?>'
-                                )"><img src="../css/cancel.png" class="button-image" title="Cancel Appointment"></button>
+								<button onclick="toggleRescheduleData(
+									'<?php echo $appointment['id']; ?>',
+									'<?php echo $_SESSION['doctor_name']; ?>',
+								)"><img src="../css/edit.png" class="button-image"></button>
 								<?php
-								// Conditionally show the confirm button only for new appointments
 								if ($caption == 'New Appointment(s)') :
 								?>
 									<form action="doctorSeen.php" method="post">
@@ -153,6 +149,35 @@ if (isset($_GET['message'])) {
 	<?php
 	}
 	?>
+
+	<!-- Reschedule Form -->
+
+	<div class="form-popup-bg" id="rescheduleFormContainer">
+		<div class=" form-container" style="max-width:45%">
+			<button class="close-button" onclick="toggleForm('rescheduleFormContainer')">
+				<img src="../css/cancel.png" class="button-image" title="Close Form" />
+			</button>
+			<div class="modal-content">
+				<h2>Reschedule Appointment</h2><br>
+				<input type="hidden" name="appointment_id" id="rescheduleAppointmentId">
+
+				<!-- Display Days of the Week -->
+				<div class="days-of-week" id="rescheduleDaysOfWeek">
+				</div>
+				<!-- Display Timings -->
+				<div class="appointment-timings" id="rescheduleTimeList">
+				</div>
+
+				<form id="rescheduleForm" action="rescheduleAppt.php" method="POST">
+					<input type="hidden" name="appointment_id" id="rescheduleApptId">
+					<input type="hidden" name="reschedule_date" id="rescheduleDate">
+					<input type="hidden" name="reschedule_time" id="rescheduleTime">
+					<button type="submit" class="submitBtn" id="submitReschedule">Submit Reschedule</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
 </body>
 
 <footer>
@@ -160,3 +185,23 @@ if (isset($_GET['message'])) {
 </footer>
 
 </html>
+
+<script>
+	// Convert PHP array into JavaScript array
+	const doctorDataJS = [];
+
+	<?php foreach ($doctorData as $doc) { ?>
+		doctorDataJS.push({
+			doctorName: '<?php echo $doc['doctorName']; ?>',
+			doctorImage: '<?php echo '../assets/' . $doc['doctorImage']; ?>',
+			doctorId: '<?php echo $doc['doctorId']; ?>',
+			appointments: [
+				<?php foreach ($doc['appointments'] as $appointment) { ?> {
+						scheduledDate: '<?php echo $appointment['scheduledDate']; ?>',
+						scheduledTime: '<?php echo $appointment['scheduledTime']; ?>'
+					},
+				<?php } ?>
+			]
+		});
+	<?php } ?>
+</script>

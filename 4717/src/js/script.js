@@ -6,6 +6,12 @@ function confirmLogout() {
 	}
 }
 
+// Toggles Booking / Cancellation Modal
+function toggleForm(formId) {
+	const formContainer = document.getElementById(formId);
+	formContainer.classList.toggle('is-visible');
+}
+
 // Close Popup
 const closeButton = document.querySelector('#popup button');
 const popup = document.querySelector('#popup');
@@ -35,3 +41,25 @@ function setGreeting() {
 window.onload = function () {
 	setGreeting();
 };
+
+function formatDate(currentDate, selectedDay) {
+	const dateParts = selectedDay.split(' ');
+	const day = dateParts[1];
+	const month = currentDate.getMonth() + 1;
+	const year = currentDate.getFullYear();
+	return `${year}-${month.toString().padStart(2, '0')}-${day.padStart(2, '0')}`;
+}
+
+function formatTime(selectedTime) {
+	const timeParts = selectedTime.split(' ');
+	const time = timeParts[0];
+	const meridian = timeParts[1];
+	const [hours, minutes] = time.split(':');
+	let formattedHours = parseInt(hours, 10);
+	if (meridian === 'PM' && formattedHours !== 12) {
+		formattedHours += 12;
+	} else if (meridian === 'AM' && formattedHours === 12) {
+		formattedHours = 0;
+	}
+	return `${formattedHours.toString().padStart(2, '0')}:${minutes}:00`;
+}

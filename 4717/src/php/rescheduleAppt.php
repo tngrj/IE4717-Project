@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($conn->query($sql) === TRUE) {
         // Redirect back to the previous page or provide a success message.
-        header('Location: uMain.php?message=Appointment rescheduled successfully');
+        $referer = $_SERVER['HTTP_REFERER'];
+        header("Location: $referer?message=Appointment rescheduled successfully");
         exit();
     } else {
         // Handle the case where the update failed.
