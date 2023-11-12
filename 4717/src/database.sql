@@ -14,8 +14,10 @@ CREATE TABLE Doctor (
     email VARCHAR(255) NOT NULL UNIQUE,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
+    date_of_birth DATE,
     specialization VARCHAR(255),
     biography TEXT,
+    image VARCHAR(255),
     password VARCHAR(255) NOT NULL
 );
 
@@ -26,10 +28,10 @@ CREATE TABLE Appointment (
     doctor_id INT,
     scheduled_date DATE,
     scheduled_time TIME,
-    status VARCHAR(20),
-    seen BOOLEAN DEFAULT 0, -- 0 for unseen, 1 for seen
-    comments TEXT, -- Text field for comments
-    consultation_type VARCHAR(255), -- String field for consultation type
-    FOREIGN KEY (patient_id) REFERENCES Patient(id),
-    FOREIGN KEY (doctor_id) REFERENCES Doctor(id)
+    status VARCHAR(20) NOT NULL DEFAULT 'Scheduled',
+    seen BOOLEAN NOT NULL DEFAULT 0, -- 0 for unseen, 1 for seen
+    comments TEXT,
+    consultation_type VARCHAR(255),
+    FOREIGN KEY (patient_id) REFERENCES Patient(id) ON DELETE CASCADE,
+    FOREIGN KEY (doctor_id) REFERENCES Doctor(id) ON DELETE CASCADE
 );

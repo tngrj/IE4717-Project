@@ -15,11 +15,12 @@ if (isset($_GET['id'])) {
 
     // Execute the SQL query
     if ($conn->query($sql)) {
-        $message[] = 'Appointment deleted successfully.';
+        header('Location: uMain.php?message=Appointment deleted successfully.');
+        exit();
     } else {
-        $message[] = 'Error deleting appointment: ' . $conn->error;
+        header('Location: uMain.php?message=Error deleting appointment : ' . $conn->error);
+        exit();
     }
-    header('Location: uMain.php?message=' . implode('||', $message));
 }
 
 // Close the database connection

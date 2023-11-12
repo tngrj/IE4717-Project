@@ -9,6 +9,9 @@ $email = $_POST['addemail'];
 $password = $_POST['addpassword'];
 $accesscode = $_POST['accesscode'];
 
+// Use MD5 for password hashing
+$password = md5($password);
+
 // Initialize the SQL variable
 $sql = '';
 

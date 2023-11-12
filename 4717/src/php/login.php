@@ -8,6 +8,8 @@ session_start();
 $email = $_POST['username'];
 $password = $_POST['password'];
 
+$password = md5($password);
+
 // Define a function to set session data
 function setUserData($userType, $userId, $userName)
 {
