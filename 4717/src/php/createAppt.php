@@ -1,5 +1,4 @@
 <?php
-
 require_once 'db-connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,9 +17,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the SQL query
     if ($conn->query($sql) === TRUE) {
-        header('Location: uMain.php?message=Appointment created successfully');
-        exit();
+        // Get user email from the database
+        $userIdQuery = $conn->query("SELECT email FROM Patient WHERE id = '$patientId'");
+
+        if ($userIdQuery) {
+            $userData = $userIdQuery->fetch_assoc();
+            $receiver = $userData['email'];
+            $sender = 'f32ee@localhost';
+
+            $subject = 'New Appointment Scheduled';
+            $message = "You have a new appointment scheduled.\n\n";
+            $message .= "Date: $selectedDate\n";
+            $message .= "Time: $selectedTime\n";
+            $message .= "Comments: $comment\n";
+            $message .= "Consultation Type: $appointmentType\n";
+
+            $headers = 'From: ' . $sender . "\r\n" .
+                'Reply-To: ' . $sender . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+
+            // Send the email
+            mail($receiver, $subject, $message, $headers, '-f' . $sender);
+
+            header('Location: uMain.php?message=Appointment created successfully');
+            exit();
+        } else {
+            // Handle the case where the user email query fails
+            header('Location: uMain.php?message=Error fetching user email: ' . $conn->error);
+            exit();
+        }
     } else {
+        // Handle the case where the appointment creation fails
         header('Location: uMain.php?message=Error creating appointment: ' . $conn->error);
         exit();
     }
